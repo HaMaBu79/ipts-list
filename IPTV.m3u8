@@ -1,9 +1,10 @@
-#EXTM3U url-tvg="https://vnepg.site/epg.xml.gz"
+
+
 #EXTINF:-1 tvg-id=”hbohd” group-title=”Quốc tế”Tvg-logo=”https://imgzlr1.tv360.vn/image1/2021/10/04/02/163329112517/6cb3ef1d12de_640_360.png”, HB
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key={“keys”:[{“kty”:”oct”,”k”:”PeDzjc8BSCff1b7Dh0PGog”,”kid”:”Cd3+PWOGPK+ut50FRrCYqw”}],”type”:”temporary”}
+#KODIPROP:inputstream.adaptive.license_key={“keys”:[{“kty”:”oct”,”k”:”PeDzjc8BSCff1b7Dh0PGog”,”kid”:”Cd3+PWOGPK+ut50FRrCYqw”}],”type”:”temporary”} 
 https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/hbo.smil/manifest.mpd
 #EXTINF:-1 tvg-id=”boxhits” group-title=”Quốc tế”Tvg-logo=”https://img.vtvprime.vn/aPZvboOAKa1wI9F1SICEoUHdjz2oFB1ivWybejkenro/rs:Fit:836:468/czM6Ly9wcmQtc24taW1hZ2VzL2NoYW5uZWwvMDFjNjI3OTItMjkyMy00NTRmLWI3YjgtZDBmNzAxNDhjZWM3LnBuZw==.png”, Box Hits
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
@@ -26,14 +27,7 @@ https://livevlisctcdnw.seenow.vn/mean/HC/manifest.mpd
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey #KODIPROP:inputstream.adaptive.license_key=9d29f87efdec3c9fab368f724a62ad0e:6f1C09c035eab36323d60d1454db3d20
-https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/axn.smil/manifest.mpd
-#EXTINF:-1 tvg-id=”cinemaxhd” group-title=”Quốc tế”Tvg-logo=https://i.postimg.cc/x8Q7jCK4/0de97d4682ea-480-270-(3).pngCatchup=”append” catchup-days=”2”Catchup-source=”https://tshift.fptplay.net/dvr/cinemax_1500.stream/chunks_dvr_range-${stArt}-${offset}.m3u8”,Cinemax
-#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key={“keys”:[{“kty”:”oct”,”k”:”6YaPX0c9D9hpnt5I1THCsA”,”kid”:”rLTCNHEGMyetxzLig8CEfw”}],”type”:”temporary”}
-https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/max.smil/manifest.mpd
-#EXTINF:-1 tvg-id=”warnertvhd” group-title=”Quốc tế”Tvg-logo=https://i.postimg.cc/bJ4n1D6n/Warner-TV-Asia.png catchup=”append”
+https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/axn.smil/manifest.mpd 
 Catchup-days=”2”
 Catchup-source=”https://tshift.fptplay.net/dvr/warnertv_1000.stream/chunks_dvr_range-${stArt}-${offset}.m3u8”, Warner TV
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
