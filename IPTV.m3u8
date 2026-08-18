@@ -1,132 +1,61 @@
+ROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key={"keys":[{"kty":"oct","k":"WTKPYh1WdnvF/5QEqJQGgw","kid":"Z9riBSfGPa2qrmCaqRV3yw"}],"type":"temporary"}
+https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/dreamwork.smil/manifest.mpd
 
-
-#EXTINF:-1 tvg-id=”hbohd” group-title=”Quốc tế”Tvg-logo=”https://imgzlr1.tv360.vn/image1/2021/10/04/02/163329112517/6cb3ef1d12de_640_360.png”, HB
+#EXTINF:-1 tvg-id="boomerang" group-title="Quốc tế" tvg-logo="https://i.postimg.cc/05Xs9GzT/di0vg3q-ef892734-f9c6-4b84-bae4-d06c558f4de1.png",Cartoonito
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key={“keys”:[{“kty”:”oct”,”k”:”PeDzjc8BSCff1b7Dh0PGog”,”kid”:”Cd3+PWOGPK+ut50FRrCYqw”}],”type”:”temporary”} 
-https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/hbo.smil/manifest.mpd
-#EXTINF:-1 tvg-id=”boxhits” group-title=”Quốc tế”Tvg-logo=”https://img.vtvprime.vn/aPZvboOAKa1wI9F1SICEoUHdjz2oFB1ivWybejkenro/rs:Fit:836:468/czM6Ly9wcmQtc24taW1hZ2VzL2NoYW5uZWwvMDFjNjI3OTItMjkyMy00NTRmLWI3YjgtZDBmNzAxNDhjZWM3LnBuZw==.png”, Box Hits
-#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey #KODIPROP:inputstream.adaptive.license_key=a7c942778e874d43be92b8d0a0cd11b4:6D54358306571658ffdb952c6560688b
-https://livevlisctcdnw.seenow.vn/mean/BOXHIT/manifest.mpd
-#EXTINF:-1 tvg-id=”Box Movies 1” group-title=”Quốc tế”Tvg-logo=”https://img.vtvprime.vn/osNJFBQ8y3md3MUWB7-Zr0zkk6HMvffHsZ3tZGsw-p8/Rs:fit:836:468/czM6Ly9wcmQtc24taW1hZ2VzL2NoYW5uZWwvZDFjMjZjMjktZjA0Ni00YTYxLTljODEtYjQ2YWE3YmU3YmZiLnBuZw==.png”,Box Movie 1
+#KODIPROP:inputstream.adaptive.license_key=b1f0d759e914369db388b3b0dc815971:5678d317e17007a88a9b9539e4526512
+https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/boomerang.smil/manifest.mpd
+
+#EXTINF:-1 tvg-id="bbcworldnews" group-title="Quốc tế" tvg-logo="https://i.postimg.cc/1XKhh6Nt/BBC-World-News-Photoroom.png",BBC News
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 #KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=a7c942778e874d43be92b8d0a0cd11b4:6D54358306571658ffdb952c6560688b
-https://livevlisctcdnw.seenow.vn/mean/BM1/manifest.mpd
-#EXTINF:-1 tvg-id=”hollywoodclassics” group-title=”Quốc tế”Tvg-logo=https://i.postimg.cc/kM0TNDzx/Hollywood-Classics.png,Hollywood Classic
+#KODIPROP:inputstream.adaptive.license_key=c7ba46086dda345a929e29bf155e459c:d374b8f39904bf572689ea347ae86591
+https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcworldnews.smil/manifest.mpd
+
+#EXTINF:-1 tvg-id="bloomberg" group-title="Quốc tế" tvg-logo="https://i.imgur.com/rxFZgIK.png", Bloomberg
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key=a7c942778e874d43be92b8d0a0cd11b4:6D54358306571658ffdb952c6560688b
-https://livevlisctcdnw.seenow.vn/mean/HC/manifest.mpd
-#EXTINF:-1 tvg-id=”axnhd” group-title=”Quốc tế”Tvg-logo=”https://img-zlr1.tv360.vn/image1/2021/09/30/21/1633012168716/95bc496176f2_640_360.png” catchup=”append” catchup-days=”2”Catchup-source=”https://tshift.fptplay.net/dvr/axnhd_1000.stream/chunks_dvr_range-${starT}-${offset}.m3u8”, AXN HD
+#KODIPROP:inputstream.a
+#EXTINF:-1 tvg-id="onsports" group-title="Dự phòng" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/_ports_ng_logo_04202212.jpg", ON SPORTS
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey #KODIPROP:inputstream.adaptive.license_key=9d29f87efdec3c9fab368f724a62ad0e:6f1C09c035eab36323d60d1454db3d20
-https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/axn.smil/manifest.mpd 
-Catchup-days=”2”
-Catchup-source=”https://tshift.fptplay.net/dvr/warnertv_1000.stream/chunks_dvr_range-${stArt}-${offset}.m3u8”, Warner TV
+#KODIPROP:inputstream=inputstream.adaptive 
+#KODIPROP:inputstream.adaptive.manifest_type=dash 
+#KODIPROP:inputstream.adaptive.license_type=clearkey 
+#KODIPROP:inputstream.adaptive.license_key=c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10 
+https://cdnet-cdn-01.onsports.vn/onplus/THETHAO_HD/manifest.mpd 
+#EXTINF:-1 tvg-id="onsportsplus" group-title="Dự phòng" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/onsportscongmoi1.jpg", ON SPORTS+ 
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-#KODIPROP:inputstream.adaptive.license_key={“keys”:[{“kty”:”oct”,”k”:”NPGQjP4uBe4GAEbUDxSuyQ”,”kid”:”CG0JpAv/OgCqbdTbr5wTsg”}],”type”:”temporary”}
-https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/wtv.smil/manifest.mpd
-
-#EXTINF:-1 tvg-id=”cinemaworldhd” group-title=”Quốc tế”
-
-Tvg-logo=https://i.postimg.cc/fyF9j3B2/ciww.png, Cinema World
-
-#EXTVLCOPT:http-user-agent=Dalvik/2.1.0 #KODIPROP:inputstream.adaptive.manifest_type=mpd
-
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-
-#KODIPROP:inputstream.adaptive.license_key={“keys”:[{“kty”:”oct”,”k”:”s14Sp1pCpvkYRy
-
-OpD/QtnA”,”kid”:”7nkVVk10OdCb01Vv/MyHpA”}],”type”:”temporary”}
-
-https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/cinemaworld.smil/manifest.mpd
-
-##EXTINF:-1 tvg-id=”woman” group-title=”Quốc tế”
-
-Tvg-logo=https://i.postimg.cc/66kMVTgh/woman.png,Woman
-
-##EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-
-##KODIPROP:inputstream.adaptive.manifest_type=mpd
-
-##KODIPROP:inputstream.adaptive.license_type=clearkey
-
-##KODIPROP:inputstream.adaptive.license_key=a7c942778e874d43be92b8d0a0cd11b4:
-
-6d54358306571658ffdb952c6560688b
-
-#https://livevlisctcdnw.seenow.vn/livesnv2/WO/manifest.mpd
-
-##EXTINF:-1 tvg-id=”musicbox” group-title=”Quốc tế”
-
-Tvg-logo=https://i.postimg.cc/1Rkv0428/musicboxhd.png,Music Box
-
-##EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-
-##KODIPROP:inputstream.adaptive.manifest_type=mpd
-
-##KODIPROP:inputstream.adaptive.license_type=clearkey
-
-##KODIPROP:inputstream.adaptive.license_key=a7c942778e874d43be92b8d0a0cd11b4:
-
-6d54358306571658ffdb952c6560688b
-
-#https://livevlisctcdnw.seenow.vn/livesnv2/MUSICBOX/manifest.mpd
-
-#EXTINF:-1 tvg-id=”davincihd” group-title=”Quốc tế”
-
-Tvg-logo=https://i.postimg.cc/sfkTP1qX/davinci.png, Da Vinci HD
-
-https://live.fptplay53.net/fnxhd2/davincihd_vhls.smil/chunklist.m3u8
-
-#EXTINF:-1 tvg-id=”historyhd” group-title=”Quốc tế”
-
-Tvg-logo=”https://img.vtvprime.vn/bx7_O8VnoPiHJ9mA_aTHMuMu9NngsDvN14MIdNzfAd k/rs:fit:836:468/czM6Ly9wcmQtc24taW1hZ2VzL2NoYW5uZWwvZTYwZjk3MmYtYjMzYy0
-
-0ZWQ2LTllODMtMjU0ODdmNWVlZDA0LnBuZw==.png”, History HD
-
-https://sgclient.duckdns.org/source/tv360.m3u8?id=9856
-
-#EXTINF:-1 tvg-id=”animalhd” group-title=”Quốc tế”
-
-Tvg-logo=https://i.postimg.cc/tCHWwG9R/143.png catchup=”append” catchup-days=”2”
-
-Catchup-source=”https://tshift.fptplay.net/dvr/animalplanet_1000.stream/chunks_dvr_range
-
--${start}-${offset}.m3u8”, Animal Planet
-
+#KODIPROP:inputstream=inputstream.adaptive 
+#KODIPROP:inputstream.adaptive.manifest_type=dash 
+#KODIPROP:inputstream.adaptive.license_type=clearkey 
+#KODIPROP:inputstream.adaptive.license_key=c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10 
+https://cdnet-cdn-01.onsports.vn/onplus/HAY_TV/manifest.mpd 
+#EXTINF:-1 tvg-id="onfootball" group-title="Dự phòng" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/_ootball_-_opyright_by_cab_logo_202212.jpg", ON FOOTBALL 
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
-
-#KODIPROP:inputstream.adaptive.license_type=clearkey
-
-#KODIPROP:inputstream.adaptive.license_key=ec6f072c7125377a9bc0ae61598095f4:1d
-
-5388e0781415ebcec9914f5ad75875
-
-https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/ap.smil/manifest.mpd
-
-#EXTINF:-1 tvg-id=”discoveryasiahd” group-title=”Quốc tế”
-
-Tvg-logo=https://i.postimg.cc/ZYsSJP94/disa.png catchup=”append” catchup-days=”2”
-
-Catchup-source=”https://tshift.fptplay.net/dvr/discoveryasia_1000.stream/chunks_dvr_rang
-
-e-${start}-${offset}.m3u8”, Discovery Asia
-
+#KODIPROP:inputstream=inputstream.adaptive 
+#KODIPROP:inputstream.adaptive.manifest_type=dash 
+#KODIPROP:inputstream.adaptive.license_type=clearkey 
+#KODIPROP:inputstream.adaptive.license_key=c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10 
+https://cdnet-cdn-01.onsports.vn/onplus/BONGDA_HD/manifest.mpd 
+#EXTINF:-1 tvg-id="onsportsnews" group-title="Dự phòng" tvg-logo="https://assets-vtvcab.gviet.vn/images/v2/channel/20220613/2022061306/Logo_ONSPORTSNEWS_150x904_1675158858.webp", ON SPORTS NEWS 
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-
-#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream=inputstream.adaptive 
+#KODIPROP:inputstream.adaptive.manifest_type=dash 
+#KODIPROP:inputstream.adaptive.license_type=clearkey 
+#KODIPROP:inputstream.adaptive.license_key=c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10 
+https://cdnet-cdn-01.onsports.vn/onplus/THETHAO_TINTUC_HD/manifest.mpd 
+#EXTINF:-1 tvg-id="ongolf" group-title="Dự phòng" tvg-logo="https://assets-vtvcab.gviet.vn/images/v2/channel/20220613/2022061306/Logo_ONGOLF_150x903_1675158871.webp", ON GOLF 
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+#KODIPROP:inputstream=inputstream.adaptive 
+#KODIPROP:inputstream.adaptive.manifest_type=dash 
+#KODIPROP:inputstream.adaptive.license_type=clearkey 
+#KODIPROP:inputstream.adaptive.license_key=c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10 
+https://cdnet-cdn-01.onsports.vn/onplus/THETHAO_GOLF_HD/manifest.mpd
+.adaptive.manifest_type=mpd
 
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 
