@@ -1,35 +1,101 @@
 #EXTM3U url-tvg="http://lichphatsong.xyz/schedule/epg.xml"
 #PLAYLISTINF:DinhLap version="v11" url="http://bom.so/dltivi" list1="https://playlist.vthanhtivi.pw" list2="http://gg.gg/SN-90phut" /http://s.id/phimiptv
 
-#EXTINF:0 tvg-id="vtv1hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV1_logo.png",VTV1
-https://live.fptplay53.net/live/media/vtv1/live247-hls-avc/vtv1.m3u8
-#EXTINF:0 tvg-id="vtv2hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV2_logo.png",VTV2
-https://live.fptplay53.net/live/media/vtv2/live247-hls-avc/vtv2.m3u8
-#EXTINF:0 tvg-id="vtv3hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV3_logo.png",VTV3
+#EXTINF:-1 tvg-id="thvl3" group-title="TV",Thvl3
+https://ec05-pop2-hkh.tv360.vn/bpk-token/jsuhu6t3ojkhvkmsrvsu3kd2pjgkq6t2/bpk-tv/250/output/250-audio_198800_eng_iv_4=196800-video_iv_4=1067600.m3u8
 
+#EXTINF:-1 tvg-id="thvl5" group-title="TV",thvl5
+https://ec02-pop2-hkh.tv360.vn/bpk-token/xaykyrxo5kbenrx7lnm3smfmi24dblcg/bpk-tv/423/output/423-audio_214835_eng_iv_2=214800-video_iv_2=5254000.m3u8
+
+#EXTINF:-1 tvg-id="sctv6" group-title="TV",sctv6
+https://ec03-pop2-hkh.tv360.vn/bpk-token/bbt3oo4oxwmtxbpxj4sasz5xhmegpnz3/bpk-tv/297/output/297-audio_214835_eng_iv_2=214800-video_iv_2=5254000.m3u8
+
+#EXTINF:-1 tvg-id="sctv2" group-title="TV",sctv2
+https://ec04-pop2-hkh.tv360.vn/bpk-token/lcwnsb6po33qptixeemftlgza5mkzwih/bpk-tv/343/output/343-audio_214835_und_iv_1=214800-video_iv_1=1064800.m3u8
+
+#EXTINF:-1 tvg-id="vietnamtoday" group-title="VTV",Vietnam today
+https://ec04-pop2-hkh.tv360.vn/bpk-token/cft5ojycxx4solvrf44baz6xe4iwpvzh/bpk-tv/448/output/448-audio_198800_eng=196800-video=1067600.m3u8
+
+#EXTINF:-1 tvg-id="vtv1" group-title="VTV",vtv1
+https://ec02-pop2-hkh.tv360.vn/bpk-token/bebsaza23ehginwv3b5qwazamqeqgide/bpk-tv/154/output/154-audio_208000_eng_iv_3=206000-video_iv_3=1067600.m3u8
+
+#EXTINF:-1 tvg-id="vtv3" group-title="VTV",vtv3
 https://pop13-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzg3MDU1MTY1Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8xNTUvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6ImE2NDQ0ZmM2NTMwZjcxMDQiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNzMuMTk2Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiIyNiIsInNvdXJjZXMiOls0ODMsNDg5LDQ5Miw0OTQsNDk1XX0=.ytUSaNEitl1bTZXhTKZhIbxIQaJ20RhTwVs7V2GbLkLViIY6tUVwohG56ECw0jxSrnIZlfAuimtODpnfLWzCJA==/live/eds/155/HLS_Clean_MHL_2s/155-avc1_1000000=10000-mp4a_196800_eng=20000.m3u8
 
-#EXTINF:0 tvg-id="vtv4hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV4_logo.png",VTV4
-https://live.fptplay53.net/live/media/vtv4/live247-hls-avc/vtv4.m3u8
-#EXTINF:0 tvg-id="vtv5hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV5_logo.png",VTV5
-https://live.fptplay53.net/live/media/vtv5/live247-hls-avc/vtv5.m3u8
-#EXTINF:-1 tvg-id="vtv5hdtnb" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV5tnb_logo.png", VTV5 Tây Nam Bộ
-https://live.fptplay53.net/live/media/vtv5tnb/live-hls-avc/vtv5tnb.m3u8
-#EXTINF:-1 tvg-id="vtv5hdtn" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV5taynguyen_logo.png", VTV5 Tây Nguyên
-https://live.fptplay53.net/live/media/vtv5tn/live-hls-avc/vtv5tn.m3u8
-#EXTINF:0 tvg-id="vtv6hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV6_logo.png",VTV6
-https://live.fptplay53.net/live/media/v6abr/live247-hls-avc/v6abr.m3u8
-#EXTINF:0 tvg-id="vtv7hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV7_logo.png",VTV7
-https://live.fptplay53.net/live/media/vtv7/live247-hls-avc/vtv7.m3u8
-#EXTINF:0 tvg-id="vtv8hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV8_logo.png",VTV8
-https://live.fptplay53.net/fnxhd1/vtv8hd_vhls.smil/chunklist.m3u8
-#EXTINF:0 tvg-id="vtv9hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV9_logo.png",VTV9
-https://live.fptplay53.net/live/media/vtv9/live247-hls-avc/vtv9.m3u8
-#EXTINF:0 tvg-id="vtv10hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV10_logo.png",VTV10
-https://live.fptplay53.net/live/media/vtv10/live247-hls-avc/vtv10.m3u8
-#EXTINF:0 tvg-id="qpvnhd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/QPAN_logo.png",QPVN HD
-https://live.fptplay53.net/live/media/quocphongvn/live-hls-avc/quocphongvn.m3u8
-#EXTINF:0 tvg-id="vietnamtoday" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/vietnamtoday_logo.png",VietNam Today
-https://live.fptplay53.net/fnxhd1/vntoday_vhls.smil/chunklist.m3u8
-#EXTINF:0 tvg-id="antvhd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/ANTV_logo.png",An Ninh TV
-https://live.fptplay53.net/fnxhd2/anninhtv_vhls.smil/chunklist.m3u8
+#EXTINF:-1 tvg-id="vtv550fps" group-title="VTV",vtv5 50fps
+https://pop13-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzg3MDU1Njg2Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8xOTQ0L0hMU19DbGVhbl9NSExfMnMvIiwic2Vzc2lvbl9jZG5faWQiOiI4OWE2YzZiNTg0M2M1ZTFiIiwic2Vzc2lvbl9pZCI6IiIsImNsaWVudF9pZCI6IiIsImRldmljZV9pZCI6IiIsIm1heF9zZXNzaW9ucyI6MCwic2Vzc2lvbl9kdXJhdGlvbiI6MCwidXJsIjoiaHR0cHM6Ly8xNzIuMjQuMTczLjE5NiIsInNlc3Npb25fdGltZW91dCI6MCwiYXVkIjoiMjYiLCJzb3VyY2VzIjpbNDgzLDQ4OSw0OTIsNDk0LDQ5NV19.UzQiHCmUKUDE0XsWfxj4H3GzJjRaCG2nZRKSJkTeLbmg_EGo_OO2nMMWlABZ3kQizkR1wa4iWdxJDKyVN_Qv5g==/live/eds/1944/HLS_Clean_MHL_2s/1944-avc1_1000000=10005-mp4a_196800_eng=20001.m3u8
+
+#EXTINF:-1 tvg-id="vtv5ntynamb" group-title="VTV",vtv5n tĂ¢y nam bá»™
+https://ec05-pop2-hkh.tv360.vn/bpk-token/z3b6oz7ydhewopxzdv4m7q7hm7hmhz3h/bpk-tv/307/output/307-audio_208000_eng_iv_2=206000-video_iv_2=1067600.m3u8
+
+#EXTINF:-1 tvg-id="vtv6" group-title="VTV",vtv6
+https://pop13-ec3-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzg3MDU1ODY3Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80NzkvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjE0OTZhYzZkYWU4NDI2MmYiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNjguMTY0Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiIyNiIsInNvdXJjZXMiOls0NTcsNDYzLDQ2Niw0NjgsNDY5XX0=.g5li2kuoFJs_ux71fCdYai-oJedb3_1Eu9qTlCGD_ywl9LUMvMTL52MstM-vOPcCIM4wk3rnAwIMJLxQgVGtGw==/live/eds/479/HLS_Clean_MHL_2s/479-avc1_5099968=10003-mp4a_206000_eng=20000.m3u8
+
+#EXTINF:-1 tvg-id="vtv7" group-title="VTV",vtv7
+https://ec04-pop2-hkh.tv360.vn/bpk-token/5tzbcxnpfa7v36ac5nbo34qrlxwpeek5/bpk-tv/195/output/195-audio_198800_eng_iv_4=196800-video_iv_4=5256400.m3u8
+
+#EXTINF:-1 tvg-id="vtv8" group-title="VTV",vtv8
+https://ec01-pop2-hkh.tv360.vn/bpk-token/65lcmxnsrqef2gcj3vbpmvrglx3vmjs5/bpk-tv/196/output/196-audio_208000_eng_iv_2=206000-video_iv_2=1067600.m3u8
+
+#EXTINF:-1 tvg-id="vtv9" group-title="VTV",vtv9
+https://pop13-ec1-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzg3MDU2MDc4Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8xOTcvSExTX0NsZWFuX01ITF8ycy8iLCJzZXNzaW9uX2Nkbl9pZCI6IjdlY2Q5YTUxMzU3MmNiZGUiLCJzZXNzaW9uX2lkIjoiIiwiY2xpZW50X2lkIjoiIiwiZGV2aWNlX2lkIjoiIiwibWF4X3Nlc3Npb25zIjowLCJzZXNzaW9uX2R1cmF0aW9uIjowLCJ1cmwiOiJodHRwczovLzE3Mi4yNC4xNjguMTY0Iiwic2Vzc2lvbl90aW1lb3V0IjowLCJhdWQiOiIyNCIsInNvdXJjZXMiOls0NTcsNDYzLDQ2Niw0NjgsNDY5XX0=.iYU9DXBXrPX2QbkjmZcnqaQQUO57LPU76FyUDtBTMAzt9pe0mKGzFkAo9cCLti8hGg1_Ml8_Truj3xxYXdX5mg==/live/eds/197/HLS_Clean_MHL_2s/197-avc1_5099968=10003-mp4a_206000_eng=20000.m3u8
+
+#EXTINF:-1 tvg-id="htv1" group-title="HTV",htv1
+https://ec02-pop2-hkh.tv360.vn/bpk-token/kjjtu4l7rekhc4p5yfxfguz2ofjfgotr/bpk-tv/441/output/441-audio_214835_und_iv_1=214800-video_iv_1=5254000.m3u8
+
+#EXTINF:-1 tvg-id="htv2" group-title="HTV",htv2
+https://pop13-ec2-ateme.tv360.vn/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzg3MDU2MzQ2Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy81NC9ITFNfQ2xlYW5fTUhMXzZzLyIsInNlc3Npb25fY2RuX2lkIjoiZDNjNjVmOThkYmQzNThjZCIsInNlc3Npb25faWQiOiIiLCJjbGllbnRfaWQiOiIiLCJkZXZpY2VfaWQiOiIiLCJtYXhfc2Vzc2lvbnMiOjAsInNlc3Npb25fZHVyYXRpb24iOjAsInVybCI6Imh0dHBzOi8vMTcyLjI0LjE3My4xOTYiLCJzZXNzaW9uX3RpbWVvdXQiOjAsImF1ZCI6IjI1Iiwic291cmNlcyI6WzQ4Myw0ODksNDkyLDQ5NCw0OTVdfQ==.1MvGye7fKl6Jt1uyeBxbB-I0NmlhPZvw8dR59Z_BrPSmlQGmwLWju7dW2zz25z5RJ8GQuobTKJhdu2gy9Y_EMA==/live/eds/54/HLS_Clean_MHL_6s/54-avc1_1000000=10004-mp4a_277600_eng=20001.m3u8
+
+#EXTINF:-1 tvg-id="htv3" group-title="HTV",htv3
+https://ec04-pop2-hkh.tv360.vn/bpk-token/ka3yqva75wtfi6jdorfvcn4ikridpccu/bpk-tv/442/output/442-audio_214835_und_iv_1=214800-video_iv_1=5254000.m3u8
+
+#EXTINF:-1 tvg-id="htv4" group-title="HTV",HTV4
+https://ec04-pop2-hkh.tv360.vn/bpk-token/qykryf5lz4zbopz34aeiofi4c6dbkhax/bpk-tv/443/output/443-audio_214835_und_iv_1=214800-video_iv_1=5254000.m3u8
+
+#EXTINF:-1 tvg-id="htv5" group-title="HTV",HTV5
+https://ec05-pop2-hkh.tv360.vn/bpk-token/j6s2s5bmp6dxjaf5k5vu5jnjorh2lklu/bpk-tv/246/output/246-audio_279600_eng_iv_1=277600-video_iv_1=5256400.m3u8
+
+#EXTINF:-1 tvg-id="htv7" group-title="HTV",HTV7
+https://ec01-pop2-hkh.tv360.vn/bpk-token/msgeobhxkzuqjghbxmnwldcharsiyrye/bpk-tv/157/output/157-audio_208000_eng_iv_4=206000-video_iv_4=5256400.m3u8
+
+#EXTINF:-1 tvg-id="htv9" group-title="HTV",HTV9
+https://ec04-pop2-hkh.tv360.vn/bpk-token/3hd3wdskdwkq4jnki4i5xr53b3m4poyo/bpk-tv/158/output/158-audio_198800_eng_iv_4=196800-video_iv_4=5256400.m3u8
+
+#EXTINF:-1 tvg-id="htvththao" group-title="HTV",HTV THá»‚ THAO
+https://ec03-pop2-hkh.tv360.vn/bpk-token/4s63exxwm6of5sjijza6lpnsl3sl3ms6/bpk-tv/304/output/304-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8
+
+#EXTINF:-1 tvg-id="gianh" group-title="TV",gia Ä‘Ă¬nh
+https://ec04-pop2-hkh.tv360.vn/bpk-token/q6wk6ynxo2awdp5kkj7inlfpmgd2zl3b/bpk-tv/398/output/398-audio_208000_eng_iv_6=206000-video_iv_6=1067600.m3u8
+
+#EXTINF:-1 tvg-id="phn" group-title="TV",PHá»¤ Ná»®
+https://ec05-pop2-hkh.tv360.vn/bpk-token/jhevax25cn7f64xzvvaerskql5e4suc7/bpk-tv/420/output/420-audio_208000_eng_iv_4=206000-video_iv_4=1067600.m3u8
+
+#EXTINF:-1 tvg-id="thunvit" group-title="TV",THUáº¦N VIá»†T
+https://ec04-pop2-hkh.tv360.vn/bpk-token/gp65sxine73v2s3merbdf7ozluz73wk5/bpk-tv/160/output/160-audio_214835_und_iv_2=214800-video_iv_2=1064800.m3u8
+
+#EXTINF:-1 tvg-id="htvphim" group-title="HTV",HTV PHIM
+https://ec01-pop2-hkh.tv360.vn/bpk-token/njneszcuqbtwiewlwr5wqwsjmrvfusle/bpk-tv/159/output/159-audio_208000_eng_iv_2=206000-video_iv_2=1067600.m3u8
+
+#EXTINF:-1 tvg-id="htvnhc" group-title="HTV",HTV NHáº C
+https://ec04-pop2-hkh.tv360.vn/bpk-token/3esuwhsq75sr46m6wya5qjkld3msksy6/bpk-tv/421/output/421-audio_208000_eng_iv_4=206000-video_iv_4=1067600.m3u8
+
+#EXTINF:-1 tvg-id="htvcchanelb" group-title="HTV",HTVC + Chanel B
+https://ec05-pop2-hkh.tv360.vn/bpk-token/aqllsrunzslunjfnirmqmfvziycbnokg/bpk-tv/419/output/419-audio_214835_und_iv_2=214800-video_iv_2=5254000.m3u8
+
+#EXTINF:-1 tvg-id="htvcdulch" group-title="HTV",HTVC DU Lá»CH
+https://ec02-pop2-hkh.tv360.vn/bpk-token/x4z52vmg5hzvlxwpebfl4m65kw7thxkv/bpk-tv/399/output/399-audio_208000_eng_iv_6=206000-video_iv_6=1067600.m3u8
+
+#EXTINF:-1 tvg-id="onkids" group-title="TV",ON KIDS
+https://ec04-pop2-hkh.tv360.vn/bpk-token/lhdb4idndqycaf244a7vrrq6ebm4mhra/bpk-tv/234/output/234-audio_198800_eng_iv_1=196800-video_iv_1=5256400.m3u8
+
+#EXTINF:-1 tvg-id="onviegiitr" group-title="TV",ON VIE GIáº¢I TRĂ
+https://ec01-pop2-hkh.tv360.vn/bpk-token/k7srudy6h42a6uhx4uifnzi2b5l6kgqp/bpk-tv/211/output/211-audio_208000_eng_iv_5=206000-video_iv_5=1067600.m3u8
+
+#EXTINF:-1 tvg-id="oncine" group-title="TV",ON CINE
+https://ec01-pop2-hkh.tv360.vn/bpk-token/7wpraenpiu7bcfx654hpzhyqch6z6ear/bpk-tv/226/output/226-audio_208000_eng_iv_5=206000-video_iv_5=5256400.m3u8
+
+#EXTINF:-1 tvg-id="onviedrama" group-title="TV",ON VIE DRAMA
+https://ec05-pop2-hkh.tv360.vn/bpk-token/r4lfaqq3zr7efzdiv5oy4fsqikhrmucc/bpk-tv/339/output/339-audio_214835_und_iv_2=214800-video_iv_2=1064800.m3u8
+
+#EXTINF:-1 tvg-id="onbibi" group-title="TV",ON BIBI
+https://ec04-pop2-hkh.tv360.vn/bpk-token/sekqicf4z4vaqg4l7mlzafiebcirkbai/bpk-tv/263/output/263-audio_198800_eng_iv_2=196800-video_iv_2=1067600.m3u8
