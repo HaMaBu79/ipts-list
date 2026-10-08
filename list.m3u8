@@ -818,58 +818,78 @@ https://s129135.cdn.mytvnet.vn/pkg20/live_dzones/tlc.smil/manifest.mpd
 
 
 #-----------------------KÊNH TRUNG QUỐC-------------------------------#
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV1
-http://74.91.26.218:82/live/cctv1hd.m3u8
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV2
-http://74.91.26.218:82/live/cctv2hd.m3u8
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV3
-http://74.91.26.218:82/live/cctv3hd.m3u8
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv1.png" tvg-id="enc-cctv1" tvg-name="CCTV1" group-title="🇨🇳| Trung Quốc",CCTV1
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=712f28e
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV4
-http://74.91.26.218:82/live/cctv4hd.m3u8
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv2.png" tvg-id="enc-cctv2" tvg-name="CCTV2" group-title="🇨🇳| Trung Quốc",CCTV2
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=10c332e
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV5
-https://cdn.qd.je/163189/cctv5
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv3.webp" tvg-id="enc-cctv3" tvg-name="CCTV3" group-title="🇨🇳| Trung Quốc",CCTV3
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=9a161b7
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV5+
-https://cdn.qd.je/163189/cctv5p
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv4.webp" tvg-id="enc-cctv4" tvg-name="CCTV4" group-title="🇨🇳| Trung Quốc",CCTV4
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=bc3a732
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV6
-http://74.91.26.218:82/live/cctv6hd.m3u8
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv5.webp" tvg-id="enc-cctv5" tvg-name="CCTV5" group-title="🇨🇳| Trung Quốc",CCTV5
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=40d6b44
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV7
-http://74.91.26.218:82/live/cctv7hd.m3u8
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv5plus.webp" tvg-id="enc-cctv5plus" tvg-name="CCTV5+" group-title="🇨🇳| Trung Quốc",CCTV5+
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=a921acd
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV8
-http://74.91.26.218:82/live/cctv8hd.m3u8
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv6.webp" tvg-id="enc-cctv6" tvg-name="CCTV6" group-title="🇨🇳| Trung Quốc",CCTV6
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=e35e8f9
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV9
-http://74.91.26.218:82/live/cctv9hd.m3u8
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv7.webp" tvg-id="enc-cctv7" tvg-name="CCTV7" group-title="🇨🇳| Trung Quốc",CCTV7
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=004ed2b
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV10
-http://74.91.26.218:82/live/cctv10hd.m3u8
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv8.jpg" tvg-id="enc-cctv8" tvg-name="CCTV8" group-title="🇨🇳| Trung Quốc",CCTV8
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=3667033
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV11
-http://74.91.26.218:82/live/cctv11hd.m3u8
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv9.webp" tvg-id="enc-cctv9" tvg-name="CCTV9" group-title="🇨🇳| Trung Quốc",CCTV9
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=f448575
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV12
-http://74.91.26.218:82/live/cctv12hd.m3u8
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv10.jpg" tvg-id="enc-cctv10" tvg-name="CCTV10" group-title="🇨🇳| Trung Quốc",CCTV10
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=d8c22cf
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV13
-http://74.91.26.218:82/live/cctv13hd.m3u8
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv11.png" tvg-id="enc-cctv11" tvg-name="CCTV11" group-title="🇨🇳| Trung Quốc",CCTV11
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=0858a1c
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV14
-http://74.91.26.218:82/live/cctv14hd.m3u8
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv12.webp" tvg-id="enc-cctv12" tvg-name="CCTV12" group-title="🇨🇳| Trung Quốc",CCTV12
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=e49e932
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV15
-http://74.91.26.218:82/live/cctv15hd.m3u8
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv13.webp" tvg-id="enc-cctv13" tvg-name="CCTV13" group-title="🇨🇳| Trung Quốc",CCTV13
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=2e5409a
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV16
-https://cdn.qd.je/163189/cctv16
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv14.webp" tvg-id="enc-cctv14" tvg-name="CCTV14" group-title="🇨🇳| Trung Quốc",CCTV14
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=94d1bf4
 
-#EXTINF:-1 group-title="🇨🇳| TRUNG QUỐC",CCTV17
-http://74.91.26.218:82/live/cctv17hd.m3u8
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv15.png" tvg-id="enc-cctv15" tvg-name="CCTV15" group-title="🇨🇳| Trung Quốc",CCTV15
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=849531d
+
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv16.webp" tvg-id="enc-cctv16" tvg-name="CCTV16" group-title="🇨🇳| Trung Quốc",CCTV16
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=14c5975
+
+#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv17.png" tvg-id="enc-cctv17" tvg-name="CCTV17" group-title="🇨🇳| Trung Quốc",CCTV17
+#KODIPROP:inputstream.adaptive.manifest_type=hls
+https://vietmitv.id.vn/c.php?k=62ef208
 
 
