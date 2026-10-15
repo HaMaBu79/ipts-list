@@ -1,0 +1,711 @@
+#EXTM3U catchup="flussonic" url-tvg="https://ip-tv.dev/epg/epg.xml.gz"
+#EXTINF:0 tvg-id="Xpervy" tvg-name="Первый канал HD" tvg-logo="https://ip-tv.dev/epg/icon/pervyj.png"  tvg-rec="5" timeshift="5", Первый канал HD
+#EXTGRP:Россия
+http://de.seetv.cc/play/73/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xrtr-planeta-eu" tvg-name="РТР Планета СНГ" tvg-logo="https://ip-tv.dev/images/ico/rtr-planeta.png"  tvg-rec="5" timeshift="5", Планета РТР
+#EXTGRP:Россия
+http://de.seetv.cc/play/353/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xotr" tvg-name="ОТР" tvg-logo="https://ip-tv.dev/epg/icon/otr_ru.png"  tvg-rec="5" timeshift="5", ОТР
+#EXTGRP:Россия
+http://de.seetv.cc/play/199/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="X2plus2" tvg-name="2+2" tvg-logo="https://ip-tv.dev/images/ico/2plus2.png"  tvg-rec="5" timeshift="5", 2+2
+#EXTGRP:Украинские
+http://de.seetv.cc/play/656/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="X2plus2" tvg-name="2+2 HD" tvg-logo="https://ip-tv.dev/images/ico/2plus2hd.png"  tvg-rec="5" timeshift="5", 2+2 HD
+#EXTGRP:Украинские
+http://de.seetv.cc/play/9953/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xua-kyiv" tvg-name="UA: Київ" tvg-logo="https://ip-tv.dev/images/ico/kiiv.png"  tvg-rec="5" timeshift="5", UA: Київ
+#EXTGRP:Украинские
+http://de.seetv.cc/play/5498/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xunian-tv" tvg-name="Униан ТВ" tvg-logo="https://ip-tv.dev/epg/icon/unian.png"  tvg-rec="5" timeshift="5", Униан ТВ
+#EXTGRP:Украинские
+http://de.seetv.cc/play/9949/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="suspilne-poltava" tvg-name="Суспільне Полтава" tvg-logo="https://ip-tv.dev/images/ico/suspilne_poltava.png"  tvg-rec="5" timeshift="5", Суспільне Полтава
+#EXTGRP:Украинские
+http://de.seetv.cc/play/6219/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-premier" tvg-name="Матч! ПРЕМЬЕР" tvg-logo="https://ip-tv.dev/epg/icon/match-premiere.png"  tvg-rec="5" timeshift="5", Матч! ПРЕМЬЕР
+#EXTGRP:Спорт
+http://de.seetv.cc/play/37/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-premier" tvg-name="Матч Премьер HD" tvg-logo="https://ip-tv.dev/epg/icon/match-premiere.png"  tvg-rec="5" timeshift="5", Матч Премьер HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/250/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-arena" tvg-name="Матч Арена" tvg-logo="https://ip-tv.dev/epg/icon/match-arena.png"  tvg-rec="5" timeshift="5", Матч Арена
+#EXTGRP:Спорт
+http://de.seetv.cc/play/136/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-arena" tvg-name="Матч! Арена HD" tvg-logo="https://ip-tv.dev/epg/icon/match-arena.png"  tvg-rec="5" timeshift="5", Матч! Арена HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/146/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-planeta" tvg-name="Матч! Планета" tvg-logo="https://ip-tv.dev/epg/icon/match-planeta.png"  tvg-rec="5" timeshift="5", Матч! Планета
+#EXTGRP:Спорт
+http://de.seetv.cc/play/14/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-tv" tvg-name="Матч ТВ" tvg-logo="https://ip-tv.dev/epg/icon/match.png"  tvg-rec="5" timeshift="5", Матч ТВ
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-tv" tvg-name="Матч! HD" tvg-logo="https://ip-tv.dev/epg/icon/match.png"  tvg-rec="5" timeshift="5", Матч! HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/397/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-boets" tvg-name="Матч! Боец HD" tvg-logo="https://ip-tv.dev/epg/icon/match-boec.png"  tvg-rec="5" timeshift="5", Матч! Боец HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/30/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-nash-sport" tvg-name="МАТЧ! Страна" tvg-logo="https://ip-tv.dev/epg/icon/match-nash-sport.png"  tvg-rec="5" timeshift="5", МАТЧ! Страна
+#EXTGRP:Спорт
+http://de.seetv.cc/play/134/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-nash-sport" tvg-name="Матч! Страна HD" tvg-logo="https://ip-tv.dev/epg/icon/match-nash-sport.png"  tvg-rec="5" timeshift="5", Матч! Страна HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/212/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-igra" tvg-name="Матч! Игра" tvg-logo="https://ip-tv.dev/epg/icon/match-igra.png"  tvg-rec="5" timeshift="5", Матч! Игра
+#EXTGRP:Спорт
+http://de.seetv.cc/play/153/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-igra" tvg-name="Матч! Игра HD" tvg-logo="https://ip-tv.dev/epg/icon/match-igra.png"  tvg-rec="5" timeshift="5", Матч! Игра HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/268/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-football1" tvg-name="Матч! Футбол 1 HD" tvg-logo="https://ip-tv.dev/epg/icon/match-football-1.png"  tvg-rec="5" timeshift="5", Матч! Футбол 1 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/260/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-football1" tvg-name="Матч Футбол 1" tvg-logo="https://ip-tv.dev/epg/icon/match-football-1.png"  tvg-rec="5" timeshift="5", Матч Футбол 1
+#EXTGRP:Спорт
+http://de.seetv.cc/play/54/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-football2" tvg-name="Матч! Футбол 2 HD" tvg-logo="https://ip-tv.dev/epg/icon/match-football-2.png"  tvg-rec="5" timeshift="5", Матч! Футбол 2 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/271/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmatch-football3" tvg-name="Матч! Футбол 3 HD" tvg-logo="https://ip-tv.dev/epg/icon/match-football-3.png"  tvg-rec="5" timeshift="5", Матч! Футбол 3 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/329/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsetanta-ua" tvg-name="Setanta Sports Ukraine" tvg-logo="https://ip-tv.dev/epg/icon/setanta-sports.png"  tvg-rec="5" timeshift="5", Setanta Sports Ukraine
+#EXTGRP:Спорт
+http://de.seetv.cc/play/1434/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsetanta-plus-ua" tvg-name="Setanta Sports+ Ukraine" tvg-logo="https://ip-tv.dev/epg/icon/setanta-sports-plus.png"  tvg-rec="5" timeshift="5", Setanta Sports+ Ukraine
+#EXTGRP:Спорт
+http://de.seetv.cc/play/9957/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsetanta-sports" tvg-name="Setanta Sports 1 HD" tvg-logo="https://ip-tv.dev/images/ico/setanta-sports1.png"  tvg-rec="5" timeshift="5", Setanta Sports 1 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/942/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsetanta-sports-plus" tvg-name="Setanta Sports 2 HD" tvg-logo="https://ip-tv.dev/images/ico/setanta-sports2.png"  tvg-rec="5" timeshift="5", Setanta Sports 2 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/943/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsetanta-kz" tvg-name="Setanta Qazaqstan" tvg-logo="https://ip-tv.dev/images/ico/setanta-kz.png"  tvg-rec="5" timeshift="5", Setanta Qazaqstan
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5094/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Суспільне Спорт" tvg-logo="https://ip-tv.dev/images/ico/suspilne_sport.png" , Суспільне Спорт
+#EXTGRP:Спорт
+http://de.seetv.cc/play/316/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="DiviSport" tvg-logo="https://ip-tv.dev/images/ico/divisport.png" , DiviSport
+#EXTGRP:Спорт
+http://de.seetv.cc/play/315/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xdynamo-kyiv-tv" tvg-name="Dynamo Kyiv TV" tvg-logo="https://ip-tv.dev/images/ico/dynamo-kyiv-tv.png" , Dynamo Kyiv TV
+#EXTGRP:Спорт
+http://de.seetv.cc/play/8797/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xfootball-ru" tvg-name="Футбол" tvg-logo="https://ip-tv.dev/epg/icon/futbol.png"  tvg-rec="5" timeshift="5", Футбол
+#EXTGRP:Спорт
+http://de.seetv.cc/play/171/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xfootball-ru" tvg-name="Футбол HD" tvg-logo="https://ip-tv.dev/epg/icon/futbol.png"  tvg-rec="5" timeshift="5", Футбол HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/3920/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xviasat-sport" tvg-name="Viju+ Sport" tvg-logo="https://ip-tv.dev/images/ico/viju-viasat-sport.png"  tvg-rec="5" timeshift="5", Viju+ Sport
+#EXTGRP:Спорт
+http://de.seetv.cc/play/77/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xviasat-sport" tvg-name="Viju+ Sport HD" tvg-logo="https://ip-tv.dev/images/ico/viju-viasat-sport.png"  tvg-rec="5" timeshift="5", Viju+ Sport HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/198/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xeurosport1-ru" tvg-name="Eurosport 1" tvg-logo="https://ip-tv.dev/epg/icon/eurosport1.png"  tvg-rec="5" timeshift="5", Eurosport
+#EXTGRP:Спорт
+http://de.seetv.cc/play/15/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xeurosport1-cee" tvg-name="Eurosport 1 HD" tvg-logo="https://ip-tv.dev/epg/icon/eurosport1.png"  tvg-rec="5" timeshift="5", Eurosport HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/145/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xeurosport2-ru" tvg-name="Eurosport 2" tvg-logo="https://ip-tv.dev/epg/icon/eurosport2.png"  tvg-rec="5" timeshift="5", Eurosport 2
+#EXTGRP:Спорт
+http://de.seetv.cc/play/43/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xeurosport2-cee" tvg-name="Eurosport 2 HD" tvg-logo="https://ip-tv.dev/epg/icon/eurosport2.png"  tvg-rec="5" timeshift="5", Eurosport 2 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/361/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xstart-triumf" tvg-name="Старт Триумф HD" tvg-logo="https://ip-tv.dev/images/ico/start-triumf.png"  tvg-rec="5" timeshift="5", Старт Триумф HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/7375/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xstart" tvg-name="Старт HD" tvg-logo="https://ip-tv.dev/epg/icon/start.png"  tvg-rec="5" timeshift="5", Старт HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/9946/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xkonny-mir" tvg-name="Конный мир HD" tvg-logo="https://ip-tv.dev/epg/icon/konny-mir.png"  tvg-rec="5" timeshift="5", Конный мир HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/394/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xkxl" tvg-name="КХЛ" tvg-logo="https://ip-tv.dev/epg/icon/khl.png"  tvg-rec="5" timeshift="5", КХЛ
+#EXTGRP:Спорт
+http://de.seetv.cc/play/149/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xkxl-hd" tvg-name="KHL Prime" tvg-logo="https://ip-tv.dev/images/ico/kxl-hd.png"  tvg-rec="5" timeshift="5", KHL Prime
+#EXTGRP:Спорт
+http://de.seetv.cc/play/177/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xxokkejny" tvg-name="Хоккейный" tvg-logo="https://ip-tv.dev/images/ico/xokkejny.png"  tvg-rec="5" timeshift="5", Хоккейный
+#EXTGRP:Спорт
+http://de.seetv.cc/play/6160/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xruh-tv" tvg-name="Ruh TV" tvg-logo="https://ip-tv.dev/images/ico/ruh-tv.png"  tvg-rec="5" timeshift="5", Ruh TV
+#EXTGRP:Спорт
+http://de.seetv.cc/play/7182/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbox-tv" tvg-name="Бокс ТВ" tvg-logo="https://ip-tv.dev/epg/icon/box-tv.png"  tvg-rec="5" timeshift="5", Бокс ТВ
+#EXTGRP:Спорт
+http://de.seetv.cc/play/482/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsport1-ua" tvg-name="Sport 1 UA" tvg-logo="https://ip-tv.dev/images/ico/sport1ua.png" , Sport 1 UA
+#EXTGRP:Спорт
+http://de.seetv.cc/play/2638/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsport2-ua" tvg-name="Sport 2 UA" tvg-logo="https://ip-tv.dev/images/ico/sport2ua.png" , Sport 2 UA
+#EXTGRP:Спорт
+http://de.seetv.cc/play/2639/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sport 3 UA HD" tvg-logo="https://ip-tv.dev/images/ico/sport3ua.png" , Sport 3 UA HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/2640/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sport 4 UA" tvg-logo="https://ip-tv.dev/images/ico/sport4ua.png" , Sport 4 UA
+#EXTGRP:Спорт
+http://de.seetv.cc/play/2641/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xavto-plus" tvg-name="Авто Плюс" tvg-logo="https://ip-tv.dev/epg/icon/avto-plus.png"  tvg-rec="5" timeshift="5", Авто Плюс
+#EXTGRP:Спорт
+http://de.seetv.cc/play/29/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xextreme-sports" tvg-name="Extreme Sports" tvg-logo="https://ip-tv.dev/epg/icon/extreme-sports.png"  tvg-rec="5" timeshift="5", Extreme Sports
+#EXTGRP:Спорт
+http://de.seetv.cc/play/53/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsportivny" tvg-name="Спортивный" tvg-logo="https://ip-tv.dev/images/ico/sportivny.png"  tvg-rec="5" timeshift="5", Спортивный
+#EXTGRP:Спорт
+http://de.seetv.cc/play/6159/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xnba-tv" tvg-name="NBA TV" tvg-logo="https://ip-tv.dev/epg/icon/nba-tv.png"  tvg-rec="5" timeshift="5", NBA TV
+#EXTGRP:Спорт
+http://de.seetv.cc/play/9984/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmir-basketbola" tvg-name="Мир Баскетбола" tvg-logo="https://ip-tv.dev/images/ico/mir-basketbola.png"  tvg-rec="5" timeshift="5", Мир Баскетбола
+#EXTGRP:Спорт
+http://de.seetv.cc/play/8831/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xufc" tvg-name="UDAR" tvg-logo="https://ip-tv.dev/images/ico/ufc.png"  tvg-rec="5" timeshift="5", UDAR
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4111/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="MMA-TV HD" tvg-logo="https://ip-tv.dev/images/ico/mma.png" , MMA-TV HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/3795/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xxsport-ua" tvg-name="Xsport HD" tvg-logo="https://ip-tv.dev/images/ico/xsport-ua.png"  tvg-rec="5" timeshift="5", Xsport HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/480/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xxsport-plus-ua" tvg-name="Xsport+ HD" tvg-logo="https://ip-tv.dev/images/ico/xsport-plus-ua.png" , Xsport+ HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/2635/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="X	no_epg_sport" tvg-name="Equalympic HD" tvg-logo="https://ip-tv.dev/images/ico/Equalympic_HD.jpg" , Equalympic HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/8788/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xrussky-ekstrim" tvg-name="Русский Экстрим" tvg-logo="https://ip-tv.dev/epg/icon/russky-ekstrim.png"  tvg-rec="5" timeshift="5", Русский Экстрим
+#EXTGRP:Спорт
+http://de.seetv.cc/play/345/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xtochka-otryva" tvg-name="Точка отрыва" tvg-logo="https://ip-tv.dev/epg/icon/tochka-otryva.png"  tvg-rec="5" timeshift="5", Точка отрыва
+#EXTGRP:Спорт
+http://de.seetv.cc/play/601/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xavto24" tvg-name="Авто 24" tvg-logo="https://ip-tv.dev/epg/icon/avto24.png"  tvg-rec="5" timeshift="5", Авто 24
+#EXTGRP:Спорт
+http://de.seetv.cc/play/256/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xcars-n-stars" tvg-name="Cars & Stars TV HD" tvg-logo="https://ip-tv.dev/images/ico/cars-n-stars.png"  tvg-rec="5" timeshift="5", Cars & Stars TV HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/9904/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xfightbox-hd" tvg-name="FightBox" tvg-logo="https://ip-tv.dev/images/ico/fightbox-hd.png"  tvg-rec="5" timeshift="5", FightBox
+#EXTGRP:Спорт
+http://de.seetv.cc/play/8790/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xtrace-sport-stars" tvg-name="TRACE Sport Stars" tvg-logo="https://ip-tv.dev/images/ico/trace-sport-stars.png"  tvg-rec="5" timeshift="5", TRACE Sport Stars
+#EXTGRP:Спорт
+http://de.seetv.cc/play/9907/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xfastfunbox-hd" tvg-name="Fast&FunBox" tvg-logo="https://ip-tv.dev/images/ico/fastfunbox-hd.png"  tvg-rec="5" timeshift="5", Fast&FunBox
+#EXTGRP:Спорт
+http://de.seetv.cc/play/8792/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Futbol TV" tvg-logo="https://ip-tv.dev/images/ico/futboltv.png" , Futbol TV
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5409/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xupltv" tvg-name="UPL.TV HD" tvg-logo="https://ip-tv.dev/images/ico/upl.png" , UPL.TV HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/523/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xupltv1" tvg-name="УПЛ ТВ 1" tvg-logo="https://ip-tv.dev/images/ico/upltv1.png" , УПЛ ТВ 1
+#EXTGRP:Спорт
+http://de.seetv.cc/play/524/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xupltv2" tvg-name="УПЛ ТВ 2" tvg-logo="https://ip-tv.dev/images/ico/upltv2.png" , УПЛ ТВ 2
+#EXTGRP:Спорт
+http://de.seetv.cc/play/525/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xupltv3" tvg-name="УПЛ ТВ 3" tvg-logo="https://ip-tv.dev/images/ico/upltv3.png" , УПЛ ТВ 3
+#EXTGRP:Спорт
+http://de.seetv.cc/play/526/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xupltv5" tvg-name="УПЛ ТВ 5" tvg-logo="https://ip-tv.dev/images/ico/upl.png" , УПЛ ТВ 5
+#EXTGRP:Спорт
+http://de.seetv.cc/play/530/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xupltv6" tvg-name="УПЛ ТВ 6" tvg-logo="https://ip-tv.dev/images/ico/upl.png" , УПЛ ТВ 6
+#EXTGRP:Спорт
+http://de.seetv.cc/play/532/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbein-sport-1" tvg-name="BeIN Sport 1 HD" tvg-logo="https://ip-tv.dev/images/ico/bein-sport-1.png" , BeIN Sport 1 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/1101/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbein-sport-2" tvg-name="BeIN Sport 2 HD" tvg-logo="https://ip-tv.dev/images/ico/bein-sport-2.png" , BeIN Sport 2 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/1102/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbein-sport-3" tvg-name="BeIN Sport 3 HD" tvg-logo="https://ip-tv.dev/images/ico/bein-sport-3.png" , BeIN Sport 3 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/1103/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbein-sport-4" tvg-name="BeIN Sport 4 HD" tvg-logo="https://ip-tv.dev/images/ico/bein-sport-4.png" , BeIN Sport 4 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/1104/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbt-sport1" tvg-name="BT Sport 1" tvg-logo="https://ip-tv.dev/images/ico/bt-sport1.png" , BT Sport 1
+#EXTGRP:Спорт
+http://de.seetv.cc/play/922/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbt-sport2" tvg-name="BT Sport 2 HD" tvg-logo="https://ip-tv.dev/images/ico/bt-sport2.png" , BT Sport 2 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/923/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbt-sport3" tvg-name="BT Sport 3 HD" tvg-logo="https://ip-tv.dev/images/ico/bt-sport3.png"  tvg-rec="5" timeshift="5", BT Sport 3 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/934/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xpremier-sports-1" tvg-name="Premier Sports 1 HD" tvg-logo="https://ip-tv.dev/images/ico/premier-sports-1.png" , Premier Sports 1 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/930/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xpremier-sports-2" tvg-name="Premier Sports 2 HD" tvg-logo="https://ip-tv.dev/images/ico/premier-sports-2.png" , Premier Sports 2 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/929/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsky-sport-bl1" tvg-name="Sport BundesLiga" tvg-logo="https://ip-tv.dev/images/ico/sky-sport-bl1.png" , Sport BundesLiga
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5666/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Movistar Formula 1", Movistar Formula 1
+#EXTGRP:Спорт
+http://de.seetv.cc/play/1121/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Nova Sport HD" tvg-logo="https://ip-tv.dev/images/ico/Nova_Sport_HD.jpg" , Nova Sport HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/1122/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xdaznbar1" tvg-name="DAZN 1 HD" tvg-logo="https://ip-tv.dev/images/ico/daznbar1.png" , DAZN 1 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/3556/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xdaznbar2" tvg-name="DAZN 2 HD" tvg-logo="https://ip-tv.dev/images/ico/daznbar1.png" , DAZN 2 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/3557/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="V.I.P Sport 1", V.I.P Sport 1
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5009/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="V.I.P Sport 2", V.I.P Sport 2
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5010/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="V.I.P Sport 3", V.I.P Sport 3
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5011/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="V.I.P Sport 4", V.I.P Sport 4
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5012/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="V.I.P Sport 5", V.I.P Sport 5
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5013/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="V.I.P Sport 6", V.I.P Sport 6
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5014/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="V.I.P Sport 7", V.I.P Sport 7
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5015/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="V.I.P Sport 8", V.I.P Sport 8
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5016/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="V.I.P Sport 9", V.I.P Sport 9
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5017/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="V.I.P Sport 10", V.I.P Sport 10
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5018/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="V.I.P Sport 11", V.I.P Sport 11
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5019/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="V.I.P Sport 12", V.I.P Sport 12
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5020/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="V.I.P Sport 13", V.I.P Sport 13
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5021/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Vital Sport 1", Vital Sport 1
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5022/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Vital Sport 2", Vital Sport 2
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5023/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Vital Sport 3", Vital Sport 3
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5024/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Vital Sport 4", Vital Sport 4
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5025/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Vital Sport 5", Vital Sport 5
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5026/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Vital Sport 6", Vital Sport 6
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5027/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="FintGa 1", FintGa 1
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5028/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="FintGa 2", FintGa 2
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5029/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="FintGa 3", FintGa 3
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5030/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="FintGa 4", FintGa 4
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5031/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Pimple 1", Pimple 1
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5032/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Pimple 2", Pimple 2
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5033/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Pimple 3", Pimple 3
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5034/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Pimple 4", Pimple 4
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5035/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Pimple 5", Pimple 5
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5036/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Pimple 6", Pimple 6
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5037/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 1", Setanta event 1
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4020/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 2", Setanta event 2
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4021/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 3", Setanta event 3
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4022/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 4", Setanta event 4
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4023/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 5", Setanta event 5
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4024/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 6", Setanta event 6
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4025/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 7", Setanta event 7
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4026/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 8", Setanta event 8
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4027/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 9", Setanta event 9
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4028/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 10", Setanta event 10
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4029/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 11", Setanta event 11
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4030/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 12", Setanta event 12
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4031/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 13", Setanta event 13
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4032/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 14", Setanta event 14
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4033/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xno_epg_sport" tvg-name="Setanta event 15", Setanta event 15
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4034/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbox-beonedge" tvg-name="BOX Be ON Edge HD" tvg-logo="https://ip-tv.dev/images/ico/box-beonedge.png" , BOX Be ON Edge HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4215/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbox-beonedge1live" tvg-name="BOX Be ON Edge 1 Live HD" tvg-logo="https://ip-tv.dev/images/ico/box-beonedge1live.png" , BOX Be ON Edge 1 Live HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4213/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbox-beonedge2live" tvg-name="BOX Be ON Edge 2 Live HD" tvg-logo="https://ip-tv.dev/images/ico/box-beonedge2live.png" , BOX Be ON Edge 2 Live HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4214/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbox-sportcast-live1" tvg-name="BOX SportCast Live 1 HD" tvg-logo="https://ip-tv.dev/images/ico/box-sportcast-live1.png" , BOX SportCast Live 1 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4224/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbox-sportcast-live2" tvg-name="BOX SportCast Live 2 HD" tvg-logo="https://ip-tv.dev/images/ico/box-sportcast-live2.png" , BOX SportCast Live 2 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4225/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbox-sportcast-live3" tvg-name="BOX SportCast Live 3 HD" tvg-logo="https://ip-tv.dev/images/ico/box-sportcast-live3.png" , BOX SportCast Live 3 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4226/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbox-sportcast-live4" tvg-name="BOX SportCast Live 4 HD" tvg-logo="https://ip-tv.dev/images/ico/box-sportcast-live4.png" , BOX SportCast Live 4 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4227/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbox-sportcast-live5" tvg-name="BOX SportCast Live 5 HD" tvg-logo="https://ip-tv.dev/images/ico/box-sportcast-live5.png" , BOX SportCast Live 5 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4228/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbox-sportcast-live6" tvg-name="BOX SportCast Live 6 HD" tvg-logo="https://ip-tv.dev/images/ico/box-sportcast-live6.png" , BOX SportCast Live 6 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4232/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbox-sportcast-live7" tvg-name="BOX SportCast Live 7 HD" tvg-logo="https://ip-tv.dev/images/ico/box-sportcast-live7.png" , BOX SportCast Live 7 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4233/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbox-sportcast-live8" tvg-name="BOX SportCast Live 8 HD", BOX SportCast Live 8 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4234/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbox-sportcast-live9" tvg-name="BOX SportCast Live 9 HD" tvg-logo="https://ip-tv.dev/images/ico/box-sportcast-live9.png" , BOX SportCast Live 9 HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4235/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="MMA Junkie" tvg-logo="https://ip-tv.dev/images/ico/MMAJunkie.png" , MMA Junkie
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5718/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Dubai Sports" tvg-logo="https://ip-tv.dev/images/ico/dubaisports.png" , Dubai Sports
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5405/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Dubai Sports 2" tvg-logo="https://ip-tv.dev/images/ico/dubaisports2.png" , Dubai Sports 2
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5406/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Dubai Sports 3" tvg-logo="https://ip-tv.dev/images/ico/dubaisports3.png" , Dubai Sports 3
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5407/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Dubai Racing" tvg-logo="https://ip-tv.dev/images/ico/tv-dubai-racing-tv.png" , Dubai Racing
+#EXTGRP:Спорт
+http://de.seetv.cc/play/5408/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xclarity4k-edinoborstva" tvg-name="Clarity4K Единоборства" tvg-logo="https://ip-tv.dev/images/ico/clarity4k-edinoborstva.png" , Clarity4K Единоборства
+#EXTGRP:Спорт
+http://de.seetv.cc/play/4611/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xrussian-extreme-uhd" tvg-name="Russian Extreme Ultra HD" tvg-logo="https://ip-tv.dev/images/ico/russian-extreme-uhd.png" , Russian Extreme Ultra HD
+#EXTGRP:Спорт
+http://de.seetv.cc/play/503/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xbelarus5" tvg-name="Беларусь 5" tvg-logo="https://ip-tv.dev/epg/icon/belarus5.png" , Беларусь 5
+#EXTGRP:BY
+http://de.seetv.cc/play/1467/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsport1-lt" tvg-name="Sport 1" tvg-logo="https://ip-tv.dev/images/ico/sport1-lt.png" , Sport 1
+#EXTGRP:LT
+http://de.seetv.cc/play/3714/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xtvplay-sports" tvg-name="TV3 Sport HD" tvg-logo="https://ip-tv.dev/images/ico/tvplay-sports.png" , TV3 Sport HD
+#EXTGRP:LT
+http://de.seetv.cc/play/6709/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xtvplay-sports-plus" tvg-name="TV3 Sport 2 HD" tvg-logo="https://ip-tv.dev/images/ico/tvplay-sports-plus.png" , TV3 Sport 2 HD
+#EXTGRP:LT
+http://de.seetv.cc/play/6710/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xtv3-sport-3" tvg-name="TV3 Sport 3 HD" tvg-logo="https://ip-tv.dev/images/ico/tv3-sport-3.png" , TV3 Sport 3 HD
+#EXTGRP:LT
+http://de.seetv.cc/play/6711/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xtv3-sport-open" tvg-name="TV3 Sport Open HD" tvg-logo="https://ip-tv.dev/images/ico/tv3-sport-open.png" , TV3 Sport Open HD
+#EXTGRP:LT
+http://de.seetv.cc/play/6712/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsky-sport-hd1" tvg-name="Sky Sport 1 HD DE" tvg-logo="https://ip-tv.dev/images/ico/sky-sport-hd1.png"  tvg-rec="5" timeshift="5", Sky Sport 1 HD DE
+#EXTGRP:DE
+http://de.seetv.cc/play/833/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsky-sport-hd2" tvg-name="Sky Sport 2 HD DE" tvg-logo="https://ip-tv.dev/images/ico/sky-sport-hd1.png"  tvg-rec="5" timeshift="5", Sky Sport 2 HD DE
+#EXTGRP:DE
+http://de.seetv.cc/play/834/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsky-sport-bl1" tvg-name="Sky Sport Bundesliga 1 HD DE" tvg-logo="https://ip-tv.dev/images/ico/sky-sport-bl1.png"  tvg-rec="5" timeshift="5", Sky Sport Bundesliga 1 HD DE
+#EXTGRP:DE
+http://de.seetv.cc/play/836/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsky-sport-aus" tvg-name="Sky Sport Austria HD DE" tvg-logo="https://ip-tv.dev/images/ico/sky-sport-aus.png"  tvg-rec="5" timeshift="5", Sky Sport Austria HD DE
+#EXTGRP:DE
+http://de.seetv.cc/play/5129/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsky-sports-golf" tvg-name="Sky Sport Golf HD" tvg-logo="https://ip-tv.dev/images/ico/sky-sports-golf.png" , Sky Sport Golf HD
+#EXTGRP:DE
+http://de.seetv.cc/play/924/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sky Sport Tennis HD", Sky Sport Tennis HD
+#EXTGRP:DE
+http://de.seetv.cc/play/916/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsky-sports-f1" tvg-name="Sky Sports F1 HD" tvg-logo="https://ip-tv.dev/images/ico/sky-sports-f1.png" , Sky Sports F1 HD
+#EXTGRP:DE
+http://de.seetv.cc/play/9923/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="818" tvg-name="Sport 1 HD DE" tvg-rec="5" timeshift="5", Sport 1 HD DE
+#EXTGRP:DE
+http://de.seetv.cc/play/818/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="One HD" tvg-logo="https://ip-tv.dev/images/ico/one1.png" , One HD
+#EXTGRP:IL
+http://de.seetv.cc/play/1506/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="One 2 HD" tvg-logo="https://ip-tv.dev/images/ico/one1.png" , One 2 HD
+#EXTGRP:IL
+http://de.seetv.cc/play/6915/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sport 1 HD" tvg-logo="https://ip-tv.dev/images/ico/sport1.png" , Sport 1 HD
+#EXTGRP:IL
+http://de.seetv.cc/play/1522/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sport  2 HD" tvg-logo="https://ip-tv.dev/images/ico/sport2.png" , Sport  2 HD
+#EXTGRP:IL
+http://de.seetv.cc/play/1521/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sport 3 HD" tvg-logo="https://ip-tv.dev/images/ico/sport3.png" , Sport 3 HD
+#EXTGRP:IL
+http://de.seetv.cc/play/1565/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sport 4 HD" tvg-logo="https://ip-tv.dev/images/ico/sport4.png" , Sport 4 HD
+#EXTGRP:IL
+http://de.seetv.cc/play/1566/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sport 5 HD" tvg-logo="https://ip-tv.dev/images/ico/sport5.png" , Sport 5 HD
+#EXTGRP:IL
+http://de.seetv.cc/play/1507/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sport 5 Stars HD" tvg-logo="https://ip-tv.dev/images/ico/sport5stars.png" , Sport 5 Stars HD
+#EXTGRP:IL
+http://de.seetv.cc/play/6916/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sport  5 Plus HD" tvg-logo="https://ip-tv.dev/images/ico/sport5plus.png" , Sport  5 Plus HD
+#EXTGRP:IL
+http://de.seetv.cc/play/6924/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sport 5 Live HD" tvg-logo="https://ip-tv.dev/images/ico/sport5live.png" , Sport 5 Live HD
+#EXTGRP:IL
+http://de.seetv.cc/play/1531/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xsportklub-pl" tvg-name="Sport Klub PL" tvg-logo="https://ip-tv.dev/images/ico/sportklub-pl.png" , Sport Klub PL
+#EXTGRP:PL
+http://de.seetv.cc/play/1925/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xtvp-sport" tvg-name="TVP Sport HD" tvg-logo="https://ip-tv.dev/images/ico/tvp-sport.png" , TVP Sport HD
+#EXTGRP:PL
+http://de.seetv.cc/play/1910/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xfightklub-pl" tvg-name="Fightklub HD PL" tvg-logo="https://ip-tv.dev/images/ico/fightklub.png" , Fightklub HD PL
+#EXTGRP:PL
+http://de.seetv.cc/play/1905/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xeleven-sports-1" tvg-name="Eleven Sports 1 HD" tvg-logo="https://ip-tv.dev/images/ico/eleven-sports-1.png" , Eleven Sports 1 HD
+#EXTGRP:PL
+http://de.seetv.cc/play/1904/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xeleven-sports-2" tvg-name="Eleven Sports 2 HD" tvg-logo="https://ip-tv.dev/images/ico/eleven-sports-2.png" , Eleven Sports 2 HD
+#EXTGRP:PL
+http://de.seetv.cc/play/1903/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xeleven-sports-3" tvg-name="Eleven Sports 3 HD" tvg-logo="https://ip-tv.dev/images/ico/eleven-sports-3.png" , Eleven Sports 3 HD
+#EXTGRP:PL
+http://de.seetv.cc/play/5445/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xcanal-pl-sport-1" tvg-name="CANAL+ Sport 1 HD PL" tvg-logo="https://ip-tv.dev/images/ico/canal-pl-sport.png" , CANAL+ Sport 1 HD PL
+#EXTGRP:PL
+http://de.seetv.cc/play/5460/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xcanal-pl-sport-2" tvg-name="CANAL+ Sport 2 HD PL" tvg-logo="https://ip-tv.dev/epg/icon/canal-pl-sport-2.png" , CANAL+ Sport 2 HD PL
+#EXTGRP:PL
+http://de.seetv.cc/play/5461/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xcanal-pl-sport-5" tvg-name="CANAL+ Sport 5 HD PL" tvg-logo="https://ip-tv.dev/images/ico/canal-pl-sport-5.png" , CANAL+ Sport 5 HD PL
+#EXTGRP:PL
+http://de.seetv.cc/play/5464/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xeurosport1-pl" tvg-name="Eurosport 1 HD PL" tvg-logo="https://ip-tv.dev/images/ico/eurosport1pl.png" , Eurosport 1 HD PL
+#EXTGRP:PL
+http://de.seetv.cc/play/5453/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xeurosport2-pl" tvg-name="Eurosport 2 HD PL" tvg-logo="https://ip-tv.dev/images/ico/eurosport2pl.png" , Eurosport 2 HD PL
+#EXTGRP:PL
+http://de.seetv.cc/play/5454/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xfightbox-hd" tvg-name="FightBox HD" tvg-logo="https://ip-tv.dev/images/ico/fightbox-hd.png" , FightBox HD
+#EXTGRP:PL
+http://de.seetv.cc/play/5467/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xmotowizja-pl" tvg-name="Motowizija" tvg-logo="https://ip-tv.dev/images/ico/Motowizija.png" , Motowizija
+#EXTGRP:PL
+http://de.seetv.cc/play/5468/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xextreme-sports" tvg-name="Extreme Sport" tvg-logo="https://ip-tv.dev/images/ico/extreme-sports.png" , Extreme Sport
+#EXTGRP:PL
+http://de.seetv.cc/play/5469/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xpolsat-sport-news" tvg-name="Polsat Sport News" tvg-logo="https://ip-tv.dev/images/ico/polsat-sport-news.png" , Polsat Sport News
+#EXTGRP:PL
+http://de.seetv.cc/play/5455/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xpolsat-sport" tvg-name="Polsat Sport" tvg-logo="https://ip-tv.dev/images/ico/polsat-sport.png" , Polsat Sport
+#EXTGRP:PL
+http://de.seetv.cc/play/5456/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xpolsat-sport-extra" tvg-name="Polsat Sport Extra" tvg-logo="https://ip-tv.dev/images/ico/polsat-sport-extra.png" , Polsat Sport Extra
+#EXTGRP:PL
+http://de.seetv.cc/play/5457/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xpolsat-sport-pr1" tvg-name="Polsat Sport Premium 1 HD" tvg-logo="https://ip-tv.dev/images/ico/polsat-sport-pr1.png" , Polsat Sport Premium 1 HD
+#EXTGRP:PL
+http://de.seetv.cc/play/5447/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-id="Xpolsat-sport-pr2" tvg-name="Polsat Sport Premium 2 HD" tvg-logo="https://ip-tv.dev/images/ico/polsat-sport-pr2.png" , Polsat Sport Premium 2 HD
+#EXTGRP:PL
+http://de.seetv.cc/play/5448/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sportsnet 360", Sportsnet 360
+#EXTGRP:CA
+http://de.seetv.cc/play/1601/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sportsnet One", Sportsnet One
+#EXTGRP:CA
+http://de.seetv.cc/play/1600/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sportsnet Ontario", Sportsnet Ontario
+#EXTGRP:CA
+http://de.seetv.cc/play/1602/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sportsnet Pacific", Sportsnet Pacific
+#EXTGRP:CA
+http://de.seetv.cc/play/1603/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sportsnet West", Sportsnet West
+#EXTGRP:CA
+http://de.seetv.cc/play/1604/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sportsnet World", Sportsnet World
+#EXTGRP:CA
+http://de.seetv.cc/play/1605/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="WWE Network", WWE Network
+#EXTGRP:CA
+http://de.seetv.cc/play/1606/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Nova Sport" tvg-logo="https://ip-tv.dev/images/ico/novasport.png" , Nova Sport
+#EXTGRP:BG
+http://de.seetv.cc/play/6827/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Ring" tvg-logo="https://ip-tv.dev/images/ico/ring.png" , Ring
+#EXTGRP:BG
+http://de.seetv.cc/play/6828/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="БНТ3" tvg-logo="https://ip-tv.dev/images/ico/bnt3.png" , БНТ3
+#EXTGRP:BG
+http://de.seetv.cc/play/6825/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Diema Sport" tvg-logo="https://ip-tv.dev/images/ico/diema.png" , Diema Sport
+#EXTGRP:BG
+http://de.seetv.cc/play/6830/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Diema Sport 2" tvg-logo="https://ip-tv.dev/images/ico/diema2.png" , Diema Sport 2
+#EXTGRP:BG
+http://de.seetv.cc/play/6831/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Diema Sport 3" tvg-logo="https://ip-tv.dev/images/ico/diema3.png" , Diema Sport 3
+#EXTGRP:BG
+http://de.seetv.cc/play/6832/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Max Sport 1 HD" tvg-logo="https://ip-tv.dev/images/ico/max1.png" , Max Sport 1 HD
+#EXTGRP:BG
+http://de.seetv.cc/play/6875/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Max Sport 2 HD" tvg-logo="https://ip-tv.dev/images/ico/max2.png" , Max Sport 2 HD
+#EXTGRP:BG
+http://de.seetv.cc/play/6876/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Max Sport 3 HD" tvg-logo="https://ip-tv.dev/images/ico/max3.png" , Max Sport 3 HD
+#EXTGRP:BG
+http://de.seetv.cc/play/6877/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Max Sport 4 HD" tvg-logo="https://ip-tv.dev/images/ico/max4.png" , Max Sport 4 HD
+#EXTGRP:BG
+http://de.seetv.cc/play/6878/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Digi sport 1 HD", Digi sport 1 HD
+#EXTGRP:RO
+http://de.seetv.cc/play/11068/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Digi sport 2 HD", Digi sport 2 HD
+#EXTGRP:RO
+http://de.seetv.cc/play/11069/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Digi sport 3", Digi sport 3
+#EXTGRP:RO
+http://de.seetv.cc/play/11070/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Digi sport 4", Digi sport 4
+#EXTGRP:RO
+http://de.seetv.cc/play/11071/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Digi24", Digi24
+#EXTGRP:RO
+http://de.seetv.cc/play/11072/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Eurosport 2", Eurosport 2
+#EXTGRP:RO
+http://de.seetv.cc/play/11081/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Eurosport 2 HD", Eurosport 2 HD
+#EXTGRP:RO
+http://de.seetv.cc/play/11082/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Sport Extra HD", Sport Extra HD
+#EXTGRP:RO
+http://de.seetv.cc/play/11158/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Extreme Sports", Extreme Sports
+#EXTGRP:RO
+http://de.seetv.cc/play/11165/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="EPT 1", EPT 1
+#EXTGRP:GR
+http://de.seetv.cc/play/5901/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Auto Motor Sport HU", Auto Motor Sport HU
+#EXTGRP:HU
+http://de.seetv.cc/play/796/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="MATCH4 HD HU", MATCH4 HD HU
+#EXTGRP:HU
+http://de.seetv.cc/play/879/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Eurosport HU", Eurosport HU
+#EXTGRP:HU
+http://de.seetv.cc/play/882/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Eurosport 2 HU", Eurosport 2 HU
+#EXTGRP:HU
+http://de.seetv.cc/play/883/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="M4 Sport HU", M4 Sport HU
+#EXTGRP:HU
+http://de.seetv.cc/play/893/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="CBC Sport AZ", CBC Sport AZ
+#EXTGRP:AZ
+http://de.seetv.cc/play/434/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Idman AZ", Idman AZ
+#EXTGRP:AZ
+http://de.seetv.cc/play/439/632F375BC8243BC/video.m3u8
+#EXTINF:0 tvg-name="Варзиш ТВ", Варзиш ТВ
+#EXTGRP:AZ
+http://de.seetv.cc/play/5790/632F375BC8243BC/video.m3u8
+#EXTINF:-1 group-title="TvZaTak" tvg-logo="https://i.ibb.co/HHbqT0W/2154.png",http://t.me/TvZaTak
+http://tinyurl.com/deoTVoleg/id547/video.m3u8?secret=z9uobpke
+#EXTINF:0 group-title="TvZaTak" tvg-id=2210 tvg-logo="https://i.ibb.co/MCPX1NK/1.png",Обнова в телеграм
+http://tinyurl.com/deoTVoleg/id563/video.m3u8?secret=z9uobpke
+#EXTINF:0 group-title="TvZaTak" tvg-id=2079 tvg-logo="https://i.ibb.co/MCPX1NK/1.png",Обнова в телеграм
+http://tinyurl.com/deoTVoleg/id547/video.m3u8?secret=z9uobpke
+#EXTINF:-1 group-title="TvZaTak" tvg-logo="https://i.ibb.co/MCPX1NK/1.png",Обнова в телеграм
+http://tinyurl.com/deoTVoleg/id547/video.m3u8?secret=z9uobpke
+#EXTINF:-1 group-title="TvZaTak" tvg-logo="https://i.ibb.co/GvWH2Yf/image.png",https://t.me/TvZaTak
+http://tinyurl.com/deoTVoleg/id563/video.m3u8?secret=z9uobpke
+#EXTINF:0 group-title="TvZaTak" tvg-id=2079 tvg-logo="http://epg.it999.ru/img/2079.png",Обнова в телеграм
+http://tinyurl.com/deoTVoleg/id563/video.m3u8?secret=z9uobpke
+#EXTINF:0 group-title="TvZaTak" tvg-id=2079 tvg-logo="https://i.ibb.co/MCPX1NK/1.png",Работает @TvZaTak
+http://tinyurl.com/deoTVoleg/id547/video.m3u8?secret=z9uobpke
+#EXTINF:0 group-title="TvZaTak" tvg-id=2079 tvg-logo="https://i.ibb.co/MCPX1NK/1.png",29.07.2024
+http://tinyurl.com/deoTVoleg/id563/video.m3u8?secret=z9uobpke
+#EXT-X-ENDLIST
