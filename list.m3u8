@@ -1,29 +1,53 @@
 #EXTM3U url-tvg="https://vnepg.site/epg.xml"
 #-------------------Kênh VTV-------------------#
-#EXTINF:0 tvg-id="vtv1hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV1_logo.png",VTV1
-https://vtvgolive-vtv02.vtvdigital.vn/lOskFRiegz_yBzDQuJ-T0g/1792114163/hls/vtv/live/vtv1__vtv720p-h264/index.m3u8
-#EXTINF:0 tvg-id="vtv2hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV2_logo.png",VTV2
-https://vtvgolive-vtv02.vtvdigital.vn/3J_YnCGy1NpJ5dMHU_rLdg/1792114253/hls/vtv/live/vtv2__vtv720p-h264/index.m3u8
-#EXTINF:0 tvg-id="vtv3hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV3_logo.png",VTV3
-https://vtvgolive-vtv02.vtvdigital.vn/RoR0feJRhZg-Vr8nha4mDw/1792114315/hls/vtv/live/vtv3__vtv720p-h264/index.m3u8
-#EXTINF:0 tvg-id="vtv4hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV4_logo.png",VTV4
-https://vtvgolive-vtv02.vtvdigital.vn/19UnvFV-bVJeAuu4VRPT5Q/1792114351/hls/vtv/live/vtv4__vtv720p-h264/index.m3u8
-#EXTINF:0 tvg-id="vtv5hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV5_logo.png",VTV5
-https://vtvgolive-vtv02.vtvdigital.vn/Si_7O14GGooh0HcfDt1lEw/1792114387/hls/vtv/live/vtv5__vtv720p-h264/index.m3u8
-#EXTINF:-1 tvg-id="vtv5hdtnb" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV5tnb_logo.png", VTV5 Tây Nam Bộ
-https://vtvgolive-vtv02.vtvdigital.vn/3VBZ8rxOtaKQIVRtz-PwLg/1792114568/hls/vtv/live/vtv5tnb__vtv720p-h264/index.m3u8
-#EXTINF:-1 tvg-id="vtv5hdtn" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV5taynguyen_logo.png", VTV5 Tây Nguyên
-https://vtvgolive-vtv02.vtvdigital.vn/LdJ79JZBmTvNAKeni8yzBw/1792114641/hls/vtv/live/vtv5tn__vtv720p-h264/index.m3u8
-#EXTINF:0 tvg-id="vtv6hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV6_logo.png",VTV6
-https://live-vtv-aws.vtvdigital.vn/Mqlx6ua7ub2PUz5zcm4qpQ/1792087200/aws/vtv6_free/live/vtv6_720p/chunks.m3u8
-#EXTINF:0 tvg-id="vtv7hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV7_logo.png",VTV7
-https://vtvgolive-vtv02.vtvdigital.vn/YgFGS9uKqwZQpMJg_63smQ/1792114946/hls/vtv/live/vtv7__vtv720p-h264/index.m3u8
-#EXTINF:0 tvg-id="vtv8hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV8_logo.png",VTV8
-https://vtvgolive-vtv02.vtvdigital.vn/H2JmKuabPrqf53HGf9Mz8A/1792114979/hls/vtv/live/vtv8__vtv720p-h264/index.m3u8
-#EXTINF:0 tvg-id="vtv9hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV9_logo.png",VTV9
-https://vtvgolive-vtv02.vtvdigital.vn/d8pUc6B7Rkg8vyv9c4C9xg/1792115019/hls/vtv/live/vtv9__vtv720p-h264/index.m3u8
-#EXTINF:0 tvg-id="vtv10hd" group-title="VTV" tvg-logo="https://raw.githubusercontent.com/DinhLap96/ListTivi/main/ListTiVi/Logo/VTV10_logo.png",VTV10
-https://vtvgolive-vtv02.vtvdigital.vn/BNqFHHvAwOcCdVC9CBej0w/1792115056/hls/vtv/live/vtv10__vtv720p-h264/index.m3u8
+#EXTINF:-1 tvg-id="vtv1hd" tvg-name="VTV1 HD" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv1.png",VTV1 HD Update: 09:37⏱16/10
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.vietanhtv.top/tv360/tv360.php?id=2&expires=1792204639&token=aafe21efeec7382ae06cd3e5d15410c6
+
+#EXTINF:-1 tvg-id="vtv2hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv2.png" , VTV2 HD
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.vietanhtv.top/tv360/tv360.php?id=3&expires=1792204639&token=d8739bcf68e66b46c05b79a387b8f538
+
+#EXTINF:-1 tvg-id="vtv3hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv3.png" , VTV3 HD
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.vietanhtv.top/tv360/tv360.php?id=4&expires=1792204639&token=9b57dd6930173e419a72e8bbbcc166f0
+
+#EXTINF:-1 tvg-id="vtv4hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv4.png" , VTV4 HD
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.vietanhtv.top/tv360/tv360.php?id=108&expires=1792204639&token=e62069dfd3776605d646e1ee2df58a6e
+
+#EXTINF:-1 tvg-id="vtv5hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv5.png" , VTV5 HD
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.vietanhtv.top/tv360/tv360.php?id=110&expires=1792204639&token=5e73ef40d407c18a1c48c4021e11b536
+
+#EXTINF:-1 tvg-id="vtv6hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv6.png" , VTV6 HD
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+https://tv.vietanhtv.top/tv360/tv360.php?id=10043&expires=1792204639&token=ce3b3ba43474f06359a5fa33df3df906
+
+#EXTINF:-1 tvg-id="vtv7hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv7.png" , VTV7 HD
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.vietanhtv.top/tv360/tv360.php?id=6&expires=1792204639&token=b87027c5b243549a102a92c832385098
+
+#EXTINF:-1 tvg-id="vtv8hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv8.png" , VTV8 HD
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.vietanhtv.top/tv360/tv360.php?id=115&expires=1792204639&token=24683ca00f43c5f1f4e5a629a37fbfa4
+
+#EXTINF:-1 tvg-id="vtv9hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv9.png" , VTV9 HD
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.vietanhtv.top/tv360/tv360.php?id=8&expires=1792204639&token=fc8fc6fd3cea43407e488da5342f647c
+
+#EXTINF:-1 tvg-id="vtv10" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv10.png" , VTV10 HD
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.vietanhtv.top/tv360/tv360.php?id=98&expires=1792204639&token=6dba9cedcb29356fcb91f644160e7870
+
+#EXTINF:-1 tvg-id="vtv5hdtnb" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv5tnb.png", VTV5 HD - Tây Nam Bộ 
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.vietanhtv.top/tv360/tv360.php?id=157&expires=1792204639&token=9d2806b17820d436ce47126bf9c35660
+
+#EXTINF:-1 tvg-id="vtv5hdtn" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv5tn.png", VTV5 HD - Tây Nguyên 
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.vietanhtv.top/tv360/tv360.php?id=207&expires=1792204639&token=0dbe82c2c9770a1265da5c8de29d8828
+
 #EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/vietnamtoday.png" tvg-id="vietnamtoday" tvg-name="VietNam Today" group-title="VTV",VietNam Today
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream.adaptive.manifest_type=hls
@@ -41,13 +65,16 @@ https://vietmitv.id.vn/c.php?k=dbe430c
 #-----------------------Kênh Vĩnh Long-------------------------------#
 
 #EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/HaMaBu79/Logo_tv/refs/heads/main/THVL1.png", Vĩnh long 1
-https://es12-p3-netcdn.tv360.vn/netcdn-live/252/output/6730000-index.m3u8?wmkid=0&uid=236141047&timestamp=1792086795&token=1c5236e54d9cea617ec4905820715088
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+https://tv.vietanhtv.top/tv360/tv360.php?id=25&expires=1792204639&token=6e1b996d18ebeabf20682246413c5d0f
 
 #EXTINF:-1 tvg-id="THVL2" group-title="Vĩnh Long" tvg-logo="https://freem3u.xyz/static/images/diaphuong/vinhlong2.png",Vĩnh Long 2
-https://vips-livecdn.fptplay.net/live/media/vinhlong2/live247-hls-avc/vinhlong2-avc1_5600000=10000-mp4a_140800_vie=20000.m3u8?sign=1792063644-NDg5NDI0OQ-0-29f0ebf88978075933b9092ed64c301a
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+https://tv.vietanhtv.top/tv360/tv360.php?id=26&expires=1792204639&token=8b5cbcbf2c6d0a00122c9734379eb8bb
 
 #EXTINF:-1 tvg-logo="https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/THVL3.webp", Vĩnh Long 3
-https://live-a.fptplay53.net/live/media/vinhlong3/live247-hls-avc/vinhlong3-avc1_5600000=10000-mp4a_140800_vie=20000.m3u8?sign=1792063533-NDg5NDI0OQ-0-3e403bec384fed932a9d31b9d0002ae8
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+https://tv.vietanhtv.top/tv360/tv360.php?id=219&expires=1792204639&token=ba7b2643a0e7ccbec02da46ebda86fb3
 
 #EXTINF:-1 tvg-id="THVL4" group-title="Vĩnh Long" tvg-logo="https://freem3u.xyz/static/images/diaphuong/vinhlong4.png",Vĩnh Long 4
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
