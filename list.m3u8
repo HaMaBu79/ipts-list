@@ -1319,33 +1319,6 @@ https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/index.m3u8
 #KODIPROP:inputstream.adaptive.license_key=b6908629732639ada4814a6208296d9c:7ca9bf03623f77b5e2f16df0b53f274d
 https://s129135.cdn.mytvnet.vn/pkg20/live_dzones/tlc.smil/manifest.mpd
 
-
-
-
-#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv12.webp" tvg-id="enc-cctv12" tvg-name="CCTV12" group-title="🇨🇳| Trung Quốc",CCTV12
-#KODIPROP:inputstream.adaptive.manifest_type=hls
-https://vietmitv.id.vn/c.php?k=e49e932
-
-#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv13.webp" tvg-id="enc-cctv13" tvg-name="CCTV13" group-title="🇨🇳| Trung Quốc",CCTV13
-#KODIPROP:inputstream.adaptive.manifest_type=hls
-https://vietmitv.id.vn/c.php?k=2e5409a
-
-#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv14.webp" tvg-id="enc-cctv14" tvg-name="CCTV14" group-title="🇨🇳| Trung Quốc",CCTV14
-#KODIPROP:inputstream.adaptive.manifest_type=hls
-https://vietmitv.id.vn/c.php?k=94d1bf4
-
-#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv15.png" tvg-id="enc-cctv15" tvg-name="CCTV15" group-title="🇨🇳| Trung Quốc",CCTV15
-#KODIPROP:inputstream.adaptive.manifest_type=hls
-https://vietmitv.id.vn/c.php?k=849531d
-
-#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv16.webp" tvg-id="enc-cctv16" tvg-name="CCTV16" group-title="🇨🇳| Trung Quốc",CCTV16
-#KODIPROP:inputstream.adaptive.manifest_type=hls
-https://vietmitv.id.vn/c.php?k=14c5975
-
-#EXTINF:-1 tvg-logo="https://vietmitv.id.vn/logos/20261005/enc-cctv17.png" tvg-id="enc-cctv17" tvg-name="CCTV17" group-title="🇨🇳| Trung Quốc",CCTV17
-#KODIPROP:inputstream.adaptive.manifest_type=hls
-https://vietmitv.id.vn/c.php?k=62ef208
-
 #EXTINF:-1 tvg-id="tv360phimviet" group-title="Rạp Phim" tvg-logo="https://img-ali1.tv360.vn/image1/2025/12/31/18/1767180734794/7cda83f18b5d_640_360.png", Phim Việt
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 https://tv.vietanhtv.top/tv360/tv360.php?id=9902&expires=1792543754&token=3677fd83cc3de9f55955c86e9e58ad80
