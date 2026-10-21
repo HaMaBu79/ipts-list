@@ -30,6 +30,13 @@ except Exception:                  # Python < 3.9 fallback
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
+# Dam bao in duoc tieng Viet tren Windows console (cp1252)
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
+
 from playlist import parse_playlist, write_playlist, index_by  # noqa: E402
 
 CONFIG = os.path.join(HERE, "source.json")
@@ -310,63 +317,52 @@ def _src_id(url):
 
 
 # ------------------------------------------------------------------ chay
-def main():
-    apply_mode = "--apply" in sys.argv
-    only = None
-    if "--only" in sys.argv:
-        only = sys.argv[sys.argv.index("--only") + 1].lower()
-    no_verify = "--no-verify" in sys.argv
+def sync_one(cfg, pl_name, apply_mode, only, verify, timeout, cached_src=None):
+    """Dong bo MOT file playlist dich. Tra ve (status_code, so_dong_doi).
 
-    print("=" * 68)
-    print("  DONG BO URL TU PLAYLIST NGUON   |   che do: %s"
-          % ("GHI THAT" if apply_mode else "DRY-RUN (khong ghi)"))
-    print("=" * 68)
-
-    try:
-        with io.open(CONFIG, encoding="utf-8") as f:
-            cfg = json.load(f)
-    except Exception as e:
-        print("DUNG: khong doc duoc %s (%s). Giu nguyen playlist." % (CONFIG, e))
-        return 2
-
+    Neu cached_src duoc truyen vao, KHONG tai nguon lai (dung de chay nhieu file).
+    """
     src_url = (cfg.get("source_url") or "").strip()
-    pl_name = (cfg.get("playlist_file") or "list.m3u8").strip()
     groups = set(cfg.get("groups") or [])
-    verify = cfg.get("verify", True) and not no_verify
-    timeout = int(cfg.get("timeout") or 25)
 
-    if not src_url:
-        print("DUNG: thieu source_url trong source.json.")
-        return 2
+    print("\n" + "#" * 68)
+    print("# PLAYLIST DICH: %s" % pl_name)
+    print("#" * 68)
+
     if not groups:
         print("DUNG: danh sach groups trong source.json rong.")
-        return 2
+        return 2, 0
 
     playlist = os.path.join(HERE, pl_name)
     if not os.path.exists(playlist):
         print("DUNG: khong tim thay %s" % playlist)
-        return 2
+        return 2, 0
 
-    # ---- tai playlist nguon
-    print("\n[1] Tai playlist nguon")
-    print("    %s" % short(src_url, 90))
-    try:
-        text = fetch_text(src_url, timeout=timeout + 15)
-    except urllib.error.HTTPError as e:
-        print("    -> HTTP %s. KHONG doi URL. Giu nguyen playlist." % e.code)
-        save_report(src_url, [], [], [("nguon", "HTTP %s" % e.code)], 2)
-        return 2
-    except Exception as e:
-        print("    -> loi (%s). KHONG doi URL. Giu nguyen playlist." % type(e).__name__)
-        save_report(src_url, [], [], [("nguon", type(e).__name__)], 2)
-        return 2
+    # ---- tai playlist nguon (hoac dung cache)
+    if cached_src is not None:
+        src_entries = cached_src
+        print("\n[1] Dung playlist nguon (cached)")
+        print("    %d muc" % len(src_entries))
+    else:
+        print("\n[1] Tai playlist nguon")
+        print("    %s" % short(src_url, 90))
+        try:
+            text = fetch_text(src_url, timeout=timeout + 15)
+        except urllib.error.HTTPError as e:
+            print("    -> HTTP %s. KHONG doi URL. Giu nguyen playlist." % e.code)
+            save_report(pl_name, src_url, [], [], [("nguon", "HTTP %s" % e.code)], 2)
+            return 2, 0
+        except Exception as e:
+            print("    -> loi (%s). KHONG doi URL. Giu nguyen playlist." % type(e).__name__)
+            save_report(pl_name, src_url, [], [], [("nguon", type(e).__name__)], 2)
+            return 2, 0
 
-    src_entries = parse_text_playlist(text)
-    if not src_entries:
-        print("    -> khong doc duoc muc nao tu nguon. KHONG doi URL.")
-        save_report(src_url, [], [], [("nguon", "khong co muc")], 2)
-        return 2
-    print("    -> %d muc" % len(src_entries))
+        src_entries = parse_text_playlist(text)
+        if not src_entries:
+            print("    -> khong doc duoc muc nao tu nguon. KHONG doi URL.")
+            save_report(pl_name, src_url, [], [], [("nguon", "khong co muc")], 2)
+            return 2, 0
+        print("    -> %d muc" % len(src_entries))
 
     # ---- doc playlist dich
     print("\n[2] Doc playlist dich")
@@ -385,8 +381,8 @@ def main():
         print("    loc '--only %s': %d muc" % (only, len(targets)))
     if not targets:
         print("\nKhong co muc nao de xu ly. KHONG ghi file.")
-        save_report(src_url, [], [], [], 0)
-        return 0
+        save_report(pl_name, src_url, [], [], [], 0)
+        return 0, 0
 
     # ---- so sanh + thay
     print("\n[4] So sanh URL")
@@ -430,14 +426,14 @@ def main():
 
     if not updated:
         print("\nKhong co thay doi nao. KHONG ghi file.")
-        save_report(src_url, updated, kept, errors, 0)
-        return 0
+        save_report(pl_name, src_url, updated, kept, errors, 0)
+        return 0, 0
 
     if not apply_mode:
         print("\nDRY-RUN: se ghi %d dong URL vao %s" % (len(url_map), pl_name))
         print("Chay 'python sync.py --apply' de ghi that.")
-        save_report(src_url, updated, kept, errors, 0)
-        return 0
+        save_report(pl_name, src_url, updated, kept, errors, 0)
+        return 0, len(url_map)
 
     # ---- ghi file tam -> kiem tra -> moi the
     tmp = playlist + ".tmp"
@@ -471,9 +467,9 @@ def main():
         for p in problems:
             print("   - " + p)
         print("Giu nguyen file goc.")
-        save_report(src_url, updated, kept,
+        save_report(pl_name, src_url, updated, kept,
                     errors + [("kiem tra file", "; ".join(problems))], 1)
-        return 1
+        return 1, 0
 
     os.replace(tmp, playlist)
 
@@ -481,12 +477,16 @@ def main():
     action, cnt = stamp_update(playlist)
     print("\nDa ghi %d dong vao %s" % (n, pl_name))
     print("Dong #UPDATE: %s (%d lan)" % (action, cnt))
-    save_report(src_url, updated, kept, errors, 0)
-    return 0
+    save_report(pl_name, src_url, updated, kept, errors, 0)
+    return 0, n
 
 
-def save_report(src_url, updated, kept, errors, status):
+REPORTS_DIR = os.path.join(HERE, "reports")
+
+
+def save_report(pl_name, src_url, updated, kept, errors, status):
     data = {
+        "playlist": pl_name,
         "status": status,
         "source": short(src_url, 90),
         "checked_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
@@ -495,9 +495,91 @@ def save_report(src_url, updated, kept, errors, status):
         "kept": [{"channel": c, "reason": r} for c, r in kept],
         "errors": [{"channel": c, "error": e} for c, e in errors],
     }
-    with io.open(REPORT, "w", encoding="utf-8") as f:
+    # bao cao rieng cho tung playlist + bao cao tong
+    if not os.path.isdir(REPORTS_DIR):
+        os.makedirs(REPORTS_DIR)
+    safe = re.sub(r"[^A-Za-z0-9._-]", "_", pl_name)
+    with io.open(os.path.join(REPORTS_DIR, safe + ".json"),
+                 "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-    print("\nBao cao: %s" % os.path.basename(REPORT))
+    print("\nBao cao: reports/%s.json" % safe)
+
+
+def main():
+    apply_mode = "--apply" in sys.argv
+    only = None
+    if "--only" in sys.argv:
+        only = sys.argv[sys.argv.index("--only") + 1].lower()
+    no_verify = "--no-verify" in sys.argv
+
+    print("=" * 68)
+    print("  DONG BO URL TU PLAYLIST NGUON   |   che do: %s"
+          % ("GHI THAT" if apply_mode else "DRY-RUN (khong ghi)"))
+    print("=" * 68)
+
+    try:
+        with io.open(CONFIG, encoding="utf-8") as f:
+            cfg = json.load(f)
+    except Exception as e:
+        print("DUNG: khong doc duoc %s (%s)." % (CONFIG, e))
+        return 2
+
+    src_url = (cfg.get("source_url") or "").strip()
+    if not src_url:
+        print("DUNG: thieu source_url trong source.json.")
+        return 2
+
+    verify = cfg.get("verify", True) and not no_verify
+    timeout = int(cfg.get("timeout") or 25)
+
+    # danh sach file dich: hoac "playlist_file", hoac "playlist_files"
+    names = cfg.get("playlist_files")
+    if not names:
+        names = [cfg.get("playlist_file") or "list.m3u8"]
+    names = [n.strip() for n in names if n and n.strip()]
+    seen, targets_files = set(), []
+    for n in names:
+        if n.lower() not in seen:
+            seen.add(n.lower())
+            targets_files.append(n)
+
+    print("\nSe dong bo %d file: %s"
+          % (len(targets_files), ", ".join(targets_files)))
+
+    # Tai playlist nguon DUNG 1 LAN cho moi file (gia cac khac giong nhau)
+    print("\n" + "*" * 68)
+    print("* Tai playlist nguon (dung chung cho cac file dich)")
+    print("*  %s" % short(src_url, 90))
+    try:
+        text = fetch_text(src_url, timeout=timeout + 15)
+    except Exception as e:
+        print("*  -> loi (%s). Huy luon." % type(e).__name__)
+        return 2
+    cached_src = parse_text_playlist(text)
+    if not cached_src:
+        print("*  -> khong doc duoc muc nao. Huy luon.")
+        return 2
+    print("*  -> %d muc (cached)" % len(cached_src))
+    print("*" * 68)
+
+    worst = 0
+    total_changed = 0
+    for pl_name in targets_files:
+        st, n = sync_one(cfg, pl_name, apply_mode, only, verify, timeout,
+                         cached_src=cached_src)
+        if st > worst:
+            worst = st
+        total_changed += n
+
+    print("\n" + "=" * 68)
+    print("HOAN TAT: %d file da xu ly | %d dong URL thay doi"
+          % (len(targets_files), total_changed))
+    if apply_mode:
+        print("Da ghi file. Workflow se commit.")
+    else:
+        print("DRY-RUN: chua ghi gi. Chay voi --apply de ghi that.")
+    print("=" * 68)
+    return worst
 
 
 if __name__ == "__main__":

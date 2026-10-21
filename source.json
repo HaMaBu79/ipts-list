@@ -5,12 +5,16 @@
     "groups": "Danh sach group-title can theo doi. Kenh thuoc nhom nay moi duoc doi URL. Khac -> giu nguyen URL cu.",
     "match_by": "tvg-id la cach doi chieu chinh. 'name' chi dung khi muc khong co tvg-id.",
     "verify": "true = tai thu muc phat moi + 1 segment that truoc khi ghi. false = chi kiem tra Hinh thuc URL.",
-    "playlist_file": "Ten file playlist dich, nam cung thu muc voi chuong trinh."
+    "playlist_file": "Ten file playlist dich, nam cung thu muc voi chuong trinh.",
+    "playlist_files": "Danh sach NHIEU file playlist dich (thay the cho playlist_file). Moi file duoc xu ly lap lai y het."
   },
 
   "source_url": "https://tv.vietanhtv.top/tivi/index.php?u=nguyenduhan&p=nguyenduhan",
 
-  "playlist_file": "list.m3u8",
+  "playlist_files": [
+    "list.m3u8",
+    "Listphu.m3u8"
+  ],
 
   "groups": [
     "VTV",
@@ -23,6 +27,6 @@
   ],
 
   "match_by": ["tvg-id", "name"],
-  "verify": true,
-  "timeout": 25
+  "verify": false,
+  "timeout": 15
 }
