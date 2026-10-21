@@ -2,77 +2,175 @@ name: Dong bo URL kenh
 
 on:
   schedule:
+    # 06:00 VN = 23:00 UTC hom truoc
     - cron: "0 23 * * *"
+    # 12:00 VN = 05:00 UTC
     - cron: "0 5 * * *"
+    # 18:00 VN = 11:00 UTC
     - cron: "0 11 * * *"
   workflow_dispatch:
     inputs:
       apply:
-        description: "Ghi that vao playlist (mac dinh: chi xem thu)"
+        description: "Ghi that vao playlist. Bo tick = chi xem thu"
         required: false
-        default: "false"
+        default: "true"
         type: boolean
       no_verify:
-        description: "Bo qua kiem tra segment (nhanh hon, it an toan hon)"
+        description: "Buoc xac minh da tat san. Bat la khi can bao ve tuyet doi"
         required: false
         default: "false"
         type: boolean
       only:
-        description: "Chi xu ly 1 kenh (ten hoac tvg-id)"
+        description: "Chi xu ly 1 kenh (ten hoac tvg-id). De trong = xu ly het"
         required: false
         default: ""
 
+# QUYEN: doc repo + ghi commit
 permissions:
   contents: write
 
+# Neu co 2 lan chay chong nhau, huy ban cu. Chi giu 1 lan.
 concurrency:
   group: dong-bo-url-kenh
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   dong-bo:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
+
     steps:
+      # ---------- 1. Lay code ----------
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Cai Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Lay playlist hien tai tu nhanh
+      # ---------- 2. Backup playlist phu de rollback ----------
+      - name: Backup playlist phu
         run: |
-          curl -fsSL -o list.m3u8 \
-            "${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref_name }}/list.m3u8"
+          for f in list.m3u8 Listphu.m3u8; do
+            if [ -f "$f" ]; then
+              cp -f "$f" "$f.bak"
+              echo "Backup $f: $(wc -l < "$f") dong"
+            fi
+          done
 
+      # ---------- 3. Chay dong bo ----------
       - name: Dong bo URL
         env:
-          MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.apply || 'false' }}
+          # Chay tu dong -> ghi that. Bam tay -> theo o tick cua nguoi dung.
+          APPLY: ${{ github.event_name == 'workflow_dispatch' && inputs.apply || 'true' }}
           NOVERIFY: ${{ inputs.no_verify }}
           ONLY: ${{ inputs.only }}
         run: |
           ARGS=""
-          if [ "$MODE" = "true" ]; then ARGS="--apply"; fi
+          if [ "$APPLY" = "true" ]; then ARGS="--apply"; fi
           if [ "$NOVERIFY" = "true" ]; then ARGS="$ARGS --no-verify"; fi
           if [ -n "$ONLY" ]; then ARGS="$ARGS --only $ONLY"; fi
+          echo "Che do: $ARGS"
           python sync.py $ARGS
 
+      # ---------- 4. Bao cao ----------
       - name: Hien bao cao
         if: always()
         run: |
-          if [ -f last_report.json ]; then cat last_report.json; fi
+          if [ -d reports ]; then
+            for f in reports/*.json; do
+              echo "===== $f ====="
+              cat "$f"
+              echo ""
+            done
+          fi
 
-      - name: Commit khi co thay doi
+      # ---------- 5. Kiem tra an toan, rollback neu hong ----------
+      - name: Kiem tra an toan
+        if: always()
         run: |
-          if git diff --quiet -- list.m3u8; then
+          fail=0
+          for f in list.m3u8 Listphu.m3u8; do
+            if [ ! -f "$f.bak" ]; then continue; fi
+
+            before=$(wc -l < "$f.bak")
+            after=$(wc -l < "$f")
+
+            if [ "$before" != "$after" ]; then
+              echo "::error::$f doi so dong ($before -> $after)"
+              fail=1
+              continue
+            fi
+
+            # File phai van la M3U8 hop le
+            head -1 "$f" | grep -q "EXTM3U" || {
+              echo "::error::$f khong con dong #EXTM3U dau tien"
+              fail=1
+              continue
+            }
+
+            # Duong dan .ts cu khong duoc doi
+            if [ "$f" = "list.m3u8" ]; then
+              grep -c '^#EXTINF' "$f.bak" > /tmp/before.txt
+              grep -c '^#EXTINF' "$f"      > /tmp/after.txt
+              b=$(cat /tmp/before.txt); a=$(cat /tmp/after.txt)
+              if [ "$b" != "$a" ]; then
+                echo "::error::$f doi so muc EXTINF ($b -> $a)"
+                fail=1
+                continue
+              fi
+            fi
+
+            echo "OK: $f ($after dong, khong doi so luong)"
+          done
+
+          if [ "$fail" = "1" ]; then
+            echo ">>> PHAT HIEN HONG FILE. Khoi phuc ban goc."
+            for f in list.m3u8 Listphu.m3u8; do
+              if [ -f "$f.bak" ]; then
+                mv -f "$f.bak" "$f"
+                echo "Da khoi phuc $f"
+              fi
+            done
+            rm -f list.m3u8.tmp Listphu.m3u8.tmp
+            exit 1
+          fi
+
+      # ---------- 6. Commit ----------
+      - name: Commit thay doi
+        run: |
+          rm -f list.m3u8.bak Listphu.m3u8.bak
+          rm -f list.m3u8.tmp Listphu.m3u8.tmp
+
+          if git diff --quiet -- list.m3u8 Listphu.m3u8; then
             echo "Khong co thay doi. Khong tao commit."
             exit 0
           fi
+
+          # Khong commit file rong
+          if [ ! -s list.m3u8 ] || [ ! -s Listphu.m3u8 ]; then
+            echo "::error::Mot trong hai playlist bi rong. Bo qua commit."
+            exit 1
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add list.m3u8
-          git commit -m "chore: dong bo URL kenh ($(date -u +%Y-%m-%dT%H:%MZ))"
-          git pull --rebase --autostash origin "${{ github.ref_name }}"
-          git push origin "${{ github.ref_name }}"
+          git add list.m3u8 Listphu.m3u8
+          git commit -m "chore: dong bo URL (${{ github.run_number }}) $(date -u +%Y-%m-%dT%H:%MZ)"
+
+          for i in 1 2 3; do
+            if git pull --rebase --autostash origin "${{ github.ref_name }}"; then
+              if git push origin "${{ github.ref_name }}"; then
+                echo "Da push."
+                exit 0
+              fi
+            fi
+            echo "Push that bai, thu lai lan $i..."
+            sleep 5
+          done
+
+          echo "::error::Khong push duoc sau 3 lan thu."
+          exit 1
