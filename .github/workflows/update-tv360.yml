@@ -2,12 +2,8 @@ name: Dong bo URL kenh
 
 on:
   schedule:
-    # 06:00 VN = 23:00 UTC hom truoc
-    - cron: "0 23 * * *"
-    # 12:00 VN = 05:00 UTC
-    - cron: "0 5 * * *"
-    # 18:00 VN = 11:00 UTC
-    - cron: "0 11 * * *"
+    schedule:
+  - cron: "17 */6 * * *"
   workflow_dispatch:
     inputs:
       apply:
