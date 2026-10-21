@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# File tam / ban sao - KHONG push
+*.tmp
+*.bak
+_source.m3u8
+
+# Phien dang nhap - KHONG push
+.tv360_session/
+
+# Bao cao chay (sinh moi moi lan)
+last_report.json
