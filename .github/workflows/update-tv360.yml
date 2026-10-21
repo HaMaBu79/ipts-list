@@ -2,7 +2,6 @@ name: Dong bo URL kenh
 
 on:
   schedule:
-    schedule:
   - cron: "17 */6 * * *"
   workflow_dispatch:
     inputs:
