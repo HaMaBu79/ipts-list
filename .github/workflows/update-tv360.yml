@@ -1,0 +1,78 @@
+name: Dong bo URL kenh
+
+on:
+  schedule:
+    - cron: "0 23 * * *"
+    - cron: "0 5 * * *"
+    - cron: "0 11 * * *"
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "Ghi that vao playlist (mac dinh: chi xem thu)"
+        required: false
+        default: "false"
+        type: boolean
+      no_verify:
+        description: "Bo qua kiem tra segment (nhanh hon, it an toan hon)"
+        required: false
+        default: "false"
+        type: boolean
+      only:
+        description: "Chi xu ly 1 kenh (ten hoac tvg-id)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dong-bo-url-kenh
+  cancel-in-progress: false
+
+jobs:
+  dong-bo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cai Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Lay playlist hien tai tu nhanh
+        run: |
+          curl -fsSL -o list.m3u8 \
+            "${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref_name }}/list.m3u8"
+
+      - name: Dong bo URL
+        env:
+          MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.apply || 'false' }}
+          NOVERIFY: ${{ inputs.no_verify }}
+          ONLY: ${{ inputs.only }}
+        run: |
+          ARGS=""
+          if [ "$MODE" = "true" ]; then ARGS="--apply"; fi
+          if [ "$NOVERIFY" = "true" ]; then ARGS="$ARGS --no-verify"; fi
+          if [ -n "$ONLY" ]; then ARGS="$ARGS --only $ONLY"; fi
+          python sync.py $ARGS
+
+      - name: Hien bao cao
+        if: always()
+        run: |
+          if [ -f last_report.json ]; then cat last_report.json; fi
+
+      - name: Commit khi co thay doi
+        run: |
+          if git diff --quiet -- list.m3u8; then
+            echo "Khong co thay doi. Khong tao commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add list.m3u8
+          git commit -m "chore: dong bo URL kenh ($(date -u +%Y-%m-%dT%H:%MZ))"
+          git pull --rebase --autostash origin "${{ github.ref_name }}"
+          git push origin "${{ github.ref_name }}"
