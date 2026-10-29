@@ -167,6 +167,10 @@ class Tv360Client:
         self.msisdn = st.get("msisdn") or ""
         self.account_id = st.get("account_id") or ""
         self.expires_at = st.get("expires_at") or 0
+        # Token co han nhung file state khong luu expires_at (vd secrets
+        # GitHub Actions) -> tu parse 'exp' tu JWT.
+        if self.access_token and not self.expires_at:
+            self.expires_at = self._jwt_exp(self.access_token) or 0
         self._device_id = st.get("device_id") or ""
         self._session_id = st.get("session_id") or ""
         self._signed_device = st.get("signed_device") or ""
@@ -558,10 +562,22 @@ class Tv360Client:
         """Dam bao co access-token con hieu luc.
 
         Thu tu: refresh-token -> auto-login (khong can SMS) -> that bai.
+
+        LUU Y: `recover()` co the goi auto-login (cho OTP) -> treo lau.
+        Khi chay dong bo (cron/CI) phai tranh treo: bo qua auto-login,
+        chi thu refresh-token. Pass-through len `allow_login=False`.
         """
+        return self.ensure_token_safe(allow_login=True)
+
+    def ensure_token_safe(self, allow_login=True) -> bool:
+        """Giong ensure_token nhung co the bo qua buoc auto-login (cho OTP)."""
         if self.access_token and self.expires_at - int(time.time()) > 300:
             return True
-        r = self.recover()
+        if self.refresh():
+            return True
+        if not allow_login:
+            return False
+        r = self.auto_login()
         return bool(r.get("ok"))
 
     def get_stream(self, channel_id, timeout=25):
