@@ -23,7 +23,7 @@ import time
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
-from tv360_client import client  # noqa: E402
+from tv360_client import client, anon_client  # noqa: E402
 
 # ------------------------------------------------------------------ config
 CONFIG_PATH = os.path.join(HERE, "tv360_sync.json")
@@ -246,6 +246,7 @@ def match_channel(entry, idx):
 # ------------------------------------------------------------------ main
 def build(cfg, dry=False):
     c = client()
+    anon = anon_client()
     catalog = c.catalog()
     if not catalog:
         print("!! khong lay duoc danh muc kenh tu TV360")
@@ -263,16 +264,19 @@ def build(cfg, dry=False):
 
     def fetch(ch):
         cid = str(ch["id"])
-        url, err = c.get_stream(cid)
+        # Client 'khach' (device rieng, khong gui access-token): lay duoc
+        # 123/179 kenh free. Client da dang nhap se bi server ap goi thue
+        # bao -> chan ca kenh free.
+        url, err = anon.get_stream(cid)
         needlogin = False
         if not url:
             s = str(err)
             if "ăng nhập" in s or "D-164" in s or "401" in s:
                 needlogin = True
-                if only_free and ch.get("need_login"):
-                    return cid, None, err, needlogin
-                c.ensure_token()
-                url, err = c.get_stream(cid)
+                # Kenh can goi thue bao -> thu voi client da dang nhap.
+                if not only_free or not ch.get("need_login"):
+                    c.ensure_token()
+                    url, err = c.get_stream(cid)
         return cid, url, err, needlogin
 
     from concurrent.futures import ThreadPoolExecutor

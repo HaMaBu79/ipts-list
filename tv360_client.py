@@ -81,10 +81,13 @@ class Tv360Client:
         self._lock = threading.Lock()
         self._device_id = ""
         self._session_id = ""
+        self._signed_device = ""
+        self._signed_refresh = ""
         self.access_token = ""
         self.refresh_token = ""
         self.user_id = ""
         self.msisdn = ""
+        self.account_id = ""
         self.expires_at = 0
         self._load_state()
 
@@ -155,9 +158,39 @@ class Tv360Client:
         self.refresh_token = st.get("refresh_token") or ""
         self.user_id = st.get("user_id") or ""
         self.msisdn = st.get("msisdn") or ""
+        self.account_id = st.get("account_id") or ""
         self.expires_at = st.get("expires_at") or 0
         self._device_id = st.get("device_id") or ""
         self._session_id = st.get("session_id") or ""
+        self._signed_device = st.get("signed_device") or ""
+        self._signed_refresh = st.get("signed_refresh") or ""
+        self._restore_cookies()
+
+    def _restore_cookies(self):
+        """Khoi phuc cookie jar tu state file.
+
+        API `refresh-token` yeu cau cookie phien dang nhap (device-id,
+        refresh-token, session-id) gui kem request. Khong co cookie jar
+        moi, client khong the gia han token duoc.
+        """
+        for name, val in (("device-id", self._signed_device or self._device_id),
+                          ("refresh-token", self._signed_refresh),
+                          ("session-id", self._session_id),
+                          ("access-token", self.access_token),
+                          ("user-id", self.user_id),
+                          ("msisdn", self.msisdn),
+                          ("account-id", self.account_id)):
+            if not val:
+                continue
+            ck = http.cookiejar.Cookie(
+                version=0, name=name, value=val, port=None, port_specified=False,
+                domain="tv360.vn", domain_specified=True, domain_initial_dot=False,
+                path="/", path_specified=True, secure=False, expires=None,
+                discard=True, comment=None, comment_url=None, rest={})
+            try:
+                self.jar.set_cookie(ck)
+            except Exception:
+                pass
 
     def _save_state(self):
         data = {
@@ -165,9 +198,12 @@ class Tv360Client:
             "refresh_token": self.refresh_token,
             "user_id": self.user_id,
             "msisdn": self.msisdn,
+            "account_id": self.account_id,
             "expires_at": self.expires_at,
             "device_id": self._device_id,
             "session_id": self._session_id,
+            "signed_device": self._signed_device,
+            "signed_refresh": self._signed_refresh,
             "saved_at": int(time.time()),
         }
         tmp = self.state_file + ".tmp"
@@ -176,12 +212,51 @@ class Tv360Client:
         os.replace(tmp, self.state_file)
 
     def _capture_tokens(self):
-        self.access_token = self._cookie(COOKIE_ACCESS) or self.access_token
-        self.refresh_token = self._cookie(COOKIE_REFRESH) or self.refresh_token
-        self.user_id = self._cookie(COOKIE_USER) or self.user_id
-        self.msisdn = self._cookie(COOKIE_MSISDN) or self.msisdn
+        # Cookie TV360 dang `s%3A<signed>` (express-session signed) -> KHONG
+        # phai la access-token/refresh-token that. Token that nam trong body.
+        # Signed cookie `device-id` + `refresh-token` la thu API refresh-token
+        # doi voi `refresh-token` thu.
+        def tok(name):
+            v = self._cookie(name)
+            if v.startswith("s%3A") or v.startswith("s:"):
+                return ""
+            return v
+
+        self.access_token = tok(COOKIE_ACCESS) or self.access_token
+        self.refresh_token = tok(COOKIE_REFRESH) or self.refresh_token
+        # `user-id` / `msisdn` cookie cung bi signed -> gia tri that chi lay
+        # tu body (`data.userId`, `data.msisdn`).
         self._device_id = self._cookie(COOKIE_DEVICE) or self._device_id
         self._session_id = self._cookie("session-id") or self._session_id
+        sd = self._cookie(COOKIE_DEVICE)
+        if sd:
+            self._signed_device = sd
+        sr = self._cookie(COOKIE_REFRESH)
+        if sr:
+            self._signed_refresh = sr
+
+    def _capture_body(self, j: dict) -> dict:
+        """Lay token tu body JSON (`data.accessToken` / `data.refreshToken`).
+
+        Cookie cua TV360 co dang ky `s%3A...` nen khong dung lam Bearer token.
+        Body moi chua token that.
+        """
+        d = j.get("data") or {}
+        if not isinstance(d, dict):
+            return {}
+        tok = d.get("accessToken")
+        if tok:
+            self.access_token = tok
+        rt = d.get("refreshToken")
+        if rt:
+            self.refresh_token = rt
+        if d.get("userId") is not None:
+            self.user_id = str(d.get("userId"))
+        if d.get("msisdn"):
+            self.msisdn = str(d.get("msisdn"))
+        if d.get("accountId"):
+            self.account_id = str(d.get("accountId"))
+        return d
 
     # ---------- public API ----------
     def ping(self) -> bool:
@@ -228,6 +303,7 @@ class Tv360Client:
         except Exception:
             return {"ok": False, "message": "HTTP %s" % st}
         self._capture_tokens()
+        self._capture_body(j)
         if j.get("errorCode") == 200 and self.access_token:
             self.expires_at = int(time.time()) + 3600
             self._save_state()
@@ -235,7 +311,118 @@ class Tv360Client:
                     "user_id": self.user_id,
                     "msisdn": self.msisdn,
                     "access_token": _mask(self.access_token)}
-        return {"ok": False, "message": j.get("message") or "login that bai"}
+        # 207: so dien thoai co nhieu tai khoan -> chon tai khoan
+        if j.get("errorCode") == 207:
+            sec = (j.get("data") or {}).get("secretToken")
+            users = (j.get("data") or {}).get("listUser") or []
+            if sec and users:
+                r = self.login_multi_account(sec, users)
+                if r.get("ok"):
+                    return r
+                return {"ok": False, "message": r.get("message"),
+                        "accounts": r.get("detail", [])}
+        return {"ok": False, "message": j.get("message") or "login that bai",
+                "error_code": j.get("errorCode")}
+
+    def select_login_user(self, secret_token: str, user_id: int,
+                          username: str) -> dict:
+        """Chon 1 tai khoan sau khi OTP/PASS tra ve errorCode 207.
+
+        Token that nam trong `data.accessToken` (khong phai cookie).
+        Neu tai khoan vuot gioi han thiet bi (422/H-150) server tra them
+        `data.authToken` -> dung token nay de go thiet bi cu.
+        """
+        st, raw = self._call(WEB + "/public/v1/auth/validate-login-user",
+                             {"userId": user_id, "secretToken": secret_token,
+                              "username": username}, auth=False)
+        try:
+            j = json.loads(raw)
+        except Exception:
+            return {"ok": False, "error_code": st, "message": "HTTP %s" % st}
+        d = self._capture_body(j)
+        if d.get("accessToken"):
+            self._capture_tokens()
+            exp = self._jwt_exp(self.access_token)
+            self.expires_at = exp or int(time.time()) + 3600
+            # body la nguon chinh xac cho user_id/msisdn (cookie bi signed)
+            self.user_id = str(d.get("userId") or self.user_id)
+            self.msisdn = d.get("msisdn") or self.msisdn
+            self.account_id = d.get("accountId") or self.account_id
+            self._save_state()
+            return {"ok": True, "message": j.get("message") or "Thanh cong",
+                    "user_id": self.user_id, "msisdn": self.msisdn,
+                    "access_token": _mask(self.access_token)}
+        return {"ok": False, "error_code": j.get("errorCode"),
+                "message": j.get("message") or "login that bai",
+                "auth_token": d.get("authToken")}
+
+    def list_devices(self, secret_token: str) -> list:
+        """Danh sach thiet bi da dang nhap (dung 'secretToken' cua buoc OTP)."""
+        st, raw = self._call(WEB + "/public/v1/auth/get-list-devices",
+                             {"authToken": secret_token}, auth=False)
+        try:
+            j = json.loads(raw)
+        except Exception:
+            return []
+        data = j.get("data")
+        if isinstance(data, list):
+            return data
+        if isinstance(data, dict):
+            for k in ("devices", "listDevice", "list", "items"):
+                if isinstance(data.get(k), list):
+                    return data[k]
+        return []
+
+    def remove_devices(self, secret_token: str, device_ids: list) -> dict:
+        """Dang xuat thiet bi. `deviceIds` phai la CHUOI id nối dau phay
+        (web dung `.map(x => x.id).join(",")`)."""
+        ids = ",".join(str(i) for i in device_ids)
+        st, raw = self._call(WEB + "/public/v1/auth/remove-device",
+                             {"deviceIds": ids, "authToken": secret_token},
+                             auth=False)
+        try:
+            return json.loads(raw)
+        except Exception:
+            return {"errorCode": st,
+                    "message": raw[:200].decode("utf-8", "replace")}
+
+    def login_multi_account(self, secret_token: str, users: list) -> dict:
+        """Thu chon tung tai khoan, xu ly loi gioi han thiet bi (422/H-150)."""
+        detail = []
+        for u in users:
+            uid = u.get("id")
+            uname = u.get("username")
+            r = self.select_login_user(secret_token, uid, uname)
+            if r.get("ok"):
+                return {"ok": True, "message": "Dang nhap thanh cong (%s)" % uname,
+                        "user_id": self.user_id, "msisdn": self.msisdn,
+                        "access_token": _mask(self.access_token)}
+            code = r.get("error_code")
+            detail.append({"username": uname, "code": code,
+                           "message": r.get("message") or ""})
+            if code == 422:
+                # server gui kem `authToken` -> dung no de go thiet bi cu
+                auth_token = r.get("auth_token") or secret_token
+                devs = self.list_devices(auth_token)
+                if devs:
+                    ids = [d.get("id") for d in devs
+                           if d.get("id") is not None
+                           and d.get("deviceId") != self._device_id]
+                    if not ids:
+                        ids = [d.get("id") for d in devs
+                               if d.get("id") is not None]
+                    rm = self.remove_devices(auth_token, ids[:1])
+                    if rm.get("errorCode") == 200:
+                        r = self.select_login_user(secret_token, uid, uname)
+                        if r.get("ok"):
+                            return {"ok": True,
+                                    "message": "Dang nhap thanh cong (%s)" % uname,
+                                    "user_id": self.user_id, "msisdn": self.msisdn,
+                                    "access_token": _mask(self.access_token)}
+                        detail[-1]["code"] = r.get("error_code")
+                        detail[-1]["retry"] = r.get("message")
+        return {"ok": False, "message": "Khong tai khoan nao dang nhap duoc",
+                "detail": detail}
 
     def login_password(self, msisdn: str, password: str) -> dict:
         """Dang nhap bang mat khau (neu tai khoan co mat khau)."""
@@ -257,21 +444,49 @@ class Tv360Client:
         except Exception:
             return {"ok": False, "message": "HTTP %s" % st}
         self._capture_tokens()
+        self._capture_body(j)
         if j.get("errorCode") == 200 and self.access_token:
             self.expires_at = int(time.time()) + 3600
             self._save_state()
             return {"ok": True, "message": j.get("message"),
                     "user_id": self.user_id, "msisdn": self.msisdn}
-        return {"ok": False, "message": j.get("message") or "login that bai"}
+        # 207: so dien thoai co nhieu tai khoan -> chon tai khoan
+        if j.get("errorCode") == 207:
+            sec = (j.get("data") or {}).get("secretToken")
+            users = (j.get("data") or {}).get("listUser") or []
+            if sec and users:
+                r = self.login_multi_account(sec, users)
+                if r.get("ok"):
+                    return r
+                return {"ok": False, "message": r.get("message"),
+                        "accounts": r.get("detail", [])}
+        return {"ok": False, "message": j.get("message") or "login that bai",
+                "error_code": j.get("errorCode")}
+
+    @staticmethod
+    def _jwt_exp(token: str) -> int:
+        """Doc `exp` tu JWT (khong verify chu ky, chi de lay han)."""
+        try:
+            p = token.split(".")[1]
+            p += "=" * (-len(p) % 4)
+            return int(json.loads(base64.urlsafe_b64decode(p)).get("exp") or 0)
+        except Exception:
+            return 0
 
     def refresh(self) -> bool:
-        """Gia han access-token. Tra True neu thanh cong."""
+        """Gia han access-token. Tra True neu thanh cong.
+
+        TV360 yeu cau `deviceId` va `refreshToken` la BAN DA KY (signed cookie
+        dang `s%3A<value>.<sig>`) - khong phai gia tri thu.
+        """
         with self._lock:
             if not self.refresh_token:
                 return False
+            dev = self._signed_device or self._device_id
+            rt = self._signed_refresh or self.refresh_token
             st, raw = self._call(WEB + "/public/v1/auth/refresh-token",
-                                 {"deviceId": self._device_id,
-                                  "refreshToken": self.refresh_token},
+                                 {"deviceId": dev,
+                                  "refreshToken": rt},
                                  auth=False)
             try:
                 j = json.loads(raw)
@@ -279,57 +494,125 @@ class Tv360Client:
                 return False
             old = self.access_token
             self._capture_tokens()
+            self._capture_body(j)
             if j.get("errorCode") == 200 and self.access_token:
-                self.expires_at = int(time.time()) + 3600
+                exp = self._jwt_exp(self.access_token)
+                self.expires_at = exp or int(time.time()) + 3600
                 self._save_state()
                 return True
             # refresh fail -> reset
             if j.get("errorCode") in (401, 412, 417):
                 self.access_token = ""
                 self.refresh_token = ""
+                self._signed_refresh = ""
                 self._save_state()
             return False
 
+    def auto_login(self) -> dict:
+        """Dang nhap lai tu dong (khong can SMS) qua kenh Viettel 4G/5G.
+
+        Chi hoat dong khi dang ky 'Auto Login' tren app TV360.
+        Server dung khi refresh-token het han.
+        """
+        if not self.msisdn:
+            return {"ok": False, "message": "chua co so dien thoai"}
+        if not self._device_id:
+            self.ping()
+        st, raw = self._call(WEB + "/public/v1/auth/auto-login-http",
+                             {"msisdn": self.msisdn,
+                              "deviceInfo": {"osType": "WEB",
+                                             "osVersion": "131.0",
+                                             "deviceId": self._device_id,
+                                             "screenSize": ""}},
+                             auth=False)
+        try:
+            j = json.loads(raw)
+        except Exception:
+            return {"ok": False, "message": "HTTP %s" % st}
+        self._capture_tokens()
+        self._capture_body(j)
+        if j.get("errorCode") == 200 and self.access_token:
+            self.expires_at = int(time.time()) + 3600
+            self._save_state()
+            return {"ok": True, "message": j.get("message")}
+        return {"ok": False,
+                "message": j.get("message") or "auto-login that bai"}
+
+    def recover(self) -> dict:
+        """Tu phuc hoi phien dang nhap: refresh -> auto-login."""
+        if self.refresh():
+            return {"ok": True, "via": "refresh"}
+        r = self.auto_login()
+        if r.get("ok"):
+            r["via"] = "auto-login"
+        return r
+
     def ensure_token(self) -> bool:
-        """Dam bao co access-token con hieu luc."""
+        """Dam bao co access-token con hieu luc.
+
+        Thu tu: refresh-token -> auto-login (khong can SMS) -> that bai.
+        """
         if self.access_token and self.expires_at - int(time.time()) > 300:
             return True
-        if self.refresh_token and self.refresh():
-            return True
-        return False
+        r = self.recover()
+        return bool(r.get("ok"))
 
     def get_stream(self, channel_id, timeout=25):
         """Tra (url_m3u8, ten_kenh) hoac (None, ly_do).
 
-        Kenh mien phi lay duoc khong can dang nhap.
-        Kenh tra phi se tra ve thong bao 'can dang nhap' -> can goi ensure_token() truoc.
+        Thu KHONG DANG NHAP truoc: 123/179 kenh free lay duoc, va khong bi
+        server ap goi thue bao. Neu server tra 'D-164' (can dang nhap) thi
+        moi thu voi access-token (kenh thuoc goi cua tai khoan).
         """
         ts = int(time.time())
         q = urllib.parse.urlencode({"id": int(channel_id), "type": "live",
                                     "secured": "true", "t": ts})
-        st, raw = self._call(WEB + "/public/v1/composite/get-link?" + q,
-                             timeout=timeout)
-        if st != 200:
-            return None, "HTTP %s" % st
-        try:
-            j = json.loads(raw)
-        except Exception:
-            return None, "JSON loi"
-        if j.get("errorCode") != 200:
-            msg = j.get("message") or ("errorCode %s" % j.get("errorCode"))
-            return None, msg
-        blob = j.get("data")
-        if not blob:
-            return None, "data rong"
-        try:
-            info = json.loads(decrypt_aes(blob))
-        except Exception as e:
-            return None, "giai ma loi: %s" % e
-        url = info.get("urlStreaming")
-        if not url:
-            return None, "khong co urlStreaming"
-        ov = info.get("overlay") or {}
-        return url, ov.get("name") or ""
+        url_api = WEB + "/public/v1/composite/get-link?" + q
+
+        last_err = ""
+        for use_auth in (False, True):
+            if use_auth and not self.access_token:
+                break
+            saved = None
+            if not use_auth:
+                # Bo cookie access-token khoi jar de server khong nhan dien
+                # da dang nhap (nen khong ap goi thue bao len kenh free).
+                saved = [ck for ck in self.jar if ck.name == COOKIE_ACCESS]
+                for ck in saved:
+                    self.jar.clear(ck.domain, ck.path, ck.name)
+            try:
+                st, raw = self._call(url_api, auth=use_auth, timeout=timeout)
+            finally:
+                if saved:
+                    for ck in saved:
+                        self.jar.set_cookie(ck)
+            if st != 200:
+                last_err = "HTTP %s" % st
+                continue
+            try:
+                j = json.loads(raw)
+            except Exception:
+                last_err = "JSON loi"
+                continue
+            if j.get("errorCode") != 200:
+                last_err = j.get("message") or ("errorCode %s" % j.get("errorCode"))
+                continue
+            blob = j.get("data")
+            if not blob:
+                last_err = "data rong"
+                continue
+            try:
+                info = json.loads(decrypt_aes(blob))
+            except Exception as e:
+                last_err = "giai ma loi: %s" % e
+                continue
+            url = info.get("urlStreaming")
+            if not url:
+                last_err = "khong co urlStreaming"
+                continue
+            ov = info.get("overlay") or {}
+            return url, ov.get("name") or ""
+        return None, last_err or "khong lay duoc link"
 
     def list_channels(self, box_id=1, timeout=25):
         """Tra danh sach muc trong box 'Truyen hinh'."""
@@ -390,6 +673,7 @@ class Tv360Client:
             "logged_in": bool(self.access_token),
             "msisdn": self.msisdn,
             "user_id": self.user_id,
+            "account_id": self.account_id,
             "access_token": _mask(self.access_token),
             "refresh_token": _mask(self.refresh_token),
             "expires_at": self.expires_at,
@@ -401,6 +685,8 @@ class Tv360Client:
 # --------------------------------------------------------------------- global
 _client = None
 _cl_lock = threading.Lock()
+_anon = None
+_anon_lock = threading.Lock()
 
 
 def client() -> Tv360Client:
@@ -409,6 +695,28 @@ def client() -> Tv360Client:
         if _client is None:
             _client = Tv360Client()
         return _client
+
+
+def anon_client() -> Tv360Client:
+    """Client 'khach' - device rieng, KHONG gui access-token.
+
+    TV360 ap goi thue bao cua tai khoan dang nhap len moi request. Neu tai
+    khoan khong co goi, cac kenh FREE cung bi chan. Client nay tach ra
+    de lay link kenh free (123/179 kenh) ma khong bi anh huong.
+    """
+    global _anon
+    with _anon_lock:
+        if _anon is None:
+            path = STATE_FILE + ".anon"
+            if not os.path.exists(path):
+                try:
+                    with open(path, "w", encoding="utf-8") as f:
+                        json.dump({}, f)
+                except Exception:
+                    pass
+            _anon = Tv360Client(path)
+            _anon.ping()
+        return _anon
 
 
 if __name__ == "__main__":
