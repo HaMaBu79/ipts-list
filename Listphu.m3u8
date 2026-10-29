@@ -1,59 +1,59 @@
 #EXTM3U url-tvg="https://epg.io.vn/epgc.xml"
-#UPDATE 00:25⏱30/10 | User: HaMaBu
+#UPDATE 00:53⏱30/10 | User: HaMaBu
 
 #-----------------Kênh VTV----------------#
 
 #EXTINF:-1 tvg-id="vtv1hd" tvg-name="VTV1 HD" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv1.png",VTV1 HD 
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/154/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyNzksInVyaSI6Ii9icGstdHYvMTU0L291dHB1dC9pbmRleC5tM3U4In0.ICwHqyOKLW9MiioE6XL57yHX0YFp6QOT3gUnsqXQABA&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=2&expires=1793382695&token=f74c1014476e381399fe2ef6506d0444
 
 #EXTINF:-1 tvg-id="vtv2hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv2.png" , VTV2 HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://rr1-ateme.tv360.vn/live/eds/192/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzE5Mi9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4NX0.QLRa9m1GQ30LmxnSiuhu5YmsuVWSR-laeUX8rtQQJ5p7pusGutdcOKyiuEZ0G-tr5GUEnajPW9N3U8xasP5LvQ&screen=MHL&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=3&expires=1793382695&token=73ea33476e3451c103e2108988ae4924
 
 #EXTINF:-1 tvg-id="vtv3hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv3.png" , VTV3 HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://rr1-ateme.tv360.vn/live/eds/155/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzE1NS9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4NX0.RdXI5j01kbBtUNRXIARUXe0YNokuttNthcvqRLNIoCQ3uN2IVxF30QEi1GP8N0MZ6AJu3fKk98J0ZMnuvDlXUQ&screen=MHL&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=4&expires=1793382695&token=4dc24d2084e3b423793129e2c08d6f48
 
 #EXTINF:-1 tvg-id="vtv4hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv4.png" , VTV4 HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://lsm-g11.tv360.vn/viettel/channel/193/193.m3u8?AdaptiveType=HLS&VOD_RequestID=jKQSNY7t2gBBBDpQnm9ycYEZmIkztQgIDouHhU4EV5R2n9UtqRRRqYT+i//FEk/x/joxUHQaFyUVM50w9SoL0jKyuolv/HyqQWSTAb3vf3s0sejaENNZyDda8meQ5m+k0wsgG4XFH/zlF/Wk78/U/AaGZWQrZ6osbOABzpNCa3vroNZdlUOn2TQ/nStrxw1/+qpN34GF3rXGz1Z/Z9zbdg==&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=108&expires=1793382695&token=d2850306a26ded4d86997ebf0e1dab41
 
 #EXTINF:-1 tvg-id="vtv5hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv5.png" , VTV5 HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://rr1-ateme.tv360.vn/live/eds/1944/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzE5NDQvSExTX0NsZWFuX01ITF8ycy8iLCJleHAiOjE3OTMzMTYyNzl9.4Wj6MnJBV1OOZsFnCpdBvCd4auzDLki7WkX7FF3h8Ubow10MoyLBY6BBTlRkjSYi1Lp7iRIJPz0rHW3BRY7CFQ&screen=MHL&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=110&expires=1793382695&token=3025b1407dd5be3fd366f722278c7806
 
 #EXTINF:-1 tvg-id="vtv5hdtnb" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv5tnb.png", VTV5 HD - Tây Nam Bộ 
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/307/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODUsInVyaSI6Ii9icGstdHYvMzA3L291dHB1dC9pbmRleC5tM3U4In0.kmnnlJj6yUKDGwzWPvpVsyxe346xzreyor1opHAkMg4&minrate=0&maxrate=12000000&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=157&expires=1793382695&token=259bf95df07caa644001e649cde63c61
 
 #EXTINF:-1 tvg-id="vtv5hdtn" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv5tn.png", VTV5 HD - Tây Nguyên 
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/308/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODUsInVyaSI6Ii9icGstdHYvMzA4L291dHB1dC9pbmRleC5tM3U4In0.G5V2m2uVezGPW_wKLMP-bCdMzwGynsUEE7QubumBfVg&minrate=0&maxrate=12000000&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=207&expires=1793382695&token=747a12db4488d96315e6d4a686652709
 
 #EXTINF:-1 tvg-id="vtv6hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv6.png" , VTV6 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/479/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ3OS9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4NX0.HV3QXgmVFXAR5UPPW7ziwUkVrQAkUQhtFgSbTPvz5FZ4Gd9tyGEbh2LLdF9j8-O6sNkAp7gBnoYHU9QmkwdpTA&screen=MHL&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=10043&expires=1793382695&token=9ea1895d4c10531ad8e7d9b7ca0205cf
 
 #EXTINF:-1 tvg-id="vtv7hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv7.png" , VTV7 HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://rr1-ateme.tv360.vn/live/eds/195/HLS_Clean_MHL_2s_new/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzE5NS9ITFNfQ2xlYW5fTUhMXzJzX25ldy8iLCJleHAiOjE3OTMzMTYyODV9.c9czH0A-ou4SjkNZXT9QXClY45hzzB9MCOe3HEwK2RJHC0jXbyd1scMo1moYc77yV7WJyjlnwyr97jV-XySANg&screen=MHL&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=6&expires=1793382695&token=24b9396101f66cb16532d65bacd808b0
 
 #EXTINF:-1 tvg-id="vtv8hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv8.png" , VTV8 HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/196/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODUsInVyaSI6Ii9icGstdHYvMTk2L291dHB1dC9pbmRleC5tM3U4In0.XbMPSzwhOR9-uVV3JMvNwbcdv1b2q3qh5lgThlltaXg&minrate=0&maxrate=12000000&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=115&expires=1793382695&token=d4e217a3d5fcd5a9fb578582628cca0d
 
 #EXTINF:-1 tvg-id="vtv9hd" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv9.png" , VTV9 HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://rr1-ateme.tv360.vn/live/eds/197/HLS_Clean_MHL_2s/197.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzE5Ny9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4NX0.aIu28CoFe8HjnceNc4zjdP5WRfq7GYEaIR2JKNZOuw8-mLsereozZSnHjJ1_HhKulqoDFecljM2YNDmv4Ye_eA&screen=MHL&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=8&expires=1793382695&token=73718366304969607320bccc9e3b0eb6
 
 #EXTINF:-1 tvg-id="vtv10" group-title="VTV" tvg-logo="http://vietanh18h1.duckdns.org/ic/vtv10.png" , VTV10 HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://rr1-ateme.tv360.vn/live/eds/156/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzE1Ni9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4OH0.C5rV72L4SnytbOoBA-rvdGZQRFFk5uNXnBAi0KpmMUCzcgv-D-cmrMANhUXrN8gk1xkREPBzvEHNd8M0kuAV2g&screen=MHL&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=98&expires=1793382695&token=7ece40df36a2527ff5d8ec8883cee5ca
 
 #EXTINF:-1 tvg-id="vietnamtoday" group-title="VTV" tvg-logo="https://img.vtvprime.vn/poWO4cMIOvlO4LFEoljeRHTNK-92PkmcxEiRMCjB4pM/rs:fit:836:468/czM6Ly9wcmQtc24taW1hZ2VzL2NoYW5uZWwvMTE5YTVjNDYtMTZiMC00ZTUwLTlkNjItZmM1ZTJjZjQ3OTU4LnBuZw==.png",VietNam Today
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://rr1-ateme.tv360.vn/live/eds/448/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ0OC9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI3OX0.VSfvB01gUcGmfMzuNGnPpWBJT0n9TmpXE5lzZaNLLDLKhuxzb64FWpViiUgxBfa0A4w7MNMCwEbxqpJ_O55_eQ&screen=MHL&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=9951&expires=1793382695&token=a5c4791a98ffe13af5dd81d00e2a73af
 
 
 
@@ -61,59 +61,59 @@ https://rr1-ateme.tv360.vn/live/eds/448/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJ
 
 #EXTINF:-1 tvg-id="htv1" group-title="HTV" tvg-logo="https://vietanhtv.id.vn/logo/htv1.png", HTV1
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/441/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvNDQxL291dHB1dC9pbmRleC5tM3U4In0.l1nlTWxMUyl7uuzTLDxPUnfKmTAH9mz29sNmyRhBqaI&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=190&expires=1793382695&token=3e530d55810b2a5940091519eb7b97b5
 
 #EXTINF:-1 tvg-id="htv2hd" group-title="HTV" tvg-logo="https://vietanhtv.id.vn/logo/htv2.png", HTV2 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/54/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzU0L0hMU19DbGVhbl9NSExfMnMvIiwiZXhwIjoxNzkzMzE2MjgyfQ.3oH6E_3YOMX5bXjXM1EeoZyhU8KgN62SPy45KxWv1GS41di02yA6Oh6xD3HktyQnqcrkD8nJhaAOU4R2gY3J1w&screen=MHL&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=191&expires=1793382695&token=2f7ba5d0b7fc111f8fc1bb67d0cdfe58
 
 #EXTINF:-1 tvg-id="htv3" group-title="HTV" tvg-logo="https://vietanhtv.id.vn/logo/htv3.png", HTV3
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/442/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvNDQyL291dHB1dC9pbmRleC5tM3U4In0.AydTaCrgehbZgP8p-vl7htwQWGHx51ESFISEkPad_vg&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=192&expires=1793382695&token=c0c97864e2c43d47f1d03d03126ec8b3
 
 #EXTINF:-1 tvg-id="htv4" group-title="HTV" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/20/15/1776673483732/71e6c03ac958_480_270.png", HTV4
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/443443/HLS_Clean_MHL_4s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzQ0MzQ0My9ITFNfQ2xlYW5fTUhMXzRzLyIsImV4cCI6MTc5MzMxNjI4Mn0.RbjcPpUKKLN9sRBdzhpdSVYwDvmQ_Zgav5X1RiJMl5iPNcN-2axm6zidgI87v84417LsqyWo03L_SVt4N7fiHw&screen=MHL&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=9&expires=1793382695&token=84c42b68c3c39a581c0764a0cd916cea
 
 #EXTINF:-1 tvg-id="htv5" group-title="HTV" tvg-logo="https://img-zlr1.tv360.vn/image1/2026/04/19/17/1776592892204/faf411a67b05_480_270.png", HTV5
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/157/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMTU3L291dHB1dC9pbmRleC5tM3U4In0.0_TyMJsv6Mbti7vLd8gqll7gIKxZYZjLQCkoWvJa3eY&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=151&expires=1793382695&token=4fcadcd1bca3ff6d2ecb7732449a5fdd
 
 #EXTINF:-1 tvg-id="htv7hd" group-title="HTV" tvg-logo="https://vietanhtv.id.vn/logo/htv7.png", HTV7 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/157/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMTU3L291dHB1dC9pbmRleC5tM3U4In0.0_TyMJsv6Mbti7vLd8gqll7gIKxZYZjLQCkoWvJa3eY&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=193&expires=1793382695&token=3a43dfab21b3f90495c9ec122a5e243b
 
 #EXTINF:-1 tvg-id="htv9hd" group-title="HTV" tvg-logo="https://vietanhtv.id.vn/logo/htv9.png", HTV9 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/158/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMTU4L291dHB1dC9pbmRleC5tM3U4In0.wIDmGOtMqW0C4U_wrIJwBtyRGiaT47fVa6LjBRxoEOI&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=194&expires=1793382695&token=f28a279ea46f2f9179edd34be3bff7ef
 
 #EXTINF:-1 tvg-id="htvthethaohd" group-title="HTV" tvg-logo="https://vietanhtv.id.vn/logo/htvthethao.png", HTV Thể Thao HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/304/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYzMDMsInVyaSI6Ii9icGstdHYvMzA0L291dHB1dC9pbmRleC5tM3U4In0.hAZOsqVmJACN7DVeAw4RMQxXP6HYQlFVNCMNaUK4p5s&minrate=0&maxrate=12000000&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=195&expires=1793382695&token=284bd419191c80f9d3b5b585ac81bd05
 
 #EXTINF:-1 tvg-id="htvcthuanviet" group-title="HTV" tvg-logo="https://vietanhtv.id.vn/logo/htvcthuanviet.png", HTVC Thuần Việt 
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/160/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMTYwL291dHB1dC9pbmRleC5tM3U4In0.IgC96aweqEJj44Q2ugwuX06DTPnrTPmrauenQcEvEps&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://fo-hlc.tv360.vn/bpk-tv/160/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTc5MTEsInVyaSI6Ii9icGstdHYvMTYwL291dHB1dC9pbmRleC5tM3U4In0.rLOtbV7AacRjpEARG5BJ7pDcna1ArCwLPLn08x9djmc&minrate=0&maxrate=12000000&uid=20.169.74.51
 
 #EXTINF:-1 tvg-id="htvcplushd" group-title="HTV" tvg-logo="https://vietanhtv.id.vn/logo/htvcplus.png", HTVC Plus HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/419/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvNDE5L291dHB1dC9pbmRleC5tM3U4In0.7B-C-Cc7uU-pAex8Y8M80HqPAmjSNSpCXiYWOoaHV9U&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=132&expires=1793382695&token=45d7158f0fa257cdf03cfdaf41cfda39
 
 #EXTINF:-1 tvg-id="htvcdulichhd" group-title="HTV" tvg-logo="https://vietanhtv.id.vn/logo/htvcdulichcuocsong.png", HTVC Du Lịch HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/399/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzk5L291dHB1dC9pbmRleC5tM3U4In0.fOujGs0tVuJatgZrR7e8i7bsk4Uq1URusrAHRX6omKM&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=133&expires=1793382695&token=c7db0b235a6351cb91e9431c7fec98e2
 
 #EXTINF:-1 tvg-id="htvcphimhd" group-title="HTV" tvg-logo="https://img-ali1.tv360.vn/image1/2021/07/01/15/1625129239161/48401c7a9ce3_480_270.png", HTVC Phim HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/159/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMTU5L291dHB1dC9pbmRleC5tM3U4In0.8Ko4MN9u6j9Fgzs1UcDCAzLPygykUq_HW1Udziu0fLQ&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=15&expires=1793382695&token=3168741f680e55fd3facfc2a77e32df5
 
 #EXTINF:-1 tvg-id="htvcgiadinhhd" group-title="HTV" tvg-logo="https://vietanhtv.id.vn/logo/htvcgiadinh.png", HTVC Gia Đình HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/398/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzk4L291dHB1dC9pbmRleC5tM3U4In0.iFnFuYkDtgqixBV-SkfF0NI2xu2nXFShmx9oiC0AQOw&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=11&expires=1793382695&token=121276f847417507d91ac246a89999bd
 
 #EXTINF:-1 tvg-id="htvcphunuhd" group-title="HTV" tvg-logo="https://vietanhtv.id.vn/logo/htvcphunu.png", HTVC Phụ Nữ HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/420/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvNDIwL291dHB1dC9pbmRleC5tM3U4In0.4Fq9CS1GO0kMWOO9IxxUCbZVyBBgLysfqifimtaIYPU&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=12&expires=1793382695&token=26366d72160d2458df9a1c6b6ac49c01
 
 
 
@@ -123,23 +123,23 @@ https://fo-hlc.tv360.vn/bpk-tv/420/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsIn
 
 #EXTINF:-1 tvg-id="thvl1hd" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/vinhlong1.png", THVL1 | TH Vĩnh Long
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/252/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjUyL291dHB1dC9pbmRleC5tM3U4In0.pMn8ayQrYUdqXSvVngYgH8WIsKHEgOLp3dsiINApb5Y&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=25&expires=1793382695&token=2d854078599516b926fe2aadd377abd2
 
 #EXTINF:-1 tvg-id="thvl2hd" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/vinhlong2.png", THVL2 | TH Vĩnh Long
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/252/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjUyL291dHB1dC9pbmRleC5tM3U4In0.pMn8ayQrYUdqXSvVngYgH8WIsKHEgOLp3dsiINApb5Y&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=26&expires=1793382695&token=05564e1a5bb11612d3399edb912820d8
 
 #EXTINF:-1 tvg-id="thvl3hd" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/vinhlong3.png", THVL3 | TH Vĩnh Long
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/252/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjUyL291dHB1dC9pbmRleC5tM3U4In0.pMn8ayQrYUdqXSvVngYgH8WIsKHEgOLp3dsiINApb5Y&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=219&expires=1793382695&token=12452126afc91dddcaf66142dd8f4a79
 
 #EXTINF:-1 tvg-id="thvl4hd" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/vinhlong4.png", THVL4 | TH Vĩnh Long
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/252/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjUyL291dHB1dC9pbmRleC5tM3U4In0.pMn8ayQrYUdqXSvVngYgH8WIsKHEgOLp3dsiINApb5Y&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=220&expires=1793382695&token=6913d2adf10e78220c463f14af1515f1
 
 #EXTINF:-1 tvg-id="thvl5hd" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/vinhlong5.png", THVL5 | TH Vĩnh Long
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/252/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjUyL291dHB1dC9pbmRleC5tM3U4In0.pMn8ayQrYUdqXSvVngYgH8WIsKHEgOLp3dsiINApb5Y&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=91&expires=1793382695&token=4d2a754a43e064d62a22cf49335e5d21
 
 
 
@@ -149,99 +149,99 @@ https://fo-hlc.tv360.vn/bpk-tv/252/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsIn
 
 #EXTINF:-1 tvg-id="onviegiaitri" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/viegiaitri.png", ON Vie Giải Trí
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/211/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjExL291dHB1dC9pbmRleC5tM3U4In0.LmTnKHVvTH3corNtQxpy2vUw9XghHPX6UImCvTLgUK4&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=vie-giai-tri-hd
 
 #EXTINF:-1 tvg-id="onphimviet" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onphimviet.png", ON Phim Việt
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://vod-evg4.tv360.vn/PJCPqNDugZzlsP2EW_vD0w/1793381095/video1/2022/12/29/01/fe427563/3df494/h264/master.m3u8?start=1793294372&stop=1793297024&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=175&expires=1793382695&token=e476df796eb44a7f883a79f80d231aa6
 
 #EXTINF:-1 tvg-id="onmovies" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onmovies.png", On Movies 
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/346/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzQ2L291dHB1dC9pbmRleC5tM3U4In0.PUhfwzhDI2mrtjGQgCzED0g7BE0GbWtCgcPv_sC8mGI&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=181&expires=1793382695&token=996687735284e2273436deb0c32e9ad9
 
 #EXTINF:-1 tvg-id="onechannel" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onechannel.png", ON E- Channel
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/212/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjEyL291dHB1dC9pbmRleC5tM3U4In0.yUz35RrIqmbl8BNIa_uNkf5Pan-kbmOaMOv-2NSN4zQ&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=182&expires=1793382695&token=4b8ff6e1c6e432626c76571133942aaf
 
 #EXTINF:-1 tvg-id="ono2tv" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/ono2tv.png", On O2TV
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/218/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjE4L291dHB1dC9pbmRleC5tM3U4In0.NfEZDw1amaCBrn96BIccf1YB1cECE1bwrfEynktPe8I&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=136&expires=1793382695&token=9ecbc01df53ebf2856e7bab0583ea11b
 
 #EXTINF:-1 tvg-id="onbibi" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onbibi.png", On BiBi
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/263/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjYzL291dHB1dC9pbmRleC5tM3U4In0.IgJRuq6vREeubQdsn-p34bx9KU7zPKX9mlnlRd1iMS0&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=178&expires=1793382695&token=42d5115bf93be75156e8b4b6a6b073e7
 
 #EXTINF:-1 tvg-id="oninfotv" group-title="VTVcab" tvg-logo="https://img-ali1.tv360.vn/image1/2023/07/19/09/1689732099410/a13853e5de55_480_270.png", ON Info TV
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/349/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzQ5L291dHB1dC9pbmRleC5tM3U4In0.T1zNP3pC1eqrZrnE39N4h3ucZYQn_Zk6FJa0Vp9srJQ&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=189&expires=1793382695&token=aec2b01c15b616848ebce919544acaad
 
 #EXTINF:-1 tvg-id="oncine" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/oncine.png", ON Cine
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/226/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjI2L291dHB1dC9pbmRleC5tM3U4In0.WF5veSngdunRm_eE-2GWOyxLXd6f8mw00AOwrLz2Cbw&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=176&expires=1793382695&token=103e1a66461d8d13e9bb04d3514424ea
 
 #EXTINF:-1 tvg-id="onstyle" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onstyle.png", ON Style TV
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/219/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjE5L291dHB1dC9pbmRleC5tM3U4In0.CxGrJgSaQei0CZh8HTsjAhCHgfgt50NV_eAuQgLs5Rw&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=184&expires=1793382695&token=de7361cc5d2327771ff9dc2db72b8f73
 
 #EXTINF:-1 tvg-id="onmusic" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onmusic.png", On Music
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/220/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjIwL291dHB1dC9pbmRleC5tM3U4In0.PQ7AdQmpqrD94_O2ugdo3u9_7h1lwzcx_xAJDZyXbV0&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=185&expires=1793382695&token=76a08e52c93b34c4c633874052c88085
 
 #EXTINF:-1 tvg-id="ontrending" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/ontrendingtv.png", ON TRENDING TV
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/350/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzUwL291dHB1dC9pbmRleC5tM3U4In0.9a1_rlUtjHTBs2uRT3mUGjGPoA5L4LqnDNk5Jm6Uu60&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=186&expires=1793382695&token=366e507d79e992d38bdad6c3dd4da628
 
 #EXTINF:-1 tvg-id="onviedramas" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/viedrama.png", ON Vie Dramas
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/339/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzM5L291dHB1dC9pbmRleC5tM3U4In0.8mvML-yB_DuHIkHrrVK87SD85Y0NoQlvX4X35fTCHhE&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=vie-dramas-hd
 
 #EXTINF:-1 tvg-id="onvfamily" type="stream" group-title="VTVcab" tvg-logo="https://i.ibb.co/HHfL7Dq/cocab20.webp", ON V Family
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/351/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzUxL291dHB1dC9pbmRleC5tM3U4In0.ygqEcv7slNBkPG5oRuQIVfrFqfjdN-Te_OAzjs8Z58Y&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=187&expires=1793382695&token=f224320693c3e458ee2f66d51b7fdfe5
 
 #EXTINF:-1 tvg-id="onkids" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onkids.png", On Kids
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/234/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjM0L291dHB1dC9pbmRleC5tM3U4In0.KN5ieDSsg4IY3DFi3Eri6EzglWSLtWn1xmdBUFxpFs0&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=179&expires=1793382695&token=14d18e33c46a01e5c8df45503784bed3
 
 #EXTINF:-1 tvg-id="onlife" group-title="VTVcab" tvg-logo="https://img-ali1.tv360.vn/image1/2023/07/19/09/1689732652862/f124f55c3587_640_360.png", On Life
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/347/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzQ3L291dHB1dC9pbmRleC5tM3U4In0.b6tNNGYGInSU3BNT90c_-G786tWgkTdosB18QW_5nIU&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=188&expires=1793382695&token=984ae677736069bf569c85f74aab786f
 
 #EXTINF:-1 tvg-id="onsports" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/_ports_ng_logo_04202212.jpg", ON SPORTS 
-#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream=inputstream.adaptive 
 #KODIPROP:inputstream.adaptive.manifest_type=dash 
 #KODIPROP:inputstream.adaptive.license_type=clearkey 
 #KODIPROP:inputstream.adaptive.license_key=https://tv.vietanhtv.top/tivi/cleankey.php?id=tv360173&token=8e85a4e3356cc68317042495ba22fb56
-https://tv.vietanhtv.top/tv360/tv360.php?id=173&expires=1793381072&token=647028f2be8befe3b4e9c9e465b7486a
+https://tv.vietanhtv.top/tv360/tv360.php?id=173&expires=1793382695&token=71d58e130d69459761f7b1e34edc8b62
 
 #EXTINF:-1 tvg-id="onsportsplus" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/onsportscongmoi1.jpg", ON SPORTS+ 
-#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.manifest_type=dash 
 #KODIPROP:inputstream.adaptive.license_type=clearkey 
 #KODIPROP:inputstream.adaptive.license_key=https://tv.vietanhtv.top/tivi/cleankey.php?id=tv360183&token=8e85a4e3356cc68317042495ba22fb56
-https://tv.vietanhtv.top/tv360/tv360.php?id=183&expires=1793381072&token=452e5059302276f3ac929bb6db757a52
+https://tv.vietanhtv.top/tv360/tv360.php?id=183&expires=1793382695&token=0239c7aa3f880d05983a86f470da706a
 
 #EXTINF:-1 tvg-id="onfootball" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/_ootball_-_opyright_by_cab_logo_202212.jpg", ON FOOTBALL
-#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream=inputstream.adaptive 
 #KODIPROP:inputstream.adaptive.manifest_type=dash 
 #KODIPROP:inputstream.adaptive.license_type=clearkey 
 #KODIPROP:inputstream.adaptive.license_key=https://tv.vietanhtv.top/tivi/cleankey.php?id=tv360174&token=8e85a4e3356cc68317042495ba22fb56
-https://tv.vietanhtv.top/tv360/tv360.php?id=174&expires=1793381072&token=f49c1c177ba33bf17687912ea497d435
+https://tv.vietanhtv.top/tv360/tv360.php?id=174&expires=1793382695&token=7df5904e28dfbc02ae9169f56ce89553
 
 #EXTINF:-1 tvg-id="onsportsnews" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/v2/channel/20220613/2022061306/Logo_ONSPORTSNEWS_150x904_1675158858.webp", ON SPORTS NEWS 
-#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream=inputstream.adaptive 
 #KODIPROP:inputstream.adaptive.manifest_type=dash 
 #KODIPROP:inputstream.adaptive.license_type=clearkey 
 #KODIPROP:inputstream.adaptive.license_key=https://tv.vietanhtv.top/tivi/cleankey.php?id=tv360170&token=8e85a4e3356cc68317042495ba22fb56
-https://tv.vietanhtv.top/tv360/tv360.php?id=170&expires=1793381072&token=58df7f166d1a6a5c08fdb77251cb5579
+https://tv.vietanhtv.top/tv360/tv360.php?id=170&expires=1793382695&token=97749561e5b79340ec186df77b8d91f7
 
 #EXTINF:-1 tvg-id="ongolf" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/v2/channel/20220613/2022061306/Logo_ONGOLF_150x903_1675158871.webp", ON GOLF 
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://tv.vietanhtv.top/tv360/tv360.php?id=169&expires=1793381072&token=497614f6146961ac80f513029dfa2bc9
+https://tv.vietanhtv.top/tv360/tv360.php?id=169&expires=1793382695&token=b819e30c18a6c6977b262a02fdc0cb9a
 
 
 
@@ -249,74 +249,74 @@ https://tv.vietanhtv.top/tv360/tv360.php?id=169&expires=1793381072&token=497614f
 
 #EXTINF:-1 tvg-id="antv-hd" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/thietyeu/antv.png", ANTV HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/378/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyNzksInVyaSI6Ii9icGstdHYvMzc4L291dHB1dC9pbmRleC5tM3U4In0.7F_vrUWRTqNDctKmjw01uhQEoWUziIIjFjYjR-Cvv-4&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=20&expires=1793382695&token=1b255618490d0b88a99aba0b8e55c530
 
 #EXTINF:-1 tvg-id="qpvn-hd" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/thietyeu/qpvn.png", QPVN HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/141/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyNzksInVyaSI6Ii9icGstdHYvMTQxL291dHB1dC9pbmRleC5tM3U4In0.2qP-yCmn3BI9tI4IPGKV2KtCw6VB4PKTiY7jsbLZL_c&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=19&expires=1793382695&token=eada47f5b1f6b2212344b14416d8de58
 
 #EXTINF:-1 tvg-id="tayninhtv" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/tayninh.png", TN HD | TH Tây Ninh
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/430/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvNDMwL291dHB1dC9pbmRleC5tM3U4In0.dvhCot1YIexTMThAskj-whb1tlw5VrirswHn-9clMes&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=72&expires=1793382695&token=027801defba30b4d74c0ebbedaf1ce30
 
 #EXTINF:-1 tvg-id="angiang1" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/angiang1.png", ATV1 HD | TH An Giang
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-#EXTVLCOPT:http-user-referer=https://angiangtv.vn/
-https://rr1-ateme.tv360.vn/live/eds/3144/HLS_Clean_MHL_2s/3144.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMxNDQvSExTX0NsZWFuX01ITF8ycy8iLCJleHAiOjE3OTMzMTYyODJ9.wXiq8IjKEEKje4zg6WrpyOwpI1Sw39XLw5ylF9KndrLpQp5LVKtu0-8cM1FeMUZvRPkE1fVyFTzuUCyIbrNmiQ&screen=MHL&uid=14.236.202.174
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.angiangtv.vn/live/kgtv/kgtv.m3u8
 
 #EXTINF:-1 tvg-id="angiang2" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/angiang2.png", ATV2 HD | TH An Giang
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-#EXTVLCOPT:http-user-referer=https://angiangtv.vn/
-https://rr1-ateme.tv360.vn/live/eds/3144/HLS_Clean_MHL_2s/3144.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMxNDQvSExTX0NsZWFuX01ITF8ycy8iLCJleHAiOjE3OTMzMTYyODJ9.wXiq8IjKEEKje4zg6WrpyOwpI1Sw39XLw5ylF9KndrLpQp5LVKtu0-8cM1FeMUZvRPkE1fVyFTzuUCyIbrNmiQ&screen=MHL&uid=14.236.202.174
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.angiangtv.vn/live/kgtv2/kgtv2.m3u8
 
 #EXTINF:-1 tvg-id="angiang3" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/angiang3.png", ATV3 HD | TH An Giang
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-#EXTVLCOPT:http-user-referer=https://angiangtv.vn/
-https://rr1-ateme.tv360.vn/live/eds/3144/HLS_Clean_MHL_2s/3144.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMxNDQvSExTX0NsZWFuX01ITF8ycy8iLCJleHAiOjE3OTMzMTYyODJ9.wXiq8IjKEEKje4zg6WrpyOwpI1Sw39XLw5ylF9KndrLpQp5LVKtu0-8cM1FeMUZvRPkE1fVyFTzuUCyIbrNmiQ&screen=MHL&uid=14.236.202.174
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+https://tv.angiangtv.vn/live/kgtv1/kgtv1.m3u8
 
 #EXTINF:-1 tvg-id="lamdong1" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/lamdong01.jpg", LTV1 HD | TH Lâm Đồng
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/393/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzM5My9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4Mn0.VxIaNy4cbr61DGz-bttYfjs8SsEYg2t4V6hsX195GXw9ZOntgeOGkK6JXgs4OBQVQ_RJtTonN_PfpcjTaqVAaw&screen=MHL&uid=14.236.202.174
+https://liveh12.vtvprime.vn/hls/LTV1/04.m3u8
 
 #EXTINF:-1 tvg-id="lamdong2" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/lamdong02.jpg", LTV2 HD | TH Lâm Đồng - KV Bình Thuận
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/393/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzM5My9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4Mn0.VxIaNy4cbr61DGz-bttYfjs8SsEYg2t4V6hsX195GXw9ZOntgeOGkK6JXgs4OBQVQ_RJtTonN_PfpcjTaqVAaw&screen=MHL&uid=14.236.202.174
+https://liveh34.vtvprime.vn/hls/LAMDONG/03.m3u8
 
 #EXTINF:-1 tvg-id="camau" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/camau.png", CTV HD | TH Cà Mau
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://rr1-ateme.tv360.vn/live/eds/314/HLS_Clean_MHL_2s/index.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMxNC9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4Mn0.V8maBgp_76c9HPdLtsIb1s5hGG7FhqY6QOpvEzd4Z_Ac2YO0PMMEP9Y5cRGJaRkUJF0wBldGTD0-s02O1VZvUA&screen=MHL&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=46&expires=1793382695&token=f96aad4dacaf5b84951f2278b369a454
 
 #EXTINF:-1 tvg-id="cantho1" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/cantho1_new.png", Cần Thơ TV 1 | TH Cần Thơ
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/326/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzI2L291dHB1dC9pbmRleC5tM3U4In0.ATsTnb-PEtw0e-lVaWA-JLFsn5YzdgxVOxJr6lut7Y8&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=47&expires=1793382695&token=bbff4700431c6f9be0d158bfea343487
 
 #EXTINF:-1 tvg-id="cantho2" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/cantho2_new.png", Cần Thơ TV 2 | TH Cần Thơ
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/326/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzI2L291dHB1dC9pbmRleC5tM3U4In0.ATsTnb-PEtw0e-lVaWA-JLFsn5YzdgxVOxJr6lut7Y8&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=61&expires=1793382695&token=b8ad3e4b2af0c58c953d24883512de96
 
 #EXTINF:-1 tvg-id="cantho3" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/cantho3_new.png", Cần Thơ TV 3 | TH Cần Thơ
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/326/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzI2L291dHB1dC9pbmRleC5tM3U4In0.ATsTnb-PEtw0e-lVaWA-JLFsn5YzdgxVOxJr6lut7Y8&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=84&expires=1793382695&token=67a7d6626dd8263daeefc33c04abf4b5
 
 #EXTINF:-1 tvg-id="dongnai1" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/dongnai1.png", ĐNRTV1 HD | TH Đồng Nai
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/371/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzcxL291dHB1dC9pbmRleC5tM3U4In0.xCngmer-WfeegpdMt2OF9dUhWs5KNMMuc8CYHq3h9eQ&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=53&expires=1793382695&token=cf53487320db4dfbd8e3da90bbf6cf78
 
 #EXTINF:-1 tvg-id="dongnai2" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/dongnai2.png", ĐNRTV2 HD | TH Đồng Nai
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/371/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzcxL291dHB1dC9pbmRleC5tM3U4In0.xCngmer-WfeegpdMt2OF9dUhWs5KNMMuc8CYHq3h9eQ&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=255&expires=1793382695&token=ccf9ea31ca3858e1c2ad4c63c530814b
 
 #EXTINF:-1 tvg-id="dnrtv3" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/dongnai3.png", ĐNRTV3 HD | TH Đồng Nai
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/371/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzcxL291dHB1dC9pbmRleC5tM3U4In0.xCngmer-WfeegpdMt2OF9dUhWs5KNMMuc8CYHq3h9eQ&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=dong-nai-3
 
 #EXTINF:-1 tvg-id="dongthap" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/dongthap1.png", THĐT1 HD | TH Đồng Tháp
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/372/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzcyL291dHB1dC9pbmRleC5tM3U4In0.11ETnKiLp_lOBmmkBMk5j-Wnj28J3ejMXheZFmG5w3Q&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=dong-thap-1
 
 #EXTINF:-1 tvg-id="dongthap2" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/dongthap2.png", THĐT2 HD | TH Đồng Tháp
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/372/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzcyL291dHB1dC9pbmRleC5tM3U4In0.11ETnKiLp_lOBmmkBMk5j-Wnj28J3ejMXheZFmG5w3Q&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=dong-thap-2
 
 #EXTINF:-1 tvg-id="danang1" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/danang1.png", DaNangTV1 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
@@ -328,127 +328,127 @@ https://live.mediatech.vn/live/2859145290d0d7947ef88b6240123b62474/chunklist.m3u
 
 #EXTINF:-1 tvg-id="daklak" group-title="Địa Phương" tvg-logo="ttps://freem3u.xyz/static/images/diaphuong/daklak.png", DRT HD | TH Đắk Lắk
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/273/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjczL291dHB1dC9pbmRleC5tM3U4In0.E_gGw-ST0pJaukUqnC14Isi_jyKp3zsmNchJOkFRuj0&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://cdn.drt.vn/live/285a27750861b964c27af22091662a74f2f/chunklist.m3u8
 
 #EXTINF:-1 tvg-id="gialai" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/gialai.png", GTV | TH Gia Lai
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://lsm-g12.tv360.vn:18443/259.m3u8?AdaptiveType=HLS&VOD_RequestID=jKQSNY7t2gBBBDpQnm9ycYEZmIkztQgIDouHhU4EV5SL6F47LulYwgwBUdss5f3WxYrcFH2HA7SEZuG1LaYyqSWlNkFVU7MC2MnCAovYeOqmFUpar7pXlr/7Mn8EdJ56zfdsyB6V939lPFYsdKWldVf0YPgekYfjtpCKCZO6tZM6/1eT5QeHkEzmywYEEzGqX7xPQ/67joASV8uZjLvmkg==&uid=14.236.202.174
+https://tv.gialaitv.vn/tv.m3u8
 
 #EXTINF:-1 tvg-id="hue" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/thuathienhue.png", HueTV | TH Thừa Thiên Huế
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/322/HLS_Clean_MHL_2s/322.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMyMi9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4Mn0.8Bh7iDI2EhXRLp0FZ1OCBjxM4B82rQeB2XocRaVuavl4jUPgpb53NA4I9CgHZeUgynKrpvTJfZuJsjTgUvbdUw&screen=MHL&uid=14.236.202.174
+https://live.huetv.com.vn/TRT-Online/chunklist.m3u8
 
 #EXTINF:-1 tvg-id="khanhhoa" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/khanhhoa.png", KTV HD | TH Khánh Hòa
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/318/HLS_Clean_MHL_2s/318.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMxOC9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4Mn0.NBKoIye7MTqHjtrcrw5dcgx4xo5bvo-8-y0LHqM2jr0YvNqIjjZXgirS1PLVCh8slI8gOmQBN4ZBUEs2oBQyyQ&screen=MHL&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=65&expires=1793382695&token=d1b0461706e4b4afad31b6ff35d73bff
 
 #EXTINF:-1 tvg-id="khanhhoa1" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/khanhhoa1.png", KTV1 HD | TH Khánh Hòa
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/318/HLS_Clean_MHL_2s/318.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMxOC9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4Mn0.NBKoIye7MTqHjtrcrw5dcgx4xo5bvo-8-y0LHqM2jr0YvNqIjjZXgirS1PLVCh8slI8gOmQBN4ZBUEs2oBQyyQ&screen=MHL&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=76&expires=1793382695&token=2c520c318271457e01e9c515b68860e9
 
 #EXTINF:-1 tvg-id="quangngai" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/quangngai_1.png", QuangNgaiTV1 | TH Quảng Ngãi
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/366/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzY2L291dHB1dC9pbmRleC5tM3U4In0.WsrrP5B9WdeYDdCGRgGcpn8A9APdJ3sEj8XwFkeNwRI&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=quang-ngai-1
 
 #EXTINF:-1 tvg-id="quangngai2" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/quangngai_2.png", QuangNgaiTV2 | TH Quảng Ngãi
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/366/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzY2L291dHB1dC9pbmRleC5tM3U4In0.WsrrP5B9WdeYDdCGRgGcpn8A9APdJ3sEj8XwFkeNwRI&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=kon-tum-1
 
 #EXTINF:-1 tvg-id="quangtri" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/quangtri.png", QRTV HD | TH Quảng Trị
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/260/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjYwL291dHB1dC9pbmRleC5tM3U4In0.xii05rvwKVqoIYCFXWsY1XSLSOw1gTyNzwdKqqyiu5s&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=83&expires=1793382695&token=e1d502898a8e3f2218a2439f951895d2
 
 #EXTINF:-1 tvg-id="hanoi1" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/hanoi1.png", HanoiTV1 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/282/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjgyL291dHB1dC9pbmRleC5tM3U4In0.rqnb9lGqNam2-6Em-4uIExkXkJnawTJ3YGdKeVHl_TY&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=33&expires=1793382695&token=011ae26d19677b9c01bbb7cb1810bb33
 
 #EXTINF:-1 tvg-id="hanoi2" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/hanoi2.png", HanoiTV2 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/283/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjgzL291dHB1dC9pbmRleC5tM3U4In0.nIipjiPcj4Xw7PTfxAY88lbSkWOpgLEHlCP0Ia6z2qE&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=34&expires=1793382695&token=c28f7947f698112eee42d2a26dc4256c
 
 #EXTINF:-1 tvg-id="bacninh" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caicach/bacninh.png", BTN HD | TH Bắc Ninh
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/328/HLS_Clean_MHL_6s/328.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMyOC9ITFNfQ2xlYW5fTUhMXzZzLyIsImV4cCI6MTc5MzMxNjI4Mn0.LZKWi4Tv8iJq36aE7fX_5SgeX2mJ-M6tK2pzcjKG8fbaX_FEdKIcqcJjYLm72jxIiCfc4JSt1W4C9OqgSH_ihg&screen=MHL&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=bac-giang-hd
 
 #EXTINF:-1 tvg-id="caobang" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/caobang.png", CRTV HD | TH Cao Bằng
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/364/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzY0L291dHB1dC9pbmRleC5tM3U4In0.AzdbewJSCoOJM8Wj2exGESil9i2h3nCZ5CC8p1lqHtk&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://stream.thingnet.vn/live/smil:CRTV.smil/playlist.m3u8
 
 #EXTINF:-1 tvg-id="dienbien" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/dienbien.png", ĐTV | TH Điện Biên
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/395/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzk1L291dHB1dC9pbmRleC5tM3U4In0.c6Rvx05_t0dDC2V-YBu2XXWtxoy8f_hTTIMy8iILig0&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=52&expires=1793382695&token=6e41dbf3e1009839f175f02ad4fa9b2a
 
 #EXTINF:-1 tvg-id="hatinh" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/hatinh_new.png", BHTTV HD | TH Hà Tĩnh
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/365/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzY1L291dHB1dC9pbmRleC5tM3U4In0.NqFd_8jlvootJ6c3Wf--bkzuEGCWqK1M_fe7UmsWfF0&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://cohauw9bgpvod.vcdn.cloud/httv1/index.m3u8
 
 #EXTINF:-1 tvg-id="haiphong" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/haiphong.png", THP HD | TH Hải Phòng
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/317/HLS_Clean_MHL_2s/317.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMxNy9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4Mn0.y_eNSaR9nVH0UfkIqji5yeg0WrmApKH7-61OMRoQwbPsYqje-Nl9bO09TtLYlOSY4UJgZAq1djyd-nqBQ5lHqA&screen=MHL&uid=14.236.202.174
+https://cdn.thhp.vn/live/285a4c99665fdf84e94956c66bc7dc7eb5d/chunklist.m3u8
 
 #EXTINF:-1 tvg-id="haiphongplus" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/haiphong3.png", THP3 HD | TH Hải Phòng
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/317/HLS_Clean_MHL_2s/317.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMxNy9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4Mn0.y_eNSaR9nVH0UfkIqji5yeg0WrmApKH7-61OMRoQwbPsYqje-Nl9bO09TtLYlOSY4UJgZAq1djyd-nqBQ5lHqA&screen=MHL&uid=14.236.202.174
+https://cdn.thhp.vn/live/28548ca35823d41426d8b3da7ed82bdab13/chunklist.m3u8
 
 #EXTINF:-1 tvg-id="hungyen" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/hungyen.png", HY HD | TH Hưng Yên
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/325/HLS_Clean_MHL_2s/325.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMyNS9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4Mn0.S02heYJDqvP2WbYU6C8FgjqsyRLQKfoqkch3WcVMLejif_ii33n99EhOWRd1BvazPlZEK1PU0llGfOQK8y1QEQ&screen=MHL&uid=14.236.202.174
+https://live.mediatech.vn/live/285f5449d7d7d2946e0bd2d54b7e60f25a4/chunklist.m3u8
 
 #EXTINF:-1 tvg-id="laichau" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/laichau.png", LTV HD | TH Lai Châu
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/374/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzc0L291dHB1dC9pbmRleC5tM3U4In0.bwmYs-w75ocXAQq1ncD2cb3zUaPu2NoG9oXo4nAJmoc&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://fo-hlc.tv360.vn/bpk-tv/374/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTc5MTcsInVyaSI6Ii9icGstdHYvMzc0L291dHB1dC9pbmRleC5tM3U4In0.9Pi8ov79AWHyOUPQnqf3GfqAM4G02WbmsYWCFnLNG2E&minrate=0&maxrate=12000000&uid=20.169.74.51
 
 #EXTINF:-1 tvg-id="langson" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/langson.png", LSTV HD | TH Lạng Sơn 
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/321/HLS_Clean_MHL_2s/321.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMyMS9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4Mn0.14seg-HXAPpAn4w8BW4J_PBAiOv_LspfBe1IJ_TUypV3HGoomMSSFiGkwipoF-yKgRqIEq4fwAhM5p7OLYoXbg&screen=MHL&uid=14.236.202.174
+https://stream.langsontv.vn/live/285c78da0c246524c90917842f8de03bd21/playlist.m3u8
 
 #EXTINF:-1 tvg-id="laocai" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/laocai.png", THLC HD | TH Lào Cai
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/385/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzg1L291dHB1dC9pbmRleC5tM3U4In0.zQXuuIFvtOp8uWL8o2wyxfwb5SN2UlpSTx-3ifRk_xo&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://live.baolaocai.vn/channel2/stream.m3u8
 
 #EXTINF:-1 tvg-id="nghean" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/nghean.png", NTV HD | TH Nghệ An
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/437/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvNDM3L291dHB1dC9pbmRleC5tM3U4In0.ZftYxzsJCaNeRwjT3baLowTQD7vnz12QUl9oN26aBoM&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=nghe-an-1
 
 #EXTINF:-1 tvg-id="ninhbinh" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/ninhbinh.png", NTV HD | TH Ninh Bình
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/376/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzc2L291dHB1dC9pbmRleC5tM3U4In0.s5UWbYo0pmWZU7NSO5SZhr1iYx8SljckUFQzx2AlkhA&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=ninh-binh-11
 
 #EXTINF:-1 tvg-id="phutho" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/phutho.png", PTV HD | TH Phú Thọ
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/320/HLS_Clean_MHL_2s/320.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMyMC9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4Mn0.ujD6kB7F4XUSZeI-Smjj93k67rp3ysDm1M_x0hd4nc39HWZgOVEgBeX9jOqybljEKVAFOli7LuaP6y7aSahVvQ&screen=MHL&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=phu-tho
 
 #EXTINF:-1 tvg-id="quangninh1" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/quangninh1.png", QTV1 HD | TH Quảng Ninh
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/390/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzkwL291dHB1dC9pbmRleC5tM3U4In0.wJ__c5op_oy5TBU2uQNYhyC4GiumZTnOKsbepZgISxU&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=quang-ninh-1
 
 #EXTINF:-1 tvg-id="quangninh3" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/quangninh3.png", QTV3 HD | TH Quảng Ninh
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/390/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzkwL291dHB1dC9pbmRleC5tM3U4In0.wJ__c5op_oy5TBU2uQNYhyC4GiumZTnOKsbepZgISxU&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=quang-ninh-3
 
 #EXTINF:-1 tvg-id="sonla" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/sonla.png", STV HD | TH Sơn La
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/444/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvNDQ0L291dHB1dC9pbmRleC5tM3U4In0.UeVZ6VCFghWTZkRWVx2We_O0bFy7vrywswvBqeb-0oI&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=son-la
 
 #EXTINF:-1 tvg-id="thainguyen" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/thainguyen.png", TN1 HD | TH Thái Nguyên
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/381/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODUsInVyaSI6Ii9icGstdHYvMzgxL291dHB1dC9pbmRleC5tM3U4In0.DdyKwTd1V3QEO8RcgJp2_b-7r789N1luMCK_j1EJErM&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://streaming.thainguyentv.vn/hls/livestream.m3u8
 
 #EXTINF:-1 tvg-id="thanhhoa" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/thanhhoa.png", TTV HD | TH Thanh Hóa
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/383/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODUsInVyaSI6Ii9icGstdHYvMzgzL291dHB1dC9pbmRleC5tM3U4In0.mzzaCNKS0eZOijicxe0EyXSvCOdxXS5BJLVre1uH3XQ&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://d4.dhcn.vn/hls/bth_th/720p/index.m3u8
 
 #EXTINF:-1 tvg-id="tuyenquang" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/diaphuong/tuyenquang.png", TTV HD | TH Tuyên Quang
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://rr1-ateme.tv360.vn/live/eds/303/HLS_Clean_MHL_2s/303.m3u8?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzMwMy9ITFNfQ2xlYW5fTUhMXzJzLyIsImV4cCI6MTc5MzMxNjI4NX0.rgzPbbC4fjd25DmT9v7qVpmcsaUpjrNJQ_6hmbAc-25AP6w7tKDoK_DBvRZVOa5KAUPAHsSNy8AQz7NlT750lA&screen=MHL&uid=14.236.202.174
+https://streaming.tuyenquangtv.vn/channel/tuyenquang/playlist.m3u8
 
 #EXTINF:-1 tvg-id="hitv" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/hanoicab/hitv.png", HiTV
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://lsm-g12.tv360.vn:18443/332.m3u8?AdaptiveType=HLS&VOD_RequestID=jKQSNY7t2gBBBDpQnm9ycYEZmIkztQgIDouHhU4EV5Qdr/p5Y0OzB6v5JYGfTvWLP4vZX3CJuvofeM7eCQc8wPcq0Y865+hPdqnjs5F/SWJ5D3hqv0M2g9ps1vAEOYuWvKrO+t+orBskkJKddvvCI0yode50NC4j60Fq43PeVHV9Z8J8TGQ8er5khkXFRxqvnStFwhmetx1I/Ny5wbJuEA==&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=32&expires=1793382695&token=c529b8cf4490a3118cfdc17008998723
 
 #EXTINF:-1 tvg-id="youtv" group-title="Địa Phương" tvg-logo="https://freem3u.xyz/static/images/hanoicab/youtv.png", You TV 
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/447/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYzMTIsInVyaSI6Ii9icGstdHYvNDQ3L291dHB1dC9pbmRleC5tM3U4In0.4Necr6upOa8cYtifHufMgnFZy1fdjTWOXIOZBqElAgg&minrate=0&maxrate=12000000&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=31&expires=1793382695&token=8a7c4beffd098b8ccd5b66f3996a2c3c
 
 
 
@@ -466,7 +466,7 @@ https://liveatmvng.vtvprime.vn/live/data8/SCTV1/Live_DASHDRM/SCTV1.mpd
 
 #EXTINF:-1 tvg-id="sctv2hd" group-title="SCTV" tvg-logo="https://vietanhtv.id.vn/logo/sctv2.png", SCTV2 HD - TODAY TV
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://tv.vietanhtv.top/tv360/tv360.php?id=201&expires=1793381068&token=02b8d02eae38be52a395b55e1acbb606
+https://tv.vietanhtv.top/tv360/tv360.php?id=201&expires=1793382691&token=28506518e9740664bb3c7dafaf334728
 
 #EXTINF:-1 tvg-id="sctv3hd" group-title="SCTV" tvg-logo="https://vietanhtv.id.vn/logo/sctv3.png", SCTV3 - SEE TV
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
@@ -482,7 +482,7 @@ https://vietanhtv.id.vn/sctv/sctv5-a3cdb592/index.m3u8
 
 #EXTINF:-1 tvg-id="sctv6hd" group-title="SCTV" tvg-logo="https://vietanhtv.id.vn/logo/sctv6.png" catchup="append" catchup-days="2" catchup-source="https://tshift.fptplay.net/dvr/film360_1000.stream/chunks_dvr_range-${start}-${offset}.m3u8", SCTV6 HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://tv.vietanhtv.top/tv360/tv360.php?id=232&expires=1793381068&token=f0a5e0e758ef28e26dbe709284139263
+https://tv.vietanhtv.top/tv360/tv360.php?id=232&expires=1793382691&token=b6c3b0a052b4fc73177ea8743300cb13
 
 #EXTINF:-1 tvg-id="sctv7hd" group-title="SCTV" tvg-logo="https://vietanhtv.id.vn/logo/sctv7.png", SCTV7 HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
@@ -585,99 +585,99 @@ https://vietanhtv.id.vn/sctv/sctv-4k/index.m3u8
 
 #EXTINF:-1 tvg-id="onviegiaitri" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/viegiaitri.png", ON Vie Giải Trí
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/211/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjExL291dHB1dC9pbmRleC5tM3U4In0.LmTnKHVvTH3corNtQxpy2vUw9XghHPX6UImCvTLgUK4&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=vie-giai-tri-hd
 
 #EXTINF:-1 tvg-id="onphimviet" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onphimviet.png", ON Phim Việt
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://vod-evg4.tv360.vn/PJCPqNDugZzlsP2EW_vD0w/1793381095/video1/2022/12/29/01/fe427563/3df494/h264/master.m3u8?start=1793294372&stop=1793297024&uid=290557915
+https://tv.vietanhtv.top/tv360/tv360.php?id=175&expires=1793382695&token=e476df796eb44a7f883a79f80d231aa6
 
 #EXTINF:-1 tvg-id="onmovies" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onmovies.png", On Movies 
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/346/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzQ2L291dHB1dC9pbmRleC5tM3U4In0.PUhfwzhDI2mrtjGQgCzED0g7BE0GbWtCgcPv_sC8mGI&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=181&expires=1793382695&token=996687735284e2273436deb0c32e9ad9
 
 #EXTINF:-1 tvg-id="onechannel" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onechannel.png", ON E- Channel
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/212/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjEyL291dHB1dC9pbmRleC5tM3U4In0.yUz35RrIqmbl8BNIa_uNkf5Pan-kbmOaMOv-2NSN4zQ&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=182&expires=1793382695&token=4b8ff6e1c6e432626c76571133942aaf
 
 #EXTINF:-1 tvg-id="ono2tv" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/ono2tv.png", On O2TV
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/218/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjE4L291dHB1dC9pbmRleC5tM3U4In0.NfEZDw1amaCBrn96BIccf1YB1cECE1bwrfEynktPe8I&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=136&expires=1793382695&token=9ecbc01df53ebf2856e7bab0583ea11b
 
 #EXTINF:-1 tvg-id="onbibi" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onbibi.png", On BiBi
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/263/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjYzL291dHB1dC9pbmRleC5tM3U4In0.IgJRuq6vREeubQdsn-p34bx9KU7zPKX9mlnlRd1iMS0&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=178&expires=1793382695&token=42d5115bf93be75156e8b4b6a6b073e7
 
 #EXTINF:-1 tvg-id="oninfotv" group-title="VTVcab" tvg-logo="https://img-ali1.tv360.vn/image1/2023/07/19/09/1689732099410/a13853e5de55_480_270.png", ON Info TV
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/349/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzQ5L291dHB1dC9pbmRleC5tM3U4In0.T1zNP3pC1eqrZrnE39N4h3ucZYQn_Zk6FJa0Vp9srJQ&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=189&expires=1793382695&token=aec2b01c15b616848ebce919544acaad
 
 #EXTINF:-1 tvg-id="oncine" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/oncine.png", ON Cine
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/226/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjI2L291dHB1dC9pbmRleC5tM3U4In0.WF5veSngdunRm_eE-2GWOyxLXd6f8mw00AOwrLz2Cbw&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=176&expires=1793382695&token=103e1a66461d8d13e9bb04d3514424ea
 
 #EXTINF:-1 tvg-id="onstyle" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onstyle.png", ON Style TV
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/219/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjE5L291dHB1dC9pbmRleC5tM3U4In0.CxGrJgSaQei0CZh8HTsjAhCHgfgt50NV_eAuQgLs5Rw&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=184&expires=1793382695&token=de7361cc5d2327771ff9dc2db72b8f73
 
 #EXTINF:-1 tvg-id="onmusic" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onmusic.png", On Music
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/220/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjIwL291dHB1dC9pbmRleC5tM3U4In0.PQ7AdQmpqrD94_O2ugdo3u9_7h1lwzcx_xAJDZyXbV0&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=185&expires=1793382695&token=76a08e52c93b34c4c633874052c88085
 
 #EXTINF:-1 tvg-id="ontrending" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/ontrendingtv.png", ON TRENDING TV
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/350/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzUwL291dHB1dC9pbmRleC5tM3U4In0.9a1_rlUtjHTBs2uRT3mUGjGPoA5L4LqnDNk5Jm6Uu60&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=186&expires=1793382695&token=366e507d79e992d38bdad6c3dd4da628
 
 #EXTINF:-1 tvg-id="onviedramas" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/viedrama.png", ON Vie Dramas
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/339/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzM5L291dHB1dC9pbmRleC5tM3U4In0.8mvML-yB_DuHIkHrrVK87SD85Y0NoQlvX4X35fTCHhE&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/vieon/vieon.php?id=vie-dramas-hd
 
 #EXTINF:-1 tvg-id="onvfamily" type="stream" group-title="VTVcab" tvg-logo="https://i.ibb.co/HHfL7Dq/cocab20.webp", ON V Family
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/351/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzUxL291dHB1dC9pbmRleC5tM3U4In0.ygqEcv7slNBkPG5oRuQIVfrFqfjdN-Te_OAzjs8Z58Y&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=187&expires=1793382695&token=f224320693c3e458ee2f66d51b7fdfe5
 
 #EXTINF:-1 tvg-id="onkids" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/onkids.png", On Kids
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/234/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMjM0L291dHB1dC9pbmRleC5tM3U4In0.KN5ieDSsg4IY3DFi3Eri6EzglWSLtWn1xmdBUFxpFs0&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=179&expires=1793382695&token=14d18e33c46a01e5c8df45503784bed3
 
 #EXTINF:-1 tvg-id="onlife" group-title="VTVcab" tvg-logo="https://img-ali1.tv360.vn/image1/2023/07/19/09/1689732652862/f124f55c3587_640_360.png", On Life
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://fo-hlc.tv360.vn/bpk-tv/347/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTMzMTYyODIsInVyaSI6Ii9icGstdHYvMzQ3L291dHB1dC9pbmRleC5tM3U4In0.b6tNNGYGInSU3BNT90c_-G786tWgkTdosB18QW_5nIU&minrate=0&maxrate=12000000&uid=14.236.202.174
+https://tv.vietanhtv.top/tv360/tv360.php?id=188&expires=1793382695&token=984ae677736069bf569c85f74aab786f
 
 #EXTINF:-1 tvg-id="onsports" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/_ports_ng_logo_04202212.jpg", ON SPORTS 
-#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream=inputstream.adaptive 
 #KODIPROP:inputstream.adaptive.manifest_type=dash 
 #KODIPROP:inputstream.adaptive.license_type=clearkey 
 #KODIPROP:inputstream.adaptive.license_key=https://tv.vietanhtv.top/tivi/cleankey.php?id=tv360173&token=8e85a4e3356cc68317042495ba22fb56
-https://tv.vietanhtv.top/tv360/tv360.php?id=173&expires=1793381072&token=647028f2be8befe3b4e9c9e465b7486a
+https://tv.vietanhtv.top/tv360/tv360.php?id=173&expires=1793382695&token=71d58e130d69459761f7b1e34edc8b62
 
 #EXTINF:-1 tvg-id="onsportsplus" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/onsportscongmoi1.jpg", ON SPORTS+ 
-#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.manifest_type=dash 
 #KODIPROP:inputstream.adaptive.license_type=clearkey 
 #KODIPROP:inputstream.adaptive.license_key=https://tv.vietanhtv.top/tivi/cleankey.php?id=tv360183&token=8e85a4e3356cc68317042495ba22fb56
-https://tv.vietanhtv.top/tv360/tv360.php?id=183&expires=1793381072&token=452e5059302276f3ac929bb6db757a52
+https://tv.vietanhtv.top/tv360/tv360.php?id=183&expires=1793382695&token=0239c7aa3f880d05983a86f470da706a
 
 #EXTINF:-1 tvg-id="onfootball" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/_ootball_-_opyright_by_cab_logo_202212.jpg", ON FOOTBALL
-#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream=inputstream.adaptive 
 #KODIPROP:inputstream.adaptive.manifest_type=dash 
 #KODIPROP:inputstream.adaptive.license_type=clearkey 
 #KODIPROP:inputstream.adaptive.license_key=https://tv.vietanhtv.top/tivi/cleankey.php?id=tv360174&token=8e85a4e3356cc68317042495ba22fb56
-https://tv.vietanhtv.top/tv360/tv360.php?id=174&expires=1793381072&token=f49c1c177ba33bf17687912ea497d435
+https://tv.vietanhtv.top/tv360/tv360.php?id=174&expires=1793382695&token=7df5904e28dfbc02ae9169f56ce89553
 
 #EXTINF:-1 tvg-id="onsportsnews" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/v2/channel/20220613/2022061306/Logo_ONSPORTSNEWS_150x904_1675158858.webp", ON SPORTS NEWS 
-#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
 #KODIPROP:inputstream=inputstream.adaptive 
 #KODIPROP:inputstream.adaptive.manifest_type=dash 
 #KODIPROP:inputstream.adaptive.license_type=clearkey 
 #KODIPROP:inputstream.adaptive.license_key=https://tv.vietanhtv.top/tivi/cleankey.php?id=tv360170&token=8e85a4e3356cc68317042495ba22fb56
-https://tv.vietanhtv.top/tv360/tv360.php?id=170&expires=1793381072&token=58df7f166d1a6a5c08fdb77251cb5579
+https://tv.vietanhtv.top/tv360/tv360.php?id=170&expires=1793382695&token=97749561e5b79340ec186df77b8d91f7
 
 #EXTINF:-1 tvg-id="ongolf" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/v2/channel/20220613/2022061306/Logo_ONGOLF_150x903_1675158871.webp", ON GOLF 
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
-https://tv.vietanhtv.top/tv360/tv360.php?id=169&expires=1793381072&token=497614f6146961ac80f513029dfa2bc9
+https://tv.vietanhtv.top/tv360/tv360.php?id=169&expires=1793382695&token=b819e30c18a6c6977b262a02fdc0cb9a
 
 
 
