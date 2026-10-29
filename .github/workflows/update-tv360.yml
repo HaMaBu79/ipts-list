@@ -2,7 +2,7 @@ name: Dong bo URL kenh tu TV360
 
 on:
   schedule:
-    - cron: "13,43 * * * *"
+    # (da tat: IP runner bi TV360 chan vung - box chay dong bo)
   workflow_dispatch:
     inputs:
       apply:
