@@ -7,7 +7,9 @@ __pycache__/
 *.bak
 _source.m3u8
 
-# Phien dang nhap - KHONG push
+# Phien dang nhap TV360 - KHONG push (co token!)
+tv360_session.json
+tv360_session.json.tmp
 .tv360_session/
 
 # Bao cao chay (sinh moi moi lan)

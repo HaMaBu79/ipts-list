@@ -1,151 +1,74 @@
-# Dong bo URL kenh tu playlist nguon
+# ipts-list - Playlist IPTV tu TV360 (lay link TRUC TIEP)
 
-Chuong trinh tai mot playlist **nguon** san, doi chieu voi `list.m3u8` cua
-ban, va **chi thay dong URL** cua nhung kenh thuoc nhom da chon.
+> **Thay doi quan trong:** link kenh khong con lay qua `tv.vietanhtv.top` (nguon trung gian).
+> Bay gioc script goi thang API cua TV360:
+> - `api.tv360.vn` -> danh sach kenh, nhom kenh
+> - `tv360.vn` -> link phat `.m3u8` (giai ma AES-128-ECB bang khoa cong khai cua web)
 
-**Khong can tai khoan. Khong can mat khau. Khong dang nhap gi ca.**
+## Files
 
-## 1. Chay thu o may (khong ghi file)
-
-```bash
-python sync.py
-```
-
-Day la **dry-run**: khong ghi, khong push. Chi in ra muc nao se duoc doi.
-
-Muot bo qua kiem tra segment (nhanh hon nhung it an toan):
-
-```bash
-python sync.py --no-verify
-```
-
-Kiem tra 1 kenh duy nhat:
-
-```bash
-python sync.py --only VTV3
-```
-
-## 2. Ghi that
-
-```bash
-python sync.py --apply
-```
-
-## 3. Chon kenh can theo doi
-
-Mo `source.json`. Doi danh sach `groups`:
-
-```json
-"groups": ["VTV", "Vĩnh Long", "Địa Phương", "Địa phương",
-           "VTVcab", "HTV", "SCTV"]
-```
-
-| Truong | Y nghia |
+| File | Vai tro |
 |---|---|
-| `source_url` | Playlist nguon can copy URL tu do |
-| `groups` | Chi kenh thuoc `group-title` trong danh sach nay moi duoc doi |
-| `verify` | `true` = tai thu muc phat + 1 segment that truoc khi ghi |
-| `playlist_file` | File dich, mac dinh `list.m3u8` |
+| `sync_tv360.py` | Script dong bo: lay link tu TV360 -> ghi vao `list.m3u8` / `Listphu.m3u8` |
+| `tv360_client.py` | Module giao tiep TV360: dung OTP, giu token, lay link, lay danh muc |
+| `playlist.py` | Tien ich parse playlist (giu la cho tuong thich) |
+| `.github/workflows/update-tv360.yml` | Workflow GitHub Actions chay moi 6 tieng |
 
-**Kenh khong thuoc nhom trong `groups` → giu nguyen URL cu, khong bao gio
-bi dong vao.**
+## Chay thu cong
 
-Kenh thuoc nhom nhung khong tim thay trong nguon → cung giu nguyen URL cu.
+```bash
+pip install cryptography
 
-## 4. Cach doi chieu
+# Xem truoc (khong ghi file)
+python sync_tv360.py --dry
 
-1. **`tvg-id`** — uu tien cao nhat
-2. **`name`** — chi khi muc khong co `tvg-id`
+# Ghi that
+python sync_tv360.py
+```
 
-Khong khop → giu URL cu. Khong doan, khong ghep theo thu tu dong.
+## Kenh nao lay duoc?
 
-## 5. Nguyen tac: chi doi URL
-
-Chi dong URL cua muc duoc phep doi bi thay. Moi thu khon giu nguyen
-**byte-for-byte**:
-
-- `tvg-id`, `tvg-name`, `tvg-logo`, `group-title`
-- ten kenh, comment, thu tu
-- dong `#EXTVLCOPT` (User-Agent cua ban **khong bao gio bi thay**)
-- dong `#EXTM3U`, `#UPDATE`
-
-Khong them muc. Khong xoa muc. Khong sap xep lai.
-
-Ghi file tam → kiem tra so dong va so muc → moi thay the. Bat ky loi nao
-cung giu nguyen file goc.
-
-## 6. Kiem tra muc moi
-
-`verify: true` khong chi kiem tra HTTP 200. Chuong trinh tai thu muc phat,
-xuong bien thien, roi tai **mot segment that**. Khong tai duoc → giu URL cu.
-
-## 7. GitHub Actions — chay tu dong 3 lan/ngay
-
-Lich chay trong `.github/workflows/update-tv360.yml`:
-
-| Gio Viet Nam | Cron (UTC) |
+| Trang thai | Mo ta |
 |---|---|
-| 06:00 | `0 23 * * *` |
-| 12:00 | `0 5 * * *` |
-| 18:00 | `0 11 * * *` |
+| **Miễn phí** (`needLogin = 0`) | Luon lay duoc, khong can dang nhap |
+| **Trả phí** (`needLogin = 1`) | Can token dang nhap TV360 |
 
-Khi chay tu dong (cron), workflow **luon ghi that va push** — khong can
-tick gi.
+### Lay token dang nhap (khong can SMS)
 
-Chay thu cong: **Actions > Dong bo URL kenh > Run workflow**. Mac dinh chi
-xem thu. Tick **"Ghi that vao playlist"** de ghi.
-
-**Dong `#UPDATE HH:MM⏱DD/MM | User: HaMaBu`** o dau playlist cung duoc
-tu dong cap nhat moi lan ghi that, theo gio Viet Nam. Mo kenh VTV1 se
-thay ngay link vua cap nhat luc may gio.
-
-### Bat quyen ghi cho Actions (bat buoc, lam 1 lan)
-
-Tren GitHub vao **Settings > Actions > General > Workflow permissions**,
-chon **"Read and write permissions"**.
-
-Khong lam buoc nay, workflow chay het nhung khong push duoc.
-
-### Khong can Secrets
-
-Workflow nay khong dung tai khoan gi. Khong co `TV360_MSISDN`,
-khong co `TV360_PASSWORD`. Khong can tao secret nao ca.
-
-## 8. Xem ket qua
-
-`last_report.json` — muc nao doi, muc nao giu, ly do gi.
+1. Mo <https://tv360.vn>, dang nhap tai khoan cua ban.
+2. Mo DevTools -> tab **Application** -> **Cookies** -> `https://tv360.vn`.
+3. Copy gia tri 2 cookie:
+   - `access-token`
+   - `refresh-token`
+4. Tao file `tv360_session.json` canh repo:
 
 ```json
 {
-  "status": 0,
-  "updated": [{"channel": "VTV3 HD", "old": "...", "new": "...",
-               "matched_by": "tvg-id"}],
-  "kept":    [{"channel": "ON SPORTS", "reason": "khong phai playlist HLS"}],
-  "errors":  []
+  "access_token": "eyJhbGciOi...",
+  "refresh_token": "eyJhbGciOi...",
+  "msisdn": "09xxxxxxxx",
+  "device_id": "s%3Axxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 }
 ```
 
-Token khong bao gio duoc ghi day du vao log hay bao cao.
+> File nay **KHONG** push len GitHub (da them vao `.gitignore`).
+> GitHub Actions se dung `secrets` de tao file nay khi chay.
 
-## 9. Khoi phuc phien ban truoc
+## GitHub Actions - Secrets can tao
 
-Moi lan commit tao mot phien ban rieng:
+Trong repo -> **Settings** -> **Secrets and variables** -> **Actions** -> **New repository secret**:
 
-**History > chon commit cuoi > ... > View changes > Revert**
+| Secret | Gia tri | Bat buoc? |
+|---|---|---|
+| `TV360_ACCESS_TOKEN` | gia tri cookie `access-token` | Khong (chi lay duoc kenh mien phi) |
+| `TV360_REFRESH_TOKEN` | gia tri cookie `refresh-token` | Khong |
+| `TV360_MSISDN` | so dien thoai tai khoan | Khong |
+| `TV360_DEVICE_ID` | gia tri cookie `device-id` | Khong |
 
-Hoac tai ban cu:
+## Luu y
 
-```
-https://raw.githubusercontent.com/HaMaBu79/ipts-list/<commit-cu>/list.m3u8
-```
-
-## 10. Han che da biet
-
-- **Phu thuoc playlist nguon.** Het nguon → het cap nhat. Kenh giu nguyen
-  URL cu.
-- **Link lay duoc co thoi han.** Token trong URL nguon co `expires`. Het
-  han → kenh do can chay lai.
-- **Khong sua `list.m3u8` tren may.** Workflow tai ban moi tu GitHub truoc
-  khi chay, nen khong ghi de file cu.
-- **Khong go vao `unlock v2f_v6m/`.** Thu muc do thuoc ve phan khac,
-  `sync.py` khong doc gi trong do.
+- Link TV360 co **han su dung** (token JWT trong URL). Script lay lai moi 6 tieng.
+- Script **chi thay dong URL**, giu nguyen ten / logo / nhom / thu tu / `#EXTVLCOPT`.
+- Muc khong lay duoc link -> **giu nguyen URL cu** (khong xoa).
+- File ghi qua file tam -> kiem tra -> moi thay the. Loi -> giu nguyen file goc.
+- `sync.py` + `source.json` (cach cu lay qua vietanhtv.top) da bi loai bo.
