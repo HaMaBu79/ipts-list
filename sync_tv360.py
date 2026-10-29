@@ -19,6 +19,7 @@ import os
 import re
 import sys
 import time
+import unicodedata
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -48,12 +49,69 @@ DEFAULT_CFG = {
     # Chi lay cac kenh co needLogin = 0 (mien phi, khong can dang nhap).
     # Dat False de lay ca kenh can dang nhap (can token).
     "only_free_no_login": True,
+    # Cac nhom kenh TV360 KHONG co (vd SCTV) -> lay tu nguon thay the
+    # (xem "external_sources" ben duoi) thay vi lay sai kenh khac.
+    "skip_groups": ["SCTV", "Quốc tế"],
+    # Nguon thay the cho nhom skip: {group: [url, ...]}
+    # Moi lan sync se tai playlist nay va lay URL cho cac kenh trong nhom.
+    "external_sources": {
+        "SCTV": [
+            "https://tv.vietanhtv.top/tivi/index.php?u=nguyenduhan&p=nguyenduhan",
+        ],
+    },
+    # Nguon FALLBACK: dung khi TV360 khong co link cho kenh do
+    # (ON FOOTBALL, ON GOLF, DaNangTV, ...).
+    "external_fallback": [
+        "https://tv.vietanhtv.top/tivi/index.php?u=nguyenduhan&p=nguyenduhan",
+    ],
     # Giu nguyen dong #EXTVLCOPT cua file goc (User-Agent)
     "keep_vlcopt": True,
     # Ghi dong #UPDATE
     "stamp_update": True,
     "user": "HaMaBu",
 }
+
+# Ten kenh trong playlist (nguon cu) khac ten tren TV360.
+# KHUYEN -> ten TV360 tuong ung (so sanh theo khoa chuan hoa, prefix deu chap).
+ALIAS = {
+    # VTVcab (ON*)
+    "on vie giai tri": "vtvcab 1 vie giai tri hd",
+    "on e channel": "vtvcab 5 e channel hd",
+    "on biebi": "vtvcab 8 bibi sd",
+    "on bibi": "vtvcab 8 bibi sd",
+    "on info tv": "vtvcab 9 infotv hd",
+    "on style tv": "vtvcab 12 styletv",
+    "on trending tv": "vtvcab17 trending tv",
+    "on vie dramas": "vtvcab19 vie dramas",
+    "on v family": "vtvcab 20 v family hd",
+    "on life": "vtvcab 22 life tv hd",
+    "on golf": "vtvcab 23 golf channel",
+    "on sports": "vtvcab 3 on sports",
+    "on sports news": "vtvcab 18 on sports news",
+    "on football": "vtvcab 16 on football hd",
+    "on cine": "vtvcab10 on cine hd",
+    "on music": "vtvcab15 on music",
+    "on movies": "vtvcab 4 on movies",
+    "cartoon kids": "vtvcab 21 cartoon kids",
+    # SCTV: TV360 khong co kenh SCTV that -> giu nguyen link vietanhtv goc
+    # (khong map sang "SCTV2 - Today TV" vi sai noi dung).
+    # HTV
+    "htv the thao": "htv the thao",
+    "htvc plus": "htvc channel b",
+    # Dia phuong
+    "hanoitv1": "ha noi 1",
+    "hanoitv2": "ha noi 2",
+    "youtv": "youtv",
+}
+
+
+def _norm_alias(s):
+    """Chuan hoa ten: bo dau, bo HD/SD, chi giu a-z0-9."""
+    s = unicodedata.normalize("NFD", s or "")
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+    s = s.lower()
+    s = re.sub(r"[^a-z0-9]+", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
 
 
 def load_cfg():
@@ -64,6 +122,98 @@ def load_cfg():
     except Exception:
         pass
     return cfg
+
+
+# ------------------------------------------------------------------ nguon ngoai
+def fetch_external_playlist(url, timeout=45):
+    """Tai mot playlist m3u8 tu nguon ngoai (vd vietanhtv.top).
+
+    Tra ve dict: {tvg-id -> (url, ua)} cho cac muc co group-title khop.
+    """
+    import urllib.request
+    req = urllib.request.Request(url, headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                      "AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/154.0.0.0 Safari/537.36",
+        "Accept": "*/*",
+    })
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        raw = r.read().decode("utf-8", "replace")
+    out = {}
+    lines = raw.split("\n")
+    i = 0
+    while i < len(lines):
+        ln = lines[i]
+        if ln.startswith("#EXTINF"):
+            m = re.search(r'tvg-id="([^"]*)"', ln)
+            g = re.search(r'group-title="([^"]*)"', ln)
+            tvg = m.group(1).strip() if m else ""
+            grp = g.group(1).strip() if g else ""
+            ua = None
+            j = i + 1
+            url_line = None
+            while j < len(lines):
+                s = lines[j].strip()
+                if s.startswith("#EXTVLCOPT:http-user-agent"):
+                    ua = lines[j]  # giu nguyen ca dong
+                    j += 1
+                    continue
+                if s.startswith("http://") or s.startswith("https://"):
+                    url_line = s
+                    j += 1
+                    break
+                if s.startswith("#EXTINF"):
+                    break
+                j += 1
+            if url_line:
+                key = (tvg or "").lower()
+                out.setdefault(key, {"url": url_line, "ua": ua,
+                                    "group": grp, "name": ln.split(",")[-1].strip()})
+            i = j
+            continue
+        i += 1
+    return out
+
+
+def build_external_index(cfg):
+    """Tai cac nguon ngoai va tra ve {group: {tvg-id: {url, ua}}}."""
+    idx = {}
+    for group, urls in (cfg.get("external_sources") or {}).items():
+        acc = {}
+        for u in urls:
+            print("   [ext] tai %s (%s)" % (group, u))
+            try:
+                d = fetch_external_playlist(u)
+            except Exception as e:
+                print("   [ext] LOAI %s: %s" % (group, e))
+                continue
+            for k, v in d.items():
+                if k and v.get("group") == group:
+                    acc.setdefault(k, v)
+        if acc:
+            print("   [ext] %s: lay duoc %d muc" % (group, len(acc)))
+            idx[group] = acc
+        else:
+            print("   [ext] %s: KHONG lay duoc muc nao" % group)
+    return idx
+
+
+def build_external_fallback(cfg):
+    """Nguon fallback: {tvg-id: {url, ua}} cho kenh TV360 khong lay duoc link."""
+    acc = {}
+    for u in cfg.get("external_fallback") or []:
+        print("   [fb] tai %s" % u)
+        try:
+            d = fetch_external_playlist(u)
+        except Exception as e:
+            print("   [fb] LOAI: %s" % e)
+            continue
+        for k, v in d.items():
+            if k:
+                acc.setdefault(k, v)
+    if acc:
+        print("   [fb] fallback: %d muc" % len(acc))
+    return acc
 
 
 # ------------------------------------------------------------------ playlist io
@@ -83,11 +233,13 @@ def parse_playlist(path):
             url = None
             url_idx = None
             ua = None
+            ua_idx = None
             j = i + 1
             while j < len(lines):
                 s = lines[j].strip()
                 if s.startswith("#EXTVLCOPT:http-"):
                     ua = lines[j]
+                    ua_idx = j
                     j += 1
                     continue
                 if s.startswith("http://") or s.startswith("https://"):
@@ -107,6 +259,7 @@ def parse_playlist(path):
                     "name": hdr[k + 1:].strip() if k >= 0 else "",
                     "url": url,
                     "ua": ua,
+                    "ua_idx": ua_idx,
                     "url_idx": url_idx,
                 })
                 i = url_idx + 1
@@ -158,6 +311,7 @@ def norm2(s):
 
 def build_indexes(catalog):
     by_slug, by_name, by_norm, by_norm2 = {}, {}, {}, {}
+    by_alias = {}
     # Ten tinh/thanh pho (khong so) -> danh sach kenh dia phuong
     by_province = {}
     for ch in catalog:
@@ -176,7 +330,11 @@ def build_indexes(catalog):
         base = re.sub(r"\s*\d+\s*$", "", n)
         if base and len(base) >= 4:
             by_province.setdefault(base, []).append(ch)
-    return by_slug, by_name, by_norm, by_norm2, by_province
+        # khoa alias: ten TV360 -> kenh
+        key = _norm_alias(ch.get("name"))
+        if key:
+            by_alias.setdefault(key, ch)
+    return by_slug, by_name, by_norm, by_norm2, by_province, by_alias
 
 
 def strip_province(name):
@@ -190,11 +348,22 @@ def strip_province(name):
 
 
 def match_channel(entry, idx):
-    by_slug, by_name, by_norm, by_norm2, by_province = idx
+    by_slug, by_name, by_norm, by_norm2, by_province, by_alias = idx
     tvg = (entry["tvg"] or "").strip()
     name = (entry["name"] or "").strip()
 
-    # 1. tvg-id la id TV360
+    # 0. Ban do khuyen (ten playlist -> ten TV360)
+    akey = _norm_alias(name)
+    if akey:
+        for k, target in ALIAS.items():
+            nk = _norm_alias(k)
+            if nk == akey or nk.startswith(akey) or akey.startswith(nk):
+                if target in by_alias:
+                    return by_alias[target], "alias"
+                # thu khop prefix (do dau tieng Viet bi bo)
+                for kk, ch in by_alias.items():
+                    if kk.startswith(target) or target.startswith(kk):
+                        return ch, "alias~"
     if tvg and tvg in by_slug:
         return by_slug[tvg], "tvg-id(id)"
     # 2. tvg-id la slug TV360
@@ -254,6 +423,12 @@ def build(cfg, dry=False):
 
     only_free = cfg.get("only_free_no_login", True)
     group_map = cfg.get("group_map", {})
+    skip_groups = set(cfg.get("skip_groups", []) or [])
+
+    # Nguon thay the cho nhom kenh TV360 khong co (vd SCTV)
+    ext_idx = build_external_index(cfg)
+    # Nguon fallback cho kenh TV360 khong tra link
+    fb_idx = build_external_fallback(cfg)
 
     # Lay link cho tung kenh (chay nhieu luong cho nhanh)
     print("Dang lay link truc tiep tu TV360...")
@@ -262,38 +437,59 @@ def build(cfg, dry=False):
     todo = [ch for ch in catalog]
     workers = int(cfg.get("workers", 8))
 
-    def fetch(ch):
+    # PASS 1: client 'khach' (device rieng, khong gui access-token) chay
+    # song song -> lay duoc kenh free ma khong bi ap goi thue bao.
+    import threading
+    _local = threading.local()
+
+    def _anon_for_thread():
+        a = getattr(_local, "a", None)
+        if a is None:
+            from tv360_client import Tv360Client, STATE_FILE
+            tid = threading.current_thread().name.replace(" ", "_")
+            a = Tv360Client("%s.anon.%s" % (STATE_FILE, tid))
+            a.ping()
+            _local.a = a
+        return a
+
+    def fetch_free(ch):
         cid = str(ch["id"])
-        # Client 'khach' (device rieng, khong gui access-token): lay duoc
-        # 123/179 kenh free. Client da dang nhap se bi server ap goi thue
-        # bao -> chan ca kenh free.
-        url, err = anon.get_stream(cid)
-        needlogin = False
-        if not url:
-            s = str(err)
-            if "ăng nhập" in s or "D-164" in s or "401" in s:
-                needlogin = True
-                # Kenh can goi thue bao -> thu voi client da dang nhap.
-                if not only_free or not ch.get("need_login"):
-                    c.ensure_token()
-                    url, err = c.get_stream(cid)
-        return cid, url, err, needlogin
+        url, err = _anon_for_thread().get_stream(cid)
+        return cid, url, err
 
     from concurrent.futures import ThreadPoolExecutor
+    pending = []
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        for i, (cid, url, err, nl) in enumerate(ex.map(fetch, todo), 1):
-            if nl:
-                n_needlogin += 1
+        for i, (cid, url, err) in enumerate(ex.map(fetch_free, todo), 1):
             if url:
                 links[cid] = url
                 n_ok += 1
-                if i % 25 == 0:
+                if i % 40 == 0:
                     print("   ... %d/%d" % (i, len(todo)))
+            else:
+                pending.append((cid, err))
+                n_needlogin += 1
+    print("   pass 1 (khach): %d ok, %d can dang nhap" % (n_ok, len(pending)))
+
+    # PASS 2: kenh con thieu -> thu voi client DA DANG NHAP (gói thue bao).
+    # Chay TUAN TU: nhieu thread cung dung 1 phien dang nhap se bi server
+    # loai session (link tra D-164).
+    if pending:
+        c.ensure_token()
+        n2 = 0
+        for cid, err in pending:
+            url = None
+            if c.access_token:
+                url, err = c.get_stream(cid)
+            if url:
+                links[cid] = url
+                n2 += 1
             else:
                 n_fail += 1
                 if n_fail <= 10:
                     print("   [FAIL] id=%-7s %s" % (cid, str(err)[:50]))
-    print("   xong: %d ok, %d fail, %d can dang nhap" % (n_ok, n_fail, n_needlogin))
+        print("   pass 2 (dang nhap): %d ok, %d fail" % (n2, n_fail))
+    print("   xong: %d ok, %d fail" % (n_ok, n_fail))
     if not links:
         print("!! khong co link nao lay duoc")
         return 2
@@ -318,16 +514,57 @@ def build(cfg, dry=False):
         updated = kept = 0
         nomap = []
         for e in entries:
+            # Nhom kenh TV360 khong co (vd SCTV) -> lay tu nguon thay the.
+            if e.get("group") in skip_groups:
+                ext = ext_idx.get(e["group"], {})
+                hit = ext.get((e.get("tvg") or "").lower())
+                if hit:
+                    new = hit["url"]
+                    if new != e["url"]:
+                        url_map[e["url_idx"]] = new
+                        updated += 1
+                    else:
+                        kept += 1
+                    # dong #EXTVLCOPT cua nguon goc
+                    if cfg.get("keep_vlcopt", True) and hit.get("ua") \
+                            and e.get("ua_idx") is not None:
+                        lines[e["ua_idx"]] = hit["ua"]
+                else:
+                    kept += 1
+                    nomap.append((e["name"], "nhom %s: khong tim thay o nguon thay the"
+                                  % e["group"]))
+                continue
             ch, how = match_channel(e, idx)
             if ch is None:
-                kept += 1
-                nomap.append((e["name"], e["group"]))
+                # TV360 khong co kenh nay -> thu nguon fallback
+                fb = fb_idx.get((e.get("tvg") or "").lower())
+                if fb:
+                    new = fb["url"]
+                    if new != e["url"]:
+                        url_map[e["url_idx"]] = new
+                        updated += 1
+                    else:
+                        kept += 1
+                    if cfg.get("keep_vlcopt", True) and fb.get("ua") \
+                            and e.get("ua_idx") is not None:
+                        lines[e["ua_idx"]] = fb["ua"]
+                else:
+                    kept += 1
+                    nomap.append((e["name"], e["group"]))
                 continue
             new = links.get(str(ch["id"]))
             if not new:
-                kept += 1
-                nomap.append((e["name"], "khong lay duoc link (%s)" % ch.get("name")))
-                continue
+                # TV360 khong cho link kenh nay -> thu nguon fallback
+                fb = fb_idx.get((e.get("tvg") or "").lower())
+                if fb:
+                    new = fb["url"]
+                    if cfg.get("keep_vlcopt", True) and fb.get("ua") \
+                            and e.get("ua_idx") is not None:
+                        lines[e["ua_idx"]] = fb["ua"]
+                else:
+                    kept += 1
+                    nomap.append((e["name"], "khong lay duoc link (%s)" % ch.get("name")))
+                    continue
             if new == e["url"]:
                 kept += 1
                 continue
