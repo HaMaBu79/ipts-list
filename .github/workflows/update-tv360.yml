@@ -62,14 +62,34 @@ jobs:
           TV360_REFRESH_TOKEN: ${{ secrets.TV360_REFRESH_TOKEN }}
           TV360_MSISDN: ${{ secrets.TV360_MSISDN }}
           TV360_DEVICE_ID: ${{ secrets.TV360_DEVICE_ID }}
+          TV360_SIGNED_DEVICE: ${{ secrets.TV360_SIGNED_DEVICE }}
+          TV360_SIGNED_REFRESH: ${{ secrets.TV360_SIGNED_REFRESH }}
+          TV360_SESSION_ID: ${{ secrets.TV360_SESSION_ID }}
+          TV360_USER_ID: ${{ secrets.TV360_USER_ID }}
+          TV360_ACCOUNT_ID: ${{ secrets.TV360_ACCOUNT_ID }}
         run: |
-          if [ -n "$TV360_ACCESS_TOKEN" ]; then
-            echo '{"access_token":"'"$TV360_ACCESS_TOKEN"'","refresh_token":"'"$TV360_REFRESH_TOKEN"'","msisdn":"'"$TV360_MSISDN"'","device_id":"'"$TV360_DEVICE_ID"'"}' > tv360_session.json
-            echo "Dung token dang nhap tu secrets."
-          else
-            echo '{"access_token":"","refresh_token":"","msisdn":"","device_id":""}' > tv360_session.json
-            echo "::warning::Khong co TV360_ACCESS_TOKEN -> chi lay duoc kenh mien phi."
-          fi
+          python3 - <<'PY'
+          import json, os
+          def g(k): return os.environ.get(k, "") or ""
+          st = {
+            "access_token": g("TV360_ACCESS_TOKEN"),
+            "refresh_token": g("TV360_REFRESH_TOKEN"),
+            "user_id": g("TV360_USER_ID"),
+            "msisdn": g("TV360_MSISDN"),
+            "account_id": g("TV360_ACCOUNT_ID"),
+            "expires_at": 0,
+            "device_id": g("TV360_DEVICE_ID"),
+            "session_id": g("TV360_SESSION_ID"),
+            "signed_device": g("TV360_SIGNED_DEVICE") or g("TV360_DEVICE_ID"),
+            "signed_refresh": g("TV360_SIGNED_REFRESH"),
+            "saved_at": 0,
+          }
+          json.dump(st, open("tv360_session.json", "w"))
+          if st["access_token"]:
+            print("Dung token dang nhap tu secrets.")
+          else:
+            print("::warning::Khong co TV360_ACCESS_TOKEN -> chi lay duoc kenh mien phi.")
+          PY
 
       # ---------- 4. Chay dong bo ----------
       - name: Dong bo URL tu TV360
