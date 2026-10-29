@@ -603,7 +603,7 @@ def build(cfg, dry=False):
 
 
 def main():
-    dry = "--dry" in sys.argv
+    dry = "--dry" not in sys.argv and "--apply" not in sys.argv
     cfg = load_cfg()
     print("=" * 66)
     print("  SYNC TV360 TRUC TIEP  |  che do: %s"

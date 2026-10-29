@@ -32,7 +32,14 @@ UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
 # Khoa ma hoa dung chung cho web (lay tu runtimeConfig cua trang chu TV360).
 E2E_KEY = "eNdtOeNDeNcRyPteDsCREt#2022"
 
-STATE_FILE = os.environ.get("TV360_STATE", "/opt/qweb/tv360_session.json")
+# Duong dan luu session. Mac dinh: cung thu muc voi file nay (de chay
+# duoc tren GitHub Actions / noi bat ky), chi dung /opt/qweb khi thu muc do
+# ton tai.
+_HERE = os.path.dirname(os.path.abspath(__file__))
+_DEFAULT_STATE = ("/opt/qweb/tv360_session.json"
+                  if os.path.isdir("/opt/qweb")
+                  else os.path.join(_HERE, "tv360_session.json"))
+STATE_FILE = os.environ.get("TV360_STATE", _DEFAULT_STATE)
 
 COOKIE_ACCESS = "access-token"
 COOKIE_REFRESH = "refresh-token"
