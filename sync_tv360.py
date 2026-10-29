@@ -475,19 +475,46 @@ def build(cfg, dry=False):
     # Chay TUAN TU: nhieu thread cung dung 1 phien dang nhap se bi server
     # loai session (link tra D-164).
     if pending:
-        c.ensure_token()
+        # KHONG auto-login (cho OTP) -> se treo. Chi thu refresh-token.
+        c.ensure_token_safe(allow_login=False)
         n2 = 0
-        for cid, err in pending:
-            url = None
-            if c.access_token:
-                url, err = c.get_stream(cid)
-            if url:
-                links[cid] = url
-                n2 += 1
-            else:
-                n_fail += 1
-                if n_fail <= 10:
-                    print("   [FAIL] id=%-7s %s" % (cid, str(err)[:50]))
+        # Moi thread mot client rieng (tranh tranh chap cookie jar khi
+        # get_stream xoa/khoi phuc cookie access-token).
+        from concurrent.futures import ThreadPoolExecutor
+        from tv360_client import Tv360Client, STATE_FILE
+
+        def fetch_auth(item):
+            cid, err0 = item
+            import threading as _t
+            tid = _t.current_thread().name.replace(" ", "_")
+            path = "%s.auth.%s" % (STATE_FILE, tid)
+            try:
+                if os.path.exists(STATE_FILE):
+                    with open(STATE_FILE, "r", encoding="utf-8") as f:
+                        data = f.read()
+                    with open(path, "w", encoding="utf-8") as f:
+                        f.write(data)
+            except Exception:
+                pass
+            cl = Tv360Client(path)
+            if not cl.access_token:
+                return cid, None, "khong co access-token"
+            try:
+                cl.ensure_token_safe(allow_login=False)
+                u, e = cl.get_stream(cid, timeout=15)
+            except Exception as ex:
+                u, e = None, str(ex)
+            return cid, u, e
+
+        with ThreadPoolExecutor(max_workers=4) as ex:
+            for i, (cid, url, err) in enumerate(ex.map(fetch_auth, pending), 1):
+                if url:
+                    links[cid] = url
+                    n2 += 1
+                else:
+                    n_fail += 1
+                    if n_fail <= 10:
+                        print("   [FAIL] id=%-7s %s" % (cid, str(err)[:50]))
         print("   pass 2 (dang nhap): %d ok, %d fail" % (n2, n_fail))
     print("   xong: %d ok, %d fail" % (n_ok, n_fail))
     if not links:
@@ -603,7 +630,10 @@ def build(cfg, dry=False):
 
 
 def main():
-    dry = "--dry" not in sys.argv and "--apply" not in sys.argv
+    # Mac dinh: GHI THAT (cho cron tren box).
+    # --dry: chi xem truoc, khong ghi.
+    # --apply: ghi that (tuong duong mac dinh, cho workflow GitHub).
+    dry = "--dry" in sys.argv
     cfg = load_cfg()
     print("=" * 66)
     print("  SYNC TV360 TRUC TIEP  |  che do: %s"
