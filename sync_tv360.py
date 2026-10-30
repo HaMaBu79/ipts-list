@@ -649,12 +649,11 @@ def build(cfg, dry=False):
     # PASS 2: kenh con thieu -> thu voi client DA DANG NHAP (gói thue bao).
     # Chay TUAN TU: nhieu thread cung dung 1 phien dang nhap se bi server
     # loai session (link tra D-164).
+    failed_ids = []
     if pending:
         # KHONG auto-login (cho OTP) -> se treo. Chi thu refresh-token.
         c.ensure_token_safe(allow_login=False)
         n2 = 0
-        # Moi thread mot client rieng (tranh tranh chap cookie jar khi
-        # get_stream xoa/khoi phuc cookie access-token).
         from concurrent.futures import ThreadPoolExecutor
         from tv360_client import Tv360Client, STATE_FILE
 
@@ -682,15 +681,57 @@ def build(cfg, dry=False):
             return cid, u, e
 
         with ThreadPoolExecutor(max_workers=4) as ex:
+            failed_ids = []
             for i, (cid, url, err) in enumerate(ex.map(fetch_auth, pending), 1):
                 if url:
                     links[cid] = url
                     n2 += 1
                 else:
                     n_fail += 1
+                    failed_ids.append((cid, err))
                     if n_fail <= 10:
                         print("   [FAIL] id=%-7s %s" % (cid, str(err)[:50]))
         print("   pass 2 (dang nhap): %d ok, %d fail" % (n2, n_fail))
+
+    # PASS 3: kenh con thieu (VD nhom goi VSport) -> thu CAC TAI KHOAN PHU.
+    # Tai khoan phu co the da mua goi VSport nen lay duoc link cho nhung
+    # kenh ma tai khoan chinh bi chan (isAccess=false).
+    still_fail = []
+    try:
+        from tv360_client import alt_clients
+        alts = alt_clients()
+    except Exception:
+        alts = []
+    if alts:
+        print("   pass 3 (tai khoan phu): %d tai khoan" % len(alts))
+        n3 = 0
+        # Cac kenh dac biet (goi the thao) can thu TRUOC vi mot so goi chi
+        # cho phep xem tren 1 thiet bi -> phai lay tuan tu, khong parallel.
+        PRIORITY_IDS = {"173", "183", "174", "170", "169"}
+        todo3 = [(cid, e) for cid, e in failed_ids if cid in PRIORITY_IDS]
+        todo3 += [(cid, e) for cid, e in failed_ids if cid not in PRIORITY_IDS]
+        for ai, ac in enumerate(alts):
+            got_here = []
+            for cid, err0 in todo3:
+                if cid in links:
+                    continue
+                try:
+                    ac.ensure_token_safe(allow_login=False)
+                    u, e = ac.get_stream(cid, timeout=15)
+                except Exception as ex:
+                    u, e = None, str(ex)
+                if u:
+                    links[cid] = u
+                    n3 += 1
+                    got_here.append(cid)
+                elif cid in PRIORITY_IDS:
+                    # goi the thao: cho 1 chút giua cac lan lay
+                    time.sleep(1.5)
+            if got_here:
+                print("      tai khoan phu #%d lay duoc %d kenh: %s"
+                      % (ai + 1, len(got_here), ",".join(got_here[:10])))
+        print("   pass 3: %d ok" % n3)
+
     print("   xong: %d ok, %d fail" % (n_ok, n_fail))
     if not links:
         print("!! khong co link nao lay duoc")

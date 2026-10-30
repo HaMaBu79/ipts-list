@@ -743,6 +743,8 @@ _client = None
 _cl_lock = threading.Lock()
 _anon = None
 _anon_lock = threading.Lock()
+_clients_alt = []          # danh sach client cho cac tai khoan phu
+_clients_alt_lock = threading.Lock()
 
 
 def client() -> Tv360Client:
@@ -751,6 +753,48 @@ def client() -> Tv360Client:
         if _client is None:
             _client = Tv360Client()
         return _client
+
+
+def alt_clients() -> list:
+    """Tra ve danh sach client cho CAC TAI KHOAN PHU (khong phai tai khoan chinh).
+
+    Mot so kenh (VD gói VSport: ON SPORTS, ON FOOTBALL...) chi tai khoan nao
+    co goi moi xem duoc. Neu tai khoan chinh khong co goi, dung tai khoan phu
+    de lay link.
+
+    Config: /opt/qweb/tv360_accounts.json
+        {"accounts": [{"msisdn": "...", "password": "...",
+                       "account": "vt...", "state": "file.json"}]}
+    """
+    global _clients_alt
+    with _clients_alt_lock:
+        if _clients_alt:
+            return list(_clients_alt)
+        out = []
+        cfg_path = "/opt/qweb/tv360_accounts.json"
+        try:
+            with open(cfg_path, encoding="utf-8") as f:
+                cfg = json.load(f)
+        except Exception:
+            return []
+        for i, acc in enumerate(cfg.get("accounts") or []):
+            state = acc.get("state") or ("/opt/qweb/tv360_session.alt%d.json" % i)
+            try:
+                c = Tv360Client(state)
+                c.ping()
+                # Token het han -> dang nhap lai bang mat khau (khong can OTP)
+                st = c.status()
+                if not st.get("logged_in"):
+                    msisdn = acc.get("msisdn") or ""
+                    password = acc.get("password") or ""
+                    prefer = acc.get("account") or ""
+                    if msisdn and password:
+                        c.login_password(msisdn, password, prefer)
+                out.append(c)
+            except Exception:
+                pass
+        _clients_alt = out
+        return list(out)
 
 
 def anon_client() -> Tv360Client:

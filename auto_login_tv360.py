@@ -89,11 +89,66 @@ def do_login(cfg):
     return False
 
 
+def alt_login():
+    """Dang nhap cac TAI KHOAN PHU (vd tai khoan co goi VSport).
+
+    Config: /opt/qweb/tv360_accounts.json
+        {"accounts": [{"msisdn","password","account","state"}]}
+    """
+    from tv360_client import Tv360Client
+    cfg_path = "/opt/qweb/tv360_accounts.json"
+    try:
+        with open(cfg_path, encoding="utf-8") as f:
+            cfg = json.load(f)
+    except Exception as e:
+        log("KHONG DOC DUOC %s: %s" % (cfg_path, e))
+        return False
+
+    accounts = cfg.get("accounts") or []
+    if not accounts:
+        return False
+
+    any_ok = False
+    for i, acc in enumerate(accounts):
+        msisdn = acc.get("msisdn") or ""
+        password = acc.get("password") or ""
+        prefer = acc.get("account") or ""
+        state = acc.get("state") or ("/opt/qweb/tv360_session.alt%d.json" % i)
+        if not msisdn or not password:
+            continue
+        try:
+            c = Tv360Client(state)
+            c.ping()
+            st = c.status()
+            if st.get("logged_in"):
+                log("Tai khoan phu #%d (%s) van con hieu luc." % (i + 1, prefer or msisdn))
+                any_ok = True
+                continue
+            r = c.login_password(msisdn, password, prefer)
+            if r.get("ok"):
+                log("DANG NHAP TAI KHOAN PHU #%d THANH CONG: %s"
+                    % (i + 1, r.get("message") or ""))
+                any_ok = True
+            else:
+                log("Dang nhap tai khoan phu #%d that bai: %s"
+                    % (i + 1, r.get("message") or ""))
+        except Exception as e:
+            log("LOI tai khoan phu #%d: %s" % (i + 1, e))
+    return any_ok
+
+
 def main():
     cfg = load_cfg()
     if not cfg:
         return 0
 
+    # 1. Tai khoan PHU (goi VSport...) - luon kiem tra
+    try:
+        alt_login()
+    except Exception as e:
+        log("LOI kiem tra tai khoan phu: %s" % e)
+
+    # 2. Tai khoan CHINH
     expired, left = token_expiry()
     if not expired:
         log("Token con hieu luc (con %d gio) -> khong can dang nhap." % (left // 3600))
