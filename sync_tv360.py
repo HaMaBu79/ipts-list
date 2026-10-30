@@ -217,6 +217,10 @@ def build_external_fallback(cfg):
 
 
 # ------------------------------------------------------------------ playlist io
+# Regex phan "Update: HH:MM⏱DD/MM" trong ten kenh (nguon goc them vao).
+_RE_STAMP = re.compile(r"\s*Update:\s*\d{2}:\d{2}⏱\d{2}/\d{2}")
+
+
 def parse_playlist(path):
     with io.open(path, "r", encoding="utf-8", newline="") as f:
         text = f.read()
@@ -253,10 +257,15 @@ def parse_playlist(path):
                 m = re.search(r'tvg-id="([^"]*)"', hdr)
                 g = re.search(r'group-title="([^"]*)"', hdr)
                 k = hdr.find(",")
+                raw_name = hdr[k + 1:].strip() if k >= 0 else ""
+                # Ten kenh co the chua danh dau "Update: HH:MM⏱DD/MM" -> tach
+                # ra de viec khop ten khong bi anh huong.
+                clean_name = _RE_STAMP.sub("", raw_name).strip()
                 entries.append({
                     "tvg": (m.group(1).strip() if m else ""),
                     "group": (g.group(1).strip() if g else ""),
-                    "name": hdr[k + 1:].strip() if k >= 0 else "",
+                    "name": raw_name,
+                    "clean_name": clean_name,
                     "url": url,
                     "ua": ua,
                     "ua_idx": ua_idx,
@@ -279,18 +288,64 @@ def build_update_line(user="HaMaBu"):
             % (now.hour, now.minute, now.day, now.month, user))
 
 
+def build_stamp():
+    """Chuoi danh dau thoi gian: HH:MM⏱DD/MM (dung cho ten kenh)."""
+    import datetime
+    try:
+        from zoneinfo import ZoneInfo
+        now = datetime.datetime.now(ZoneInfo("Asia/Ho_Chi_Minh"))
+    except Exception:
+        now = datetime.datetime.utcnow() + datetime.timedelta(hours=7)
+    return "%02d:%02d⏱%02d/%02d" % (now.hour, now.minute, now.day, now.month)
+
+
+# Regex phan "Update: HH:MM⏱DD/MM" trong ten kenh (co the do nguon goc them).
+
+
 def stamp_update(lines, user="HaMaBu"):
+    """Cap nhat dong #UPDATE + them moi danh dau thoi gian vao TEN KENH.
+
+    Nham de nhan biet BB2 da chay dong bo tu dong hay chua: xem dong
+    '#UPDATE HH:MM⏱DD/MM' va ten kenh dang co 'Update: HH:MM⏱DD/MM'.
+    """
     new_line = build_update_line(user)
+    stamp = build_stamp()
+    # 1. Cap nhat dong #UPDATE
+    act = None
     for i, ln in enumerate(lines):
         if ln.strip().startswith("#UPDATE"):
             lines[i] = new_line
-            return "da cap nhat"
+            act = "da cap nhat"
+            break
+    if act is None:
+        for i, ln in enumerate(lines):
+            if ln.strip().startswith("#EXTM3U"):
+                lines.insert(i + 1, new_line)
+                act = "da chen"
+                break
+        if act is None:
+            lines.insert(0, new_line)
+            act = "da chen"
+    # 2. Cap nhat phan "Update: ..." trong ten kenh
+    n_name = 0
     for i, ln in enumerate(lines):
-        if ln.strip().startswith("#EXTM3U"):
-            lines.insert(i + 1, new_line)
-            return "da chen"
-    lines.insert(0, new_line)
-    return "da chen"
+        if not ln.startswith("#EXTINF"):
+            continue
+        k = ln.find(",")
+        if k < 0:
+            continue
+        name = ln[k + 1:]
+        if _RE_STAMP.search(name):
+            # da co danh dau -> thay bang moi
+            new_name = _RE_STAMP.sub("", name).rstrip()
+            new_name = "%s Update: %s" % (new_name, stamp)
+        else:
+            # chua co -> them moi vao cuoi ten
+            new_name = "%s Update: %s" % (name.rstrip(), stamp)
+        if new_name != name:
+            lines[i] = ln[:k + 1] + new_name
+            n_name += 1
+    return "%s | %d ten kenh" % (act, n_name)
 
 
 # ------------------------------------------------------------------ matching
@@ -350,7 +405,8 @@ def strip_province(name):
 def match_channel(entry, idx):
     by_slug, by_name, by_norm, by_norm2, by_province, by_alias = idx
     tvg = (entry["tvg"] or "").strip()
-    name = (entry["name"] or "").strip()
+    # Dung ten DA BO danh dau "Update: ..." de khop kenh chinh xac.
+    name = (entry.get("clean_name") or entry["name"] or "").strip()
 
     # 0. Ban do khuyen (ten playlist -> ten TV360)
     akey = _norm_alias(name)
@@ -603,7 +659,7 @@ def build(cfg, dry=False):
             print("  --- %d muc khong doi duoc ---" % len(nomap))
             for nm, why in nomap[:40]:
                 print("      %-30s %s" % (str(nm)[:30], why))
-        if not updated:
+        if not updated and not cfg.get("stamp_update", True):
             continue
         if dry:
             print("  DRY-RUN: khong ghi")
@@ -613,6 +669,8 @@ def build(cfg, dry=False):
         for idx_line, new in url_map.items():
             lines[idx_line] = new
         if cfg.get("stamp_update", True):
+            # LUON cap nhat dong #UPDATE + danh dau thoi gian trong ten kenh,
+            # ke ca khi khong co URL nao doi -> nhan biet BB2 da chay.
             act = stamp_update(lines, cfg.get("user", "HaMaBu"))
             print("  #UPDATE: %s" % act)
 
@@ -620,7 +678,7 @@ def build(cfg, dry=False):
         with io.open(tmp, "w", encoding="utf-8", newline="") as f:
             f.write(nl.join(lines) + (nl if trailing else ""))
         os.replace(tmp, path)
-        print("  DA GHI %d dong vao %s" % (updated, pl_name))
+        print("  DA GHI %d dong URL vao %s" % (updated, pl_name))
         total_changed += updated
 
     print("\n" + "=" * 66)
