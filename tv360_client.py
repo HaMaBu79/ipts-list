@@ -294,7 +294,8 @@ class Tv360Client:
                 "message": j.get("message"),
                 "ttl": (j.get("data") or {}).get("ttl")}
 
-    def login_otp(self, msisdn: str, otp: str) -> dict:
+    def login_otp(self, msisdn: str, otp: str,
+                  prefer_username: str = "") -> dict:
         """Dang nhap bang OTP. Neu thanh cong se luu token vao file."""
         msisdn = msisdn.strip().replace(" ", "").replace(".", "")
         if not msisdn.startswith("0"):
@@ -327,7 +328,7 @@ class Tv360Client:
             sec = (j.get("data") or {}).get("secretToken")
             users = (j.get("data") or {}).get("listUser") or []
             if sec and users:
-                r = self.login_multi_account(sec, users)
+                r = self.login_multi_account(sec, users, prefer_username)
                 if r.get("ok"):
                     return r
                 return {"ok": False, "message": r.get("message"),
@@ -397,9 +398,20 @@ class Tv360Client:
             return {"errorCode": st,
                     "message": raw[:200].decode("utf-8", "replace")}
 
-    def login_multi_account(self, secret_token: str, users: list) -> dict:
-        """Thu chon tung tai khoan, xu ly loi gioi han thiet bi (422/H-150)."""
+    def login_multi_account(self, secret_token: str, users: list,
+                            prefer_username: str = "") -> dict:
+        """Thu chon tung tai khoan, xu ly loi gioi han thiet bi (422/H-150).
+
+        `prefer_username` (vd "vt093208646859") -> uu tien tai khoan do truoc,
+        tranh chon nham tai khoan khac cung so dien thoai.
+        """
         detail = []
+        # Uu tien tai khoan yeu thich
+        if prefer_username:
+            pref = [u for u in users
+                    if prefer_username in str(u.get("username") or "")]
+            rest = [u for u in users if u not in pref]
+            users = pref + rest
         for u in users:
             uid = u.get("id")
             uname = u.get("username")
@@ -416,27 +428,48 @@ class Tv360Client:
                 auth_token = r.get("auth_token") or secret_token
                 devs = self.list_devices(auth_token)
                 if devs:
+                    # Xoa TAT CA device cu (khong phai device dang dung).
+                    # Chi xoa 1 device se van fail neu con > 1 slot bi chiem.
                     ids = [d.get("id") for d in devs
                            if d.get("id") is not None
                            and d.get("deviceId") != self._device_id]
                     if not ids:
                         ids = [d.get("id") for d in devs
                                if d.get("id") is not None]
-                    rm = self.remove_devices(auth_token, ids[:1])
+                    rm = self.remove_devices(auth_token, ids)
                     if rm.get("errorCode") == 200:
-                        r = self.select_login_user(secret_token, uid, uname)
-                        if r.get("ok"):
-                            return {"ok": True,
-                                    "message": "Dang nhap thanh cong (%s)" % uname,
-                                    "user_id": self.user_id, "msisdn": self.msisdn,
-                                    "access_token": _mask(self.access_token)}
+                        # Server hay tra 502 ngay sau khi xoa device ->
+                        # thu lai vai lan (co delay nho).
+                        for attempt in range(4):
+                            if attempt:
+                                time.sleep(2 + attempt * 2)
+                            r = self.select_login_user(secret_token, uid, uname)
+                            if r.get("ok"):
+                                return {"ok": True,
+                                        "message": "Dang nhap thanh cong (%s)" % uname,
+                                        "user_id": self.user_id, "msisdn": self.msisdn,
+                                        "access_token": _mask(self.access_token)}
+                            # van 422 -> xoa them device con lai roi thu lai
+                            if r.get("error_code") == 422 and attempt < 2:
+                                devs2 = self.list_devices(
+                                    r.get("auth_token") or auth_token)
+                                ids2 = [x.get("id") for x in devs2
+                                        if x.get("id") is not None
+                                        and x.get("deviceId") != self._device_id]
+                                if ids2:
+                                    self.remove_devices(auth_token, ids2)
                         detail[-1]["code"] = r.get("error_code")
                         detail[-1]["retry"] = r.get("message")
         return {"ok": False, "message": "Khong tai khoan nao dang nhap duoc",
                 "detail": detail}
 
-    def login_password(self, msisdn: str, password: str) -> dict:
-        """Dang nhap bang mat khau (neu tai khoan co mat khau)."""
+    def login_password(self, msisdn: str, password: str,
+                       prefer_username: str = "") -> dict:
+        """Dang nhap bang mat khau (neu tai khoan co mat khau).
+
+        `prefer_username` -> uu tien tai khoan con so (vd "vt093208646859")
+        khi so dien thoai co nhieu tai khoan.
+        """
         msisdn = msisdn.strip().replace(" ", "").replace(".", "")
         if not msisdn.startswith("0"):
             msisdn = "0" + msisdn
@@ -466,7 +499,7 @@ class Tv360Client:
             sec = (j.get("data") or {}).get("secretToken")
             users = (j.get("data") or {}).get("listUser") or []
             if sec and users:
-                r = self.login_multi_account(sec, users)
+                r = self.login_multi_account(sec, users, prefer_username)
                 if r.get("ok"):
                     return r
                 return {"ok": False, "message": r.get("message"),
@@ -656,7 +689,7 @@ class Tv360Client:
         Dung /public/v1/composite/get-home-live -> moi 'box' la mot nhom kenh
         (Kenh VTV, Kenh HTV, Kenh VTV Cab, Kenh SCTV, Kenh Vĩnh Long, ...).
         """
-        q = urllib.parse.urlencode({"offset": 0, "limit": 100})
+        q = urllib.parse.urlencode({"offset": 0, "limit": 500})
         st, raw = self._call(API + "/public/v1/composite/get-home-live?" + q,
                              timeout=timeout)
         if st != 200:
