@@ -157,10 +157,27 @@ def load_cfg():
 
 
 # ------------------------------------------------------------------ nguon ngoai
+def check_license_key(url, timeout=15):
+    """Kiem tra license_key (clear key DRM) con hop le khong.
+
+    Server vietanhtv chi tra key khi UA la 'Dalvik/2.1.0' (nhu app Android).
+    """
+    import urllib.request
+    if not url:
+        return False
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Dalvik/2.1.0"})
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            body = r.read().decode("utf-8", "replace")
+        return '"key"' in body or '"k"' in body
+    except Exception:
+        return False
+
+
 def fetch_external_playlist(url, timeout=45):
     """Tai mot playlist m3u8 tu nguon ngoai (vd vietanhtv.top).
 
-    Tra ve dict: {tvg-id -> (url, ua)} cho cac muc co group-title khop.
+    Tra ve dict: {tvg-id -> {url, ua, lic_key, group, name}}.
     """
     import urllib.request
     req = urllib.request.Request(url, headers={
@@ -182,12 +199,18 @@ def fetch_external_playlist(url, timeout=45):
             tvg = m.group(1).strip() if m else ""
             grp = g.group(1).strip() if g else ""
             ua = None
+            lic_key = None
             j = i + 1
             url_line = None
             while j < len(lines):
                 s = lines[j].strip()
                 if s.startswith("#EXTVLCOPT:http-user-agent"):
                     ua = lines[j]  # giu nguyen ca dong
+                    j += 1
+                    continue
+                if s.startswith("#KODIPROP:inputstream.adaptive.license_key="):
+                    # Khoa DRM (clear key) - phai lay token MOI moi lan
+                    lic_key = s.split("license_key=", 1)[1].strip()
                     j += 1
                     continue
                 if s.startswith("http://") or s.startswith("https://"):
@@ -199,7 +222,7 @@ def fetch_external_playlist(url, timeout=45):
                 j += 1
             if url_line:
                 key = (tvg or "").lower()
-                out.setdefault(key, {"url": url_line, "ua": ua,
+                out.setdefault(key, {"url": url_line, "ua": ua, "lic_key": lic_key,
                                     "group": grp, "name": ln.split(",")[-1].strip()})
             i = j
             continue
@@ -270,12 +293,19 @@ def parse_playlist(path):
             url_idx = None
             ua = None
             ua_idx = None
+            lic = None
+            lic_idx = None
             j = i + 1
             while j < len(lines):
                 s = lines[j].strip()
                 if s.startswith("#EXTVLCOPT:http-"):
                     ua = lines[j]
                     ua_idx = j
+                    j += 1
+                    continue
+                if s.startswith("#KODIPROP:inputstream.adaptive.license_key="):
+                    lic = s
+                    lic_idx = j
                     j += 1
                     continue
                 if s.startswith("http://") or s.startswith("https://"):
@@ -301,6 +331,8 @@ def parse_playlist(path):
                     "url": url,
                     "ua": ua,
                     "ua_idx": ua_idx,
+                    "lic": lic,
+                    "lic_idx": lic_idx,
                     "url_idx": url_idx,
                 })
                 i = url_idx + 1
@@ -804,10 +836,23 @@ def build(cfg, dry=False):
                     if cfg.get("keep_vlcopt", True) and fb.get("ua") \
                             and e.get("ua_idx") is not None:
                         lines[e["ua_idx"]] = fb["ua"]
+                    if fb.get("lic_key") and e.get("lic_idx") is not None:
+                        lines[e["lic_idx"]] = \
+                            "#KODIPROP:inputstream.adaptive.license_key=" + fb["lic_key"]
                 else:
                     kept += 1
                     nomap.append((e["name"], "khong lay duoc link (%s)" % ch.get("name")))
                     continue
+            else:
+                # Link lay truc tiep tu TV360. Neu kenh co DRM (DASH/clear
+                # key) thi VAN phai lay license_key MOI tu nguon fallback -
+                # token cu se bi 403 va kenh khong giai ma duoc.
+                fb = fb_idx.get((e.get("tvg") or "").lower())
+                if fb and fb.get("lic_key") and e.get("lic_idx") is not None:
+                    new_lic = "#KODIPROP:inputstream.adaptive.license_key=" + fb["lic_key"]
+                    if lines[e["lic_idx"]] != new_lic:
+                        lines[e["lic_idx"]] = new_lic
+                        updated += 1
             if new == e["url"]:
                 kept += 1
                 continue
