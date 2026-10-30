@@ -332,6 +332,8 @@ def build_stamp():
 
 
 # Regex phan "Update: HH:MM⏱DD/MM" trong ten kenh (co the do nguon goc them).
+# Chi kenh nay moi giu danh dau thoi gian trong ten (de check nhanh khi bat len).
+STAMP_TVG_ID = "vtv1hd"
 
 
 def stamp_update(lines, user="HaMaBu"):
@@ -358,7 +360,9 @@ def stamp_update(lines, user="HaMaBu"):
         if act is None:
             lines.insert(0, new_line)
             act = "da chen"
-    # 2. Cap nhat phan "Update: ..." trong ten kenh
+    # 2. Cap nhat phan "Update: ..." trong ten kenh.
+    #    CHI danh dau tren kenh "VTV1" (tvg-id="vtv1hd") de khi bat kenh
+    #    do la biet BB2 da chay dong bo chua.
     n_name = 0
     for i, ln in enumerate(lines):
         if not ln.startswith("#EXTINF"):
@@ -366,14 +370,16 @@ def stamp_update(lines, user="HaMaBu"):
         k = ln.find(",")
         if k < 0:
             continue
+        tvg = re.search(r'tvg-id="([^"]*)"', ln)
+        tid = (tvg.group(1) if tvg else "").strip().lower()
         name = ln[k + 1:]
-        if _RE_STAMP.search(name):
-            # da co danh dau -> thay bang moi
+        if tid == STAMP_TVG_ID:
+            # kenh can danh dau -> them hoac thay
             new_name = _RE_STAMP.sub("", name).rstrip()
             new_name = "%s Update: %s" % (new_name, stamp)
         else:
-            # chua co -> them moi vao cuoi ten
-            new_name = "%s Update: %s" % (name.rstrip(), stamp)
+            # kenh khac -> XOA danh dau (neu co)
+            new_name = _RE_STAMP.sub("", name).rstrip()
         if new_name != name:
             lines[i] = ln[:k + 1] + new_name
             n_name += 1
