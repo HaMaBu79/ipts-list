@@ -51,6 +51,8 @@ DEFAULT_CFG = {
     "only_free_no_login": True,
     # Cac nhom kenh TV360 KHONG co (vd SCTV) -> lay tu nguon thay the
     # (xem "external_sources" ben duoi) thay vi lay sai kenh khac.
+    # QUY TAC: TV360 co kenh -> lay TV360; TV360 khong co -> lay vietanhtv.
+    # NHOM QUOC TE: giu nguyen 100% (khong dung).
     "skip_groups": ["SCTV", "Quốc tế"],
     # Nguon thay the cho nhom skip: {group: [url, ...]}
     # Moi lan sync se tai playlist nay va lay URL cho cac kenh trong nhom.
@@ -59,8 +61,8 @@ DEFAULT_CFG = {
             "https://tv.vietanhtv.top/tivi/index.php?u=nguyenduhan&p=nguyenduhan",
         ],
     },
-    # Nguon FALLBACK: dung khi TV360 khong co link cho kenh do
-    # (ON FOOTBALL, ON GOLF, DaNangTV, ...).
+    # Nguon FALLBACK: dung khi TV360 khong co kenh do, hoac khong tra link
+    # (HTV5, KTV, QuangNgaiTV, DaNangTV, ON FOOTBALL, ...).
     "external_fallback": [
         "https://tv.vietanhtv.top/tivi/index.php?u=nguyenduhan&p=nguyenduhan",
     ],
@@ -84,6 +86,17 @@ ALIAS = {
     "danangtv2 hd": "da nang 2",
     "danang1": "da nang 1",
     "danang2": "da nang 2",
+    # Vinh Long: TV360 goi la "Vinh Long 1..5"
+    "thvl1 hd th vinh long": "vinh long 1",
+    "thvl2 hd th vinh long": "vinh long 2",
+    "thvl3 hd th vinh long": "vinh long 3",
+    "thvl4 hd th vinh long": "vinh long 4",
+    "thvl5 hd th vinh long": "vinh long 5",
+    "thvl1": "vinh long 1",
+    "thvl2": "vinh long 2",
+    "thvl3": "vinh long 3",
+    "thvl4": "vinh long 4",
+    "thvl5": "vinh long 5",
     "on info tv": "vtvcab 9 infotv hd",
     "on style tv": "vtvcab 12 styletv",
     "on trending tv": "vtvcab17 trending tv",
@@ -92,6 +105,8 @@ ALIAS = {
     "on life": "vtvcab 22 life tv hd",
     "on golf": "vtvcab 23 golf channel",
     "on sports": "vtvcab 3 on sports",
+    "on sports plus": "vtvcab 6 on sports plus",
+    "on sports+": "vtvcab 6 on sports plus",
     "on sports news": "vtvcab 18 on sports news",
     "on football": "vtvcab 16 on football hd",
     "on cine": "vtvcab10 on cine hd",
@@ -102,7 +117,10 @@ ALIAS = {
     # (khong map sang "SCTV2 - Today TV" vi sai noi dung).
     # HTV
     "htv the thao": "htv the thao",
-    "htvc plus": "htvc channel b",
+    "htvc plus": "htvc plus channel b",
+    "htvc plus hd": "htvc plus channel b",
+    "htvc du lich hd": "htvc du lich cuoc song",
+    "htvc phim hd": "htvc phim truyen hd",
     # Dia phuong
     "hanoitv1": "ha noi 1",
     "hanoitv2": "ha noi 2",
@@ -121,8 +139,11 @@ def _norm_alias(s):
     s = unicodedata.normalize("NFD", s)
     s = "".join(c for c in s if unicodedata.category(c) != "Mn")
     s = s.lower()
-    s = re.sub(r"[^a-z0-9]+", " ", s)
-    return re.sub(r"\s+", " ", s).strip()
+    # GIU dau '+' (phan biet 'ON SPORTS' va 'ON SPORTS+')
+    s = s.replace("+", " plus ")
+    s = re.sub(r"[^a-z0-9+]+", " ", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
 
 
 def load_cfg():
@@ -411,12 +432,27 @@ def build_indexes(catalog):
 
 
 def strip_province(name):
-    """'QTV1 HD | TH Quang Ninh' -> ('quang ninh', '1')"""
-    s = (name or "").split("|")[-1].strip() if "|" in (name or "") else (name or "").strip()
-    s = re.sub(r"^TH\s+", "", s, flags=re.I).strip()
-    m = re.search(r"(\d+)\s*$", s)
-    num = m.group(1) if m else ""
-    base = re.sub(r"\s*\d+\s*(HD|SD)?\s*$", "", s, flags=re.I).strip()
+    """'QTV1 HD | TH Quang Ninh' -> ('quang ninh', '1')
+
+    Voi ten dang 'THVL1 | TH Vinh Long': so thu tu nam O DAU ten
+    (truoc dau '| TH ...') -> phai lay tu phan dau.
+    """
+    s = (name or "").strip()
+    # phan dau (truoc '|') chua so thu tu: 'THVL1 HD'
+    head = s.split("|")[0].strip() if "|" in s else ""
+    # phan sau '| TH ' chua ten tinh
+    tail = s.split("|")[-1].strip() if "|" in s else s
+    tail = re.sub(r"^TH\s+", "", tail, flags=re.I).strip()
+    # so thu tu: uu tien phan dau ('THVL1' -> 1), sau do phan cuoi
+    num = ""
+    # phan dau co thể ket thuc bang 'HD'/'SD': 'ATV1 HD' -> 1
+    m = re.search(r"(\d+)\s*(?:HD|SD|UHD|FHD)?\s*$", head, flags=re.I)
+    if not m:
+        m = re.search(r"(\d+)\s*$", tail)
+    if m:
+        num = m.group(1)
+    # ten tinh: bo so thu tu va HD/SD o cuoi
+    base = re.sub(r"\s*\d+\s*(HD|SD)?\s*$", "", tail, flags=re.I).strip()
     return norm(base), num
 
 
@@ -429,15 +465,30 @@ def match_channel(entry, idx):
     # 0. Ban do khuyen (ten playlist -> ten TV360)
     akey = _norm_alias(name)
     if akey:
+        # Pass 1: khop CHINH XAC (uu tien khoa dai nhat -> 'on sports plus'
+        # phai dung 'on sports plus', khong phai 'on sports').
+        exact = []
         for k, target in ALIAS.items():
             nk = _norm_alias(k)
-            if nk == akey or nk.startswith(akey) or akey.startswith(nk):
+            if nk == akey:
+                exact.append((len(nk), len(k), k, target))
+        exact.sort(reverse=True)
+        for _, _, k, target in exact:
+            if target in by_alias:
+                return by_alias[target], "alias"
+            for kk, ch in by_alias.items():
+                if kk.startswith(target) or target.startswith(kk):
+                    return ch, "alias~"
+        # Pass 2: khop prefix - chi lay khi khoa target DUNG PREFIX dau
+        # (tranh 'on sports' -> 'vtvcab 3 on sports' khi can 'on sports news').
+        for k, target in ALIAS.items():
+            nk = _norm_alias(k)
+            if nk.startswith(akey) or akey.startswith(nk):
                 if target in by_alias:
-                    return by_alias[target], "alias"
-                # thu khop prefix (do dau tieng Viet bi bo)
+                    return by_alias[target], "alias~"
                 for kk, ch in by_alias.items():
                     if kk.startswith(target) or target.startswith(kk):
-                        return ch, "alias~"
+                        return ch, "alias~~"
     if tvg and tvg in by_slug:
         return by_slug[tvg], "tvg-id(id)"
     # 2. tvg-id la slug TV360
@@ -480,24 +531,53 @@ def match_channel(entry, idx):
                         break
             if cands:
                 if num:
+                    # Phai khop DUNG so thu tu -> khong duoc tra kenh so 1
+                    # cho moi kenh cung tinh.
                     for ch in cands:
                         if re.search(r"\b%s\b" % re.escape(num),
                                      str(ch.get("name") or "")):
                             return ch, "dia phuong+%s" % num
-                return cands[0], "dia phuong"
+                    # Khong co kenh nao dung so -> thu tim kenh co cung ten
+                    # tinh nhung khac so (vi du 'HTV5' -> 'HTV5').
+                    return None, None
+                # Khong co so -> chi lay kenh duy nhat cua tinh do
+                if len(cands) == 1:
+                    return cands[0], "dia phuong"
+                # Tinh co nhieu kenh TV360 nhung khong co dung so (vd An Giang
+                # chi co 1,2 -> ATV3 khong co) -> giu link goc.
+                return None, None
         # 6. Viet tat: "THP HD" -> "THP"
         base = re.sub(r"^(TH|Q|HT)\s*", "", name, flags=re.I)
         b2 = norm2(base)
-        if b2:
+        if b2 and len(b2) >= 3:
+            # Uu tien khop chinh xac
+            if b2 in by_norm2:
+                return by_norm2[b2], "viet tat"
+            # Khong khop chinh xac -> chi lay khi khoa co chuoi chung du
+            # nhat (tranh khop nham 'htv5' -> 'htv7').
             for k, ch in by_norm2.items():
-                if b2 == k or (len(b2) >= 3 and b2 in k):
-                    return ch, "viet tat"
+                if len(k) >= 4 and (b2 in k or k in b2) and k[:3] == b2[:3]:
+                    return ch, "viet tat~"
+            # 6b. 'HTVC Plus HD' -> 'HTVC+ Channel B' (chi nhom HTVC)
+            if b2.startswith("htvc"):
+                for k, ch in by_norm2.items():
+                    if k.startswith(b2) or b2.startswith(k):
+                        return ch, "viet tat~~"
         # 7. kenh dia phuong dua vao slug
         if tvg:
             t = re.sub(r"\d+$", "", tvg.lower())
-            for k, v in by_province.items():
-                if t and t in k:
-                    return v[0], "slug dia phuong"
+            num_tvg = re.search(r"(\d+)$", tvg.lower())
+            if len(t) >= 4:
+                for k, v in by_province.items():
+                    if t and t in k:
+                        if num_tvg:
+                            n2 = num_tvg.group(1)
+                            for ch in v:
+                                if re.search(r"\b%s\b" % re.escape(n2),
+                                             str(ch.get("name") or "")):
+                                    return ch, "slug dia phuong+%s" % n2
+                        else:
+                            return v[0], "slug dia phuong"
     return None, None
 
 
