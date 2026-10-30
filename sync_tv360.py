@@ -79,6 +79,11 @@ ALIAS = {
     "on e channel": "vtvcab 5 e channel hd",
     "on biebi": "vtvcab 8 bibi sd",
     "on bibi": "vtvcab 8 bibi sd",
+    # Da Nang: TV360 goi la "Da Nang 1/2" (slug da-nang-1/2)
+    "danangtv1 hd": "da nang 1",
+    "danangtv2 hd": "da nang 2",
+    "danang1": "da nang 1",
+    "danang2": "da nang 2",
     "on info tv": "vtvcab 9 infotv hd",
     "on style tv": "vtvcab 12 styletv",
     "on trending tv": "vtvcab17 trending tv",
@@ -106,8 +111,14 @@ ALIAS = {
 
 
 def _norm_alias(s):
-    """Chuan hoa ten: bo dau, bo HD/SD, chi giu a-z0-9."""
-    s = unicodedata.normalize("NFD", s or "")
+    """Chuan hoa ten: bo dau, bo HD/SD, chi giu a-z0-9.
+
+    Chuyen 'đ' -> 'd' TRUOC khi bo dau (neu bo dau NFD, 'đ' -> 'd' + 'SAC',
+    bo diacritic se thanh 'd' nhung 'Đà' -> 'a' vi 'à' -> 'a').
+    """
+    s = (s or "").lower()
+    s = s.replace("đ", "d").replace("Đ", "D")
+    s = unicodedata.normalize("NFD", s)
     s = "".join(c for c in s if unicodedata.category(c) != "Mn")
     s = s.lower()
     s = re.sub(r"[^a-z0-9]+", " ", s)
@@ -350,8 +361,15 @@ def stamp_update(lines, user="HaMaBu"):
 
 # ------------------------------------------------------------------ matching
 def norm(s):
+    """Chuan hoa ten: bo dau, chi giu a-z0-9.
+
+    'đ' -> 'd' truoc khi bo dau (neu bo dau truoc, 'Đà' se thanh 'a').
+    """
     s = (s or "").lower()
-    s = re.sub(r"[^a-z0-9a]+", " ", s)
+    s = s.replace("đ", "d")
+    s = unicodedata.normalize("NFD", s)
+    s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+    s = re.sub(r"[^a-z0-9]+", " ", s)
     return re.sub(r"\s+", " ", s).strip()
 
 
@@ -425,6 +443,21 @@ def match_channel(entry, idx):
     # 2. tvg-id la slug TV360
     if tvg and tvg.lower() in by_slug:
         return by_slug[tvg.lower()], "tvg-id(slug)"
+    # 2b. tvg-id -> slug TV360 them dau gach: 'danang1' -> 'da-nang-1'
+    if tvg:
+        cand = tvg.lower().replace("_", "-")
+        m = re.match(r"^([a-z]+)(\d+)$", cand)
+        tries = [cand]
+        if m:
+            tries.append("%s-%s" % (m.group(1), m.group(2)))
+            tries.append("%s-%d" % (m.group(1)[:-1], int(m.group(2))) if len(m.group(1)) > 1 else cand)
+        for t2 in tries:
+            if t2 in by_slug:
+                return by_slug[t2], "tvg-id(slug~)"
+        # 2c. tvg-id co 'hd'/'sd' nhung TV360 khong co: 'vtv5hd' -> 'vtv5'
+        t3 = re.sub(r"(hd|sd|uhd|fhd)$", "", cand).strip("-")
+        if t3 and t3 in by_slug:
+            return by_slug[t3], "tvg-id(slug-bỏ-hd)"
     # 3. ten giong het
     if name and norm(name) in by_name:
         return by_name[norm(name)], "ten"
