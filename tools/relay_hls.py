@@ -347,12 +347,8 @@ def start_ffmpeg(ch):
     os.makedirs(d, exist_ok=True)
     pl = os.path.join(d, "live.m3u8")
     seg = os.path.join(d, "seg%03d.ts")
-    for fn in os.listdir(d):
-        if fn.endswith(".ts") or fn == "live.m3u8":
-            try:
-                os.remove(os.path.join(d, fn))
-            except Exception:
-                pass
+    # KHONG xoa file cu: giu segment san co de player phat ngay,
+    # tranh khoang 15-30s "man den" khi ffmpeg khoi dong lai.
     keyhex = refresh_key(ch)
     cmd = ffmpeg_cmd(ch, spec, d, pl, seg, keyhex)
     log("[%s] khoi dong ffmpeg (key=%s)" % (ch, (keyhex or "NONE")[:20]))
@@ -412,6 +408,9 @@ def ensure_running(ch):
                 pass
         st = STATE.get(ch)
         if not st or st["proc"].poll() is not None:
+            # ffmpeg chet nhung co segment cu -> van phat duoc
+            if build_playlist(ch):
+                return True, "ok"
             return False, "ffmpeg tho ngay"
     return False, "timeout"
 
@@ -494,8 +493,15 @@ class H(http.server.BaseHTTPRequestHandler):
                     for c in sorted(PINS))).encode()
                 self._send(200, "application/vnd.apple.mpegurl", body)
                 return
-            ensure_running(ch)
+            ok, msg = ensure_running(ch)
             body = build_playlist(ch)
+            if body is None:
+                # chua co segment -> cho them mot chut (khong tra 503 ngay)
+                for _ in range(30):
+                    time.sleep(2)
+                    body = build_playlist(ch)
+                    if body is not None:
+                        break
             if body is None:
                 self.send_response(503)
                 self.send_header("Content-Type", "text/plain")
