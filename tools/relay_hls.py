@@ -2,40 +2,44 @@
 """
 RELAY GIAI MA -> HLS SACH (chay tren BB2 / Mecool BB2)
 
-Vong doi:
-  4 kenh the thao ON SPORTS = MPEG-DASH + ClearKey -> app IPTV khong giai ma -> MAN DEN
-  kenh quoc te / noi dia       = HLS thuan            -> app phat duoc
+Muc tieu: MOI kenh trong playlist deu phat duoc tren MOI thiet bi (app IPTV
+thong thuong khong co engine DRM).
 
-Relay nay dung ffmpeg giai ma ClearKey roi xuat ra HLS (MPEG-TS), y het
-kieu cua kenh quoc te => moi app IPTV deu phat duoc.
+  - Kenh VTV / HTV / Dia phuong : HLS thuan                    -> phat duoc san
+  - SCTV 15/17/22, ON SPORTS, Quoc te (HBO/CNN/...): MPEG-DASH + ClearKey
+                                                          -> app khong giai ma -> MAN DEN
+  -> Relay nay dung ffmpeg 8.1 giai ma ClearKey roi xuat ra HLS MPEG-TS (HLS thuan).
 
-Link cho app:
-  http://<bb2-lan-ip>:8099/onsports.m3u8
-  http://<bb2-lan-ip>:8099/onsportsplus.m3u8
-  http://<bb2-lan-ip>:8099/onfootball.m3u8
-  http://<bb2-lan-ip>:8099/onsportsnews.m3u8
+Link cho app (moi thiet bi dung chung 1 link):
+  http://<host>:8099/<tvg-id>.m3u8
 """
+import base64
 import http.server
 import io
 import json
 import os
+import re
 import shutil
 import signal
 import socketserver
 import subprocess
 import threading
 import time
+import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PIN_FILE = os.path.join(HERE, "pin_overrides.json")
 BASE_DIR = os.environ.get("RELAY_DIR", "/var/lib/hlsrelay")
-PORT = int(os.environ.get("RELAY_PORT", 8099))
+PORT = int(os.environ.get("RELAY_PORT", "8099"))
 SEG_SEC = 4
 LIST_SIZE = 20
-KEEP_FILES = 40          # so segment giu lai tren dia
-IDLE_STOP = 300          # tat ffmpeg sau 5 phut khong co client
+KEEP_FILES = 40
+IDLE_STOP = 300
 UA = "Dalvik/2.1.0"
+FFMPEG = os.environ.get("RELAY_FFMPEG", "/opt/ff81/bin/ffmpeg")
 LOG = "/tmp/relay_hls.log"
+
+WIDEVINE_SYSID = "edef8ba979d64acea3c827dcd51d21ed"
 
 NAMES = {
     "onsports": "ON SPORTS",
@@ -67,37 +71,216 @@ def load_pins():
 
 
 PINS = load_pins()
-STATE = {}          # ch -> {"proc":Popen, "last":float, "nreq":int}
-STARTING = set()    # cac kenh dang trong qua trinh khoi dong ffmpeg
-LAST_REQ = {}       # ch -> timestamp request gan nhat
+STATE = {}
+STARTING = set()
+LAST_REQ = {}
 LOCK = threading.RLock()
 
 
+# ---------------------------------------------------------------- helpers
+def _b64url_to_hex(s):
+    s = s.replace("-", "+").replace("_", "/")
+    s += "=" * (-len(s) % 4)
+    return base64.b64decode(s).hex()
+
+
+def _http_text(url, timeout=15):
+    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return r.read().decode("utf-8", "replace")
+
+
+def _http_json(url, timeout=15):
+    return json.loads(_http_text(url, timeout))
+
+
+# ---------------------------------------------------------------- key
+def _key_from_pssh_b64(b64):
+    """Trich 16 byte key tu 1 pssh base64.
+
+    ClearKey (box 0x22 ben trong pssh data): payload = type(1) size(1) KID(36 ascii) KEY(16)
+    Widevine (box 0x25): protobuf, field 3 hoac 4 = string chua key base64
+    """
+    try:
+        raw = base64.b64decode(b64)
+    except Exception:
+        return None
+    if len(raw) < 32 or raw[4:8] != b"pssh":
+        return None
+    dlen = int.from_bytes(raw[28:32], "big")
+    data = raw[32:32 + dlen]
+
+    # --- ClearKey inline (0x22)
+    i = 0
+    while i + 2 <= len(data):
+        btype = data[i]
+        bsize = data[i + 1]
+        if bsize == 0x24 and btype == 0x22 and i + 54 <= len(data):
+            key = data[i + 38:i + 54]
+            if key != b"\x00" * 16:
+                return key.hex()
+        i += 1
+
+    # --- Widevine protobuf
+    i = 0
+    while i + 2 <= len(data):
+        field = data[i]
+        wt = field & 0x07
+        i += 1
+        if wt == 0:
+            continue
+        ln = data[i]
+        i += 1
+        val = data[i:i + ln]
+        i += ln
+        if (field >> 3) in (3, 4) and wt == 2 and len(val) >= 20:
+            try:
+                kb = base64.b64decode(val.rstrip(b"\x00") + b"==")
+                if len(kb) >= 16:
+                    return kb[:16].hex()
+            except Exception:
+                pass
+    return None
+
+
+def _key_from_mpd(mpd_url):
+    """Trich key tu pssh trong MPD (uu tien Widevine, bo PlayReady)."""
+    try:
+        txt = _http_text(mpd_url, 20)
+    except Exception as e:
+        log("  LOAI tai MPD: %s" % e)
+        return None
+    for b64 in re.findall(r"<cenc:pssh>([^<]+)</cenc:pssh>", txt):
+        try:
+            raw = base64.b64decode(b64)
+        except Exception:
+            continue
+        if raw[4:8] != b"pssh":
+            continue
+        if raw[12:28].hex() != WIDEVINE_SYSID:
+            continue
+        k = _key_from_pssh_b64(b64)
+        if k:
+            return k
+    return None
+
+
+def _key_from_hls(url):
+    """Tim key trong EXT-X-KEY cua media playlist HLS (pssh base64)."""
+    try:
+        txt = _http_text(url, 20)
+    except Exception:
+        return None
+    for b64 in re.findall(r"base64,([A-Za-z0-9+/=]+)", txt):
+        k = _key_from_pssh_b64(b64)
+        if k:
+            return k
+    return None
+
+
+def resolve_key(spec, url=None):
+    """Tra về hex key 32 ky tu (16 byte) cho ffmpeg.
+
+    spec co the la LIST (nhieu nguon khoa) -> thu lan luot, lay nguon dau tien
+    ra key hop le.
+    """
+    if not spec:
+        return None
+    if isinstance(spec, (list, tuple)):
+        for one in spec:
+            k = resolve_key(one, url)
+            if k:
+                return k
+        return None
+    spec = str(spec).strip()
+
+    if spec == "auto":
+        if not url:
+            return None
+        k = _key_from_mpd(url) if url.endswith(".mpd") else None
+        if not k:
+            k = _key_from_hls(url)
+        if k:
+            log("  key tu pssh: %s" % k)
+        return k
+
+    if spec.startswith("http"):
+        try:
+            j = _http_json(spec)
+            k = (j.get("keys") or [])[0]
+            kid = _b64url_to_hex(k.get("kid", ""))
+            key = k.get("k", "")
+            if len(key) == 32 and all(c in "0123456789abcdefABCDEF" for c in key):
+                keyhex = key.lower()
+            else:
+                keyhex = _b64url_to_hex(key)
+            log("  key tu server: kid=%s key=%s" % (kid[:12], keyhex))
+            return keyhex
+        except Exception as e:
+            log("  LOAI lay key: %s" % e)
+            return None
+
+    if spec.startswith("{"):
+        try:
+            j = json.loads(spec)
+            k = (j.get("keys") or [])[0]
+            kid = _b64url_to_hex(k.get("kid", ""))
+            key = k.get("k", "")
+            if len(key) == 32 and all(c in "0123456789abcdefABCDEF" for c in key):
+                keyhex = key.lower()
+            else:
+                keyhex = _b64url_to_hex(key)
+            log("  key tu json: kid=%s key=%s" % (kid[:12], keyhex))
+            return keyhex
+        except Exception as e:
+            log("  LOAI parse json key: %s" % e)
+            return None
+
+    if ":" in spec:
+        _kid, key = spec.split(":", 1)
+        key = key.strip()
+        if len(key) == 32 and all(c in "0123456789abcdefABCDEF" for c in key):
+            return key.lower()
+        try:
+            return _b64url_to_hex(key)
+        except Exception:
+            return None
+    return None
+
+
+def refresh_key(ch):
+    """Lay lai key moi (cho case 'temporary' xoay vong)."""
+    spec = PINS[ch].get("license_key")
+    if not spec:
+        return None
+    keyhex = resolve_key(spec, PINS[ch].get("url"))
+    if keyhex:
+        try:
+            with io.open(os.path.join(BASE_DIR, ch + ".key"), "w", encoding="utf-8") as f:
+                f.write(keyhex)
+        except Exception:
+            pass
+    return keyhex
+
+
+# ---------------------------------------------------------------- ffmpeg
 def chan_dir(ch):
     return os.path.join(BASE_DIR, ch)
 
 
-def ffmpeg_cmd(ch, spec, d, pl, seg):
-    cmd = [
-        "ffmpeg", "-loglevel", "error",
-        "-user_agent", UA,
-        "-allowed_extensions", "ALL",
-        "-reconnect", "1", "-reconnect_streamed", "1",
-        "-reconnect_delay_max", "5", "-rw_timeout", "30000000",
-        # BO DAU LUONG: 12s. Ly do: ffmpeg vao giua luong nen frame I dau
-        # tien hong -> player bao "top block unavailable" / man den.
-        "-ss", "12",
-        "-i", spec["url"],
-    ]
-    key = spec.get("license_key")
-    if key:
-        # PHAI dat SAU -i (input option cua demuxer cenc)
-        cmd += ["-cenc_decryption_key", key]
+def ffmpeg_cmd(ch, spec, d, pl, seg, keyhex):
+    cmd = [FFMPEG, "-loglevel", "error",
+           "-user_agent", UA,
+           "-allowed_extensions", "ALL",
+           "-protocol_whitelist", "file,http,https,tcp,tls,crypto,data",
+           "-reconnect", "1", "-reconnect_streamed", "1",
+           "-reconnect_delay_max", "5", "-rw_timeout", "30000000",
+           "-ss", "8",
+           "-i", spec["url"]]
+    if keyhex:
+        # option cua demuxer mp4/cenc -> phai dat TRUOC -i
+        cmd += ["-cenc_decryption_key", keyhex]
     cmd += [
-        # Video: copy (khong transcode - CPU S912 yeu).
-        # Audio: transcode AAC 128k/48k stereo. Bat buoc: demuxer TS khong
-        # do duoc thong so am thanh khi segment bat dau giua luong, player
-        # bao "sample rate not set" -> khong phat duoc.
         "-c:v", "copy",
         "-c:a", "aac", "-b:a", "128k", "-ac", "2", "-ar", "48000",
         "-fflags", "+genpts",
@@ -118,23 +301,22 @@ def start_ffmpeg(ch):
     os.makedirs(d, exist_ok=True)
     pl = os.path.join(d, "live.m3u8")
     seg = os.path.join(d, "seg%03d.ts")
-    # xoa file cu (khong xoa thu muc, tranh pha hoang session dang chay)
     for fn in os.listdir(d):
         if fn.endswith(".ts") or fn == "live.m3u8":
             try:
                 os.remove(os.path.join(d, fn))
             except Exception:
                 pass
-    cmd = ffmpeg_cmd(ch, spec, d, pl, seg)
-    log("[%s] khoi dong ffmpeg" % ch)
+    keyhex = refresh_key(ch)
+    cmd = ffmpeg_cmd(ch, spec, d, pl, seg, keyhex)
+    log("[%s] khoi dong ffmpeg (key=%s)" % (ch, (keyhex or "NONE")[:20]))
     p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL,
                          stderr=open(os.path.join(d, "ffmpeg.log"), "w"))
-    STATE[ch] = {"proc": p, "last": time.time(), "nreq": 0}
+    STATE[ch] = {"proc": p, "last": time.time(), "nreq": 0, "key": keyhex}
     return True, "ok"
 
 
 def cleanup_files(ch):
-    """Giu lai KEEP_FILES segment moi nhat, xoa phan con lai."""
     d = chan_dir(ch)
     try:
         files = sorted([f for f in os.listdir(d) if f.endswith(".ts")])
@@ -148,12 +330,6 @@ def cleanup_files(ch):
 
 
 def ensure_running(ch):
-    """Dam bao ffmpeg cho kenh `ch` dang chay. Tra (ok, msg).
-
-    KHONG giu LOCK trong luc cho ffmpeg tao segment (mat toi 90s) ->
-    se chan cac kenh khac va tra 503. Thay vao do: dung co STARTING de
-    tranh khoi dong trung, va tra 503 neu segment chua san sang.
-    """
     with LOCK:
         st = STATE.get(ch)
         if st and st["proc"].poll() is None:
@@ -178,8 +354,6 @@ def ensure_running(ch):
     if not ok:
         return False, msg
 
-    # cho ffmpeg tao segment dau tien (co -ss 12 -> can them thoi gian).
-    # KHONG giu LOCK o day.
     pl = os.path.join(chan_dir(ch), "live.m3u8")
     for _ in range(90):
         time.sleep(1)
@@ -197,7 +371,6 @@ def ensure_running(ch):
 
 
 def build_playlist(ch):
-    """Doc playlist ffmpeg ghi -> sua duong dan segment thanh /<ch>/<seg>.ts"""
     pl = os.path.join(chan_dir(ch), "live.m3u8")
     if not os.path.exists(pl):
         return None
@@ -249,7 +422,6 @@ class H(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         path = self.path.split("?")[0].lstrip("/")
 
-        # segment: /<ch>/<seg>.ts
         if path.endswith(".ts") and "/" in path:
             ch = path.split("/")[0]
             fn = os.path.basename(path)
@@ -276,10 +448,9 @@ class H(http.server.BaseHTTPRequestHandler):
                     for c in sorted(PINS))).encode()
                 self._send(200, "application/vnd.apple.mpegurl", body)
                 return
-            ok, msg = ensure_running(ch)
+            ensure_running(ch)
             body = build_playlist(ch)
             if body is None:
-                # segment chua san sang -> client thu lai sau 3s
                 self.send_response(503)
                 self.send_header("Content-Type", "text/plain")
                 self.send_header("Retry-After", "3")
@@ -299,7 +470,6 @@ class S(socketserver.ThreadingMixIn, http.server.HTTPServer):
 
 
 def watchdog():
-    """Tat ffmpeg khi khong ai xem, va khoi dong lai neu process chet."""
     while True:
         time.sleep(30)
         now = time.time()
@@ -318,8 +488,6 @@ def watchdog():
                 with LOCK:
                     STATE.pop(ch, None)
                 if dead:
-                    # ffmpeg tu chet (mang chap / source loi) -> khoi dong
-                    # lai neu client vua xem trong 60s gan nhat.
                     if now - LAST_REQ.get(ch, 0) < 60:
                         log("[%s] %s -> khoi dong lai" % (ch, reason))
                         try:
@@ -345,8 +513,10 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, cleanup)
     os.makedirs(BASE_DIR, exist_ok=True)
     log("=== RELAY HLS start port %d ===" % PORT)
+    log("    ffmpeg: %s" % FFMPEG)
+    log("    kenh: %d" % len(PINS))
     for c in sorted(PINS):
-        log("  %-14s %s" % (c, PINS[c]["url"][:90]))
+        log("  %-16s %s" % (c, PINS[c]["url"][:88]))
     threading.Thread(target=watchdog, daemon=True).start()
     srv = S(("0.0.0.0", PORT), H)
     log("=== RELAY HLS san sang ===")

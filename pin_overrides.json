@@ -1,33 +1,304 @@
 {
-  "_comment": "PIN cho 4 kenh the thao. 'mode': 'relay' -> tro ve relay HLS cuc bo tren BB2 (app nao cung phat duoc). 'mode': 'direct' -> tro thang vao CDN voi KODIPROP ClearKey.",
-  "_relay_host": "100.85.60.93",
-  "_relay_port": 8099,
-  "onsports": {
-    "url": "https://cdnet-cdn-01.onsports.vn/onplus/THETHAO_HD/manifest.mpd",
-    "license_key": "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10",
-    "ua": "Dalvik/2.1.0",
-    "mode": "relay",
-    "name": "ON SPORTS"
-  },
-  "onsportsplus": {
-    "url": "https://cdnet-cdn-01.onsports.vn/onplus/HAY_TV/manifest.mpd",
-    "license_key": "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10",
-    "ua": "Dalvik/2.1.0",
-    "mode": "relay",
-    "name": "ON SPORTS+"
-  },
-  "onfootball": {
-    "url": "https://cdnet-cdn-01.onsports.vn/onplus/BONGDA_HD/manifest.mpd",
-    "license_key": "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10",
-    "ua": "Dalvik/2.1.0",
-    "mode": "relay",
-    "name": "ON FOOTBALL"
-  },
-  "onsportsnews": {
-    "url": "https://cdnet-cdn-01.onsports.vn/onplus/THETHAO_TINTUC_HD/manifest.mpd",
-    "license_key": "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10",
-    "ua": "Dalvik/2.1.0",
-    "mode": "relay",
-    "name": "ON SPORTS NEWS"
-  }
+ "_comment": "Relay giai ma ClearKey -> HLS MPEG-TS sach. Moi kenh tro ve http://<host>:8099/<tvg-id>.m3u8 => moi thiet bi deu xem duoc. license_key la LIST cac nguon khoa, thu lan luot.",
+ "_relay_host": "personality-purchasing-bowl-aware.trycloudflare.com",
+ "_relay_port": 8099,
+ "onsports": {
+  "name": "ON SPORTS",
+  "url": "https://cdnet-cdn-01.onsports.vn/onplus/THETHAO_HD/manifest.mpd",
+  "license_key": [
+   "auto",
+   "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10"
+  ],
+  "mode": "relay"
+ },
+ "onsportsplus": {
+  "name": "ON SPORTS+",
+  "url": "https://cdnet-cdn-01.onsports.vn/onplus/HAY_TV/manifest.mpd",
+  "license_key": [
+   "auto",
+   "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10"
+  ],
+  "mode": "relay"
+ },
+ "onfootball": {
+  "name": "ON FOOTBALL",
+  "url": "https://cdnet-cdn-01.onsports.vn/onplus/BONGDA_HD/manifest.mpd",
+  "license_key": [
+   "auto",
+   "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10"
+  ],
+  "mode": "relay"
+ },
+ "onsportsnews": {
+  "name": "ON SPORTS NEWS",
+  "url": "https://cdnet-cdn-01.onsports.vn/onplus/THETHAO_TINTUC_HD/manifest.mpd",
+  "license_key": [
+   "auto",
+   "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10"
+  ],
+  "mode": "relay"
+ },
+ "sctv1hd": {
+  "name": "SCTV1 HD",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV1/Live_DASHDRM/SCTV1.mpd",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctv1"
+  ],
+  "mode": "relay"
+ },
+ "sctv8hd": {
+  "name": "SCTV8 HD",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV8/Live_DASHDRM/SCTV8.mpd",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctv8"
+  ],
+  "mode": "relay"
+ },
+ "sctv15": {
+  "name": "SCTV15 HD",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV15HD/Live_DASHDRM/SCTV15HD.mpd",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctv15"
+  ],
+  "mode": "relay"
+ },
+ "sctv17": {
+  "name": "SCTV17 HD",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV17/Live_DASHDRM/SCTV17.mpd",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctv17"
+  ],
+  "mode": "relay"
+ },
+ "sctv21hd": {
+  "name": "SCTV21 HD",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV21/Live_DASHDRM/SCTV21.mpd",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctv21"
+  ],
+  "mode": "relay"
+ },
+ "sctv22hd": {
+  "name": "SCTV22 HD",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV22/Live_DASHDRM/SCTV22.mpd",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctv22"
+  ],
+  "mode": "relay"
+ },
+ "sctvhdpth": {
+  "name": "SCTV Phim Tong Hop",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTVPHIM/Live_DASHDRM/SCTVPHIM.mpd",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctvphim"
+  ],
+  "mode": "relay"
+ },
+ "hbohd": {
+  "name": "HBO",
+  "url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/hbo.smil/manifest.mpd",
+  "license_key": [
+   "auto"
+  ],
+  "mode": "relay"
+ },
+ "boxhits": {
+  "name": "Box Hits",
+  "url": "https://livevlisctcdnw.seenow.vn/mean/BOXHIT/manifest.mpd",
+  "license_key": [
+   "auto",
+   "a7c942778e874d43be92b8d0a0cd11b4:6d54358306571658ffdb952c6560688b"
+  ],
+  "mode": "relay"
+ },
+ "boxmovies1": {
+  "name": "Box Movie 1",
+  "url": "https://livevlisctcdnw.seenow.vn/mean/BM1/manifest.mpd",
+  "license_key": [
+   "auto",
+   "a7c942778e874d43be92b8d0a0cd11b4:6d54358306571658ffdb952c6560688b"
+  ],
+  "mode": "relay"
+ },
+ "hollywoodclassics": {
+  "name": "Hollywood Classic",
+  "url": "https://livevlisctcdnw.seenow.vn/mean/HC/manifest.mpd",
+  "license_key": [
+   "auto",
+   "a7c942778e874d43be92b8d0a0cd11b4:6d54358306571658ffdb952c6560688b"
+  ],
+  "mode": "relay"
+ },
+ "axnhd": {
+  "name": "AXN HD",
+  "url": "https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/axn.smil/manifest.mpd",
+  "license_key": [
+   "auto",
+   "9d29f87efdec3c9fab368f724a62ad0e:6f1c09c035eab36323d60d1454db3d20"
+  ],
+  "mode": "relay"
+ },
+ "cinemaxhd": {
+  "name": "Cinemax",
+  "url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/max.smil/manifest.mpd",
+  "license_key": [
+   "auto"
+  ],
+  "mode": "relay"
+ },
+ "warnertvhd": {
+  "name": "Warner TV",
+  "url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/wtv.smil/manifest.mpd",
+  "license_key": [
+   "auto"
+  ],
+  "mode": "relay"
+ },
+ "cinemaworldhd": {
+  "name": "Cinema World",
+  "url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/cinemaworld.smil/manifest.mpd",
+  "license_key": [
+   "auto"
+  ],
+  "mode": "relay"
+ },
+ "animalhd": {
+  "name": "Animal Planet",
+  "url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/ap.smil/manifest.mpd",
+  "license_key": [
+   "auto",
+   "ec6f072c7125377a9bc0ae61598095f4:1d5388e0781415ebcec9914f5ad75875"
+  ],
+  "mode": "relay"
+ },
+ "discoveryasiahd": {
+  "name": "Discovery Asia",
+  "url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/dscasia.smil/manifest.mpd",
+  "license_key": [
+   "auto",
+   "934907b134be3963a6263a453846924c:788e2835fb98568aed2f47bbdc091515"
+  ],
+  "mode": "relay"
+ },
+ "discoveryhd": {
+  "name": "Discovery",
+  "url": "https://s7770.cdn.mytvnet.vn/pkg20/live_dzones/dsc.smil/manifest.mpd",
+  "license_key": [
+   "auto"
+  ],
+  "mode": "relay"
+ },
+ "dmax": {
+  "name": "DMAX",
+  "url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/dmax.smil/manifest.mpd",
+  "license_key": [
+   "auto"
+  ],
+  "mode": "relay"
+ },
+ "fashionhd": {
+  "name": "Fashion TV",
+  "url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/ftv.smil/manifest.mpd",
+  "license_key": [
+   "auto",
+   "c1d9f25701023508bfa6737e3a8c7001:30c3613e9b06e0f7cc201014f31bf5d8"
+  ],
+  "mode": "relay"
+ },
+ "bbcearth": {
+  "name": "BBC Earth",
+  "url": "https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcearth.smil/manifest.mpd",
+  "license_key": [
+   "auto",
+   "5014941a2c42379880b5edf72304c165:f3fa0fe3cd39a52f4eefd36ff7161e89"
+  ],
+  "mode": "relay"
+ },
+ "bbclifestyle": {
+  "name": "BBC Lifestyle",
+  "url": "https://s7770.cdn.mytvnet.vn/pkg20/live_dzones/bbclifestyle.smil/manifest.mpd",
+  "license_key": [
+   "auto",
+   "58b949986ed13294bc01b0f330abc527:23e8c5f2fe202906ac2d6554d9527299"
+  ],
+  "mode": "relay"
+ },
+ "cbeebies": {
+  "name": "BBC Cbeebies",
+  "url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/cbb.smil/manifest.mpd",
+  "license_key": [
+   "auto"
+  ],
+  "mode": "relay"
+ },
+ "cartoonhd": {
+  "name": "Cartoon Network HD",
+  "url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/cn.smil/manifest.mpd",
+  "license_key": [
+   "auto"
+  ],
+  "mode": "relay"
+ },
+ "dreamworks": {
+  "name": "Dreamworks",
+  "url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/dreamwork.smil/manifest.mpd",
+  "license_key": [
+   "auto"
+  ],
+  "mode": "relay"
+ },
+ "boomerang": {
+  "name": "Cartoonito",
+  "url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/boomerang.smil/manifest.mpd",
+  "license_key": [
+   "auto",
+   "b1f0d759e914369db388b3b0dc815971:5678d317e17007a88a9b9539e4526512"
+  ],
+  "mode": "relay"
+ },
+ "bbcworldnews": {
+  "name": "BBC News",
+  "url": "https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcworldnews.smil/manifest.mpd",
+  "license_key": [
+   "auto",
+   "c7ba46086dda345a929e29bf155e459c:d374b8f39904bf572689ea347ae86591"
+  ],
+  "mode": "relay"
+ },
+ "bloomberg": {
+  "name": "Bloomberg",
+  "url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/bloomberg.smil/manifest.mpd",
+  "license_key": [
+   "auto",
+   "1071393f8fc237f3a9a28028142110f7:7a0f8c3c72e0ffff811d534c929c57c2"
+  ],
+  "mode": "relay"
+ },
+ "cnn": {
+  "name": "CNN",
+  "url": "https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/cnn.smil/manifest.mpd",
+  "license_key": [
+   "auto",
+   "714cc8ed05a03abb9ac61bd4bbd1d8a0:1acf58ff8d4cd87c2d3c12d22248efb1"
+  ],
+  "mode": "relay"
+ },
+ "abcaustralia": {
+  "name": "ABC Australia",
+  "url": "https://s935.cdn.mytvnet.vn/pkg20/live_dzones/aplus.smil/manifest.mpd",
+  "license_key": [
+   "auto",
+   "9a09a73ec1dc348584e2f130e27da667:06f8d1a6feaffbdab92adf347e7b469c"
+  ],
+  "mode": "relay"
+ },
+ "tlchd": {
+  "name": "Travel Living Channel",
+  "url": "https://s129135.cdn.mytvnet.vn/pkg20/live_dzones/tlc.smil/manifest.mpd",
+  "license_key": [
+   "auto",
+   "b6908629732639ada4814a6208296d9c:7ca9bf03623f77b5e2f16df0b53f274d"
+  ],
+  "mode": "relay"
+ }
 }
