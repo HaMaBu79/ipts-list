@@ -69,30 +69,38 @@ def apply_one(lines, tvg, spec, relay_host="127.0.0.1", relay_port=8099):
     if i is None:
         log("  %-14s KHONG tim thay trong playlist" % tvg)
         return False, lines
-    extinf = lines[i]
-    # giu ten + logo, doi phan duoi
-    m = re.search(r",\s*([^,]+)$", extinf)
-    name = m.group(1).strip() if m else tvg.upper()
-    logo = re.search(r'tvg-logo="([^"]*)"', extinf)
-    new = []
-    new.append('#EXTINF:-1 tvg-id="%s" group-title="VTVcab"%s,%s' % (
-        tvg, (' tvg-logo="%s"' % logo.group(1)) if logo else "", name))
-    ua = spec.get("ua") or "Dalvik/2.1.0"
-    new.append("#EXTVLCOPT:http-user-agent=%s" % ua)
 
-    if spec.get("mode") == "relay":
+    # GIU NGUYEN EXTINF GOC (tên, group-title, logo, thu tu attribute)
+    # Chi thay dong URL + bo KODIPROP ClearKey neu chuyen sang relay.
+    is_relay = (spec.get("mode") == "relay")
+    ua = spec.get("ua") or "Dalvik/2.1.0"
+
+    mid = []
+    for k in range(i + 1, j):
+        s = lines[k]
+        if is_relay and s.startswith("#KODIPROP"):
+            continue                      # bo ClearKey (khong can khi da giai ma)
+        mid.append(s)                     # GIU NGUYEN UA + attribute goc
+    if not any(s.startswith("#EXTVLCOPT") for s in mid):
+        mid.insert(0, "#EXTVLCOPT:http-user-agent=%s" % ua)
+
+    if is_relay:
         # RELAY: HLS thuan (MPEG-TS) da giai ma tren BB2 -> moi app deu phat duoc
-        new.append(relay_url(relay_host, relay_port, tvg))
+        url_line = relay_url(relay_host, relay_port, tvg)
     else:
         key = spec.get("license_key") or ""
         if key:
-            new.append("#KODIPROP:inputstream=inputstream.adaptive")
-            new.append("#KODIPROP:inputstream.adaptive.manifest_type=dash")
-            new.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
-            new.append("#KODIPROP:inputstream.adaptive.license_key=%s" % key)
-            new.append("#KODIPROP:inputstream.adaptive.license_key_data_type=base64")
-        new.append(spec["url"])
-    out = lines[:i] + new + lines[j + 1:]
+            mid += [
+                "#KODIPROP:inputstream=inputstream.adaptive",
+                "#KODIPROP:inputstream.adaptive.manifest_type=dash",
+                "#KODIPROP:inputstream.adaptive.license_type=clearkey",
+                "#KODIPROP:inputstream.adaptive.license_key=%s" % key,
+                "#KODIPROP:inputstream.adaptive.license_key_data_type=base64",
+            ]
+        url_line = spec["url"]
+
+    out = lines[:i] + [lines[i]] + mid + [url_line] + lines[j + 1:]
+    return True, out
     return True, out
 
 
@@ -107,7 +115,8 @@ def main():
             continue
         with io.open(path, encoding="utf-8", newline="") as f:
             raw = f.read()
-        lines = raw.split("\n")
+        crlf = "\r\n" in raw
+        lines = raw.replace("\r\n", "\n").split("\n")
         changed = 0
         rh, rp = relay_conf(pins)
         for tvg, spec in pins.items():
@@ -123,8 +132,11 @@ def main():
         if not changed:
             continue
         shutil.copyfile(path, path + ".bak")
+        out = "\n".join(lines)
+        if crlf:
+            out = out.replace("\n", "\r\n")
         with io.open(path, "w", encoding="utf-8", newline="") as f:
-            f.write("\n".join(lines))
+            f.write(out)
         log("  %s: da ghi de %d kenh" % (fn, changed))
     return 0
 
