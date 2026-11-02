@@ -85,9 +85,28 @@ def _b64url_to_hex(s):
 
 
 def _http_text(url, timeout=15):
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
+    """Tai text (tu giai nen gzip/br)."""
+    req = urllib.request.Request(url, headers={
+        "User-Agent": UA,
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate",
+    })
     with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read().decode("utf-8", "replace")
+        data = r.read()
+        enc = (r.headers.get("Content-Encoding") or "").lower()
+    if "gzip" in enc:
+        try:
+            import gzip
+            data = gzip.decompress(data)
+        except Exception:
+            pass
+    elif "deflate" in enc:
+        try:
+            import zlib
+            data = zlib.decompress(data, -zlib.MAX_WBITS)
+        except Exception:
+            pass
+    return data.decode("utf-8", "replace")
 
 
 def _http_json(url, timeout=15):
@@ -122,6 +141,7 @@ def _key_from_pssh_b64(b64):
         i += 1
 
     # --- Widevine protobuf
+    # field 4 = key (16 byte RAW hoac base64), field 3 = key id
     i = 0
     while i + 2 <= len(data):
         field = data[i]
@@ -133,7 +153,11 @@ def _key_from_pssh_b64(b64):
         i += 1
         val = data[i:i + ln]
         i += ln
-        if (field >> 3) in (3, 4) and wt == 2 and len(val) >= 20:
+        if (field >> 3) == 4 and wt == 2:
+            # TRUONG HOP 1: 16 byte tho = key thu
+            if len(val) == 16:
+                return val.hex()
+            # TRUONG HOP 2: base64
             try:
                 kb = base64.b64decode(val.rstrip(b"\x00") + b"==")
                 if len(kb) >= 16:
@@ -165,16 +189,29 @@ def _key_from_mpd(mpd_url):
     return None
 
 
-def _key_from_hls(url):
-    """Tim key trong EXT-X-KEY cua media playlist HLS (pssh base64)."""
+def _key_from_hls(url, depth=0):
+    """Tim key trong EXT-X-KEY cua media playlist HLS (pssh base64).
+
+    Master playlist chi tro toi variant -> can quay xuong 1 cap de doc
+    EXT-X-KEY co URI="data:text/plain;base64,<pssh>".
+    """
     try:
         txt = _http_text(url, 20)
     except Exception:
         return None
-    for b64 in re.findall(r"base64,([A-Za-z0-9+/=]+)", txt):
+    for b64 in re.findall(r"base64,([A-Za-z0-9+/=]{40,})", txt):
         k = _key_from_pssh_b64(b64)
         if k:
             return k
+    if depth < 2:
+        m = re.search(r'URI="([^"]+_index\.m3u8)"', txt)
+        if m:
+            v = m.group(1)
+            if not v.startswith("http"):
+                v = url.rsplit("/", 1)[0] + "/" + v
+            k = _key_from_hls(v, depth + 1)
+            if k:
+                return k
     return None
 
 
@@ -193,6 +230,16 @@ def resolve_key(spec, url=None):
                 return k
         return None
     spec = str(spec).strip()
+
+    if spec.startswith("hls:"):
+        # "hls:<url>" -> lay key tu EXT-X-KEY (pssh) cua playlist HLS
+        u = spec[4:]
+        k = _key_from_hls(u)
+        if k:
+            log("  key tu HLS %s: %s" % (u.rsplit("/", 2)[-2], k))
+        else:
+            log("  LOAI lay key tu HLS: %s" % u)
+        return k
 
     if spec == "auto":
         if not url:
@@ -272,8 +319,7 @@ def ffmpeg_cmd(ch, spec, d, pl, seg, keyhex):
     cmd = [FFMPEG, "-loglevel", "error",
            "-user_agent", UA,
            "-allowed_extensions", "ALL",
-           "-protocol_whitelist", "file,http,https,tcp,tls,crypto,data",
-           "-reconnect", "1", "-reconnect_streamed", "1",
+           "-protocol_whitelist", "file,http,https,tcp,tls,crypto,data",           "-reconnect", "1", "-reconnect_streamed", "1",
            "-reconnect_delay_max", "5", "-rw_timeout", "30000000",
            "-ss", "8",
            "-i", spec["url"]]

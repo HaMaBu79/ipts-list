@@ -207,9 +207,29 @@ https://fo-hlc.tv360.vn/bpk-tv/234/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsIn
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
 https://fo-hlc.tv360.vn/bpk-tv/347/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTM2NDcwNzEsInVyaSI6Ii9icGstdHYvMzQ3L291dHB1dC9pbmRleC5tM3U4In0.wNWzsA8b4kj1LGvAuvDRcFTm3D0Unsk-N4xgy46_YQg&minrate=0&maxrate=12000000&uid=14.236.202.174
 
-#EXTINF:-1 tvg-id="onsports" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/_ports_ng_logo_04202212.jpg",ON SPORTS
+#EXTINF:-1 tvg-id="onsports" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/_ports_ng_logo_04202212.jpg", ON SPORTS
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://ec01-pop2-hkh.tv360.vn:443/bpk-token/vhzi2edbpcgbb2iiyvgkr4unccu7fdiq/bpk-tv/221/output/index.mpd?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTM2NDcyNDEsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5MzYyNTUyMywKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMjIxX0RBU0giLAogICAgICJwbmEiOiJWaWV0dGVsIiwKICAgICAicm5hIjoiIiwKICAgICAicG4iOiJQT1AtRE4tUE9QMiIsCiAgICAgImVuIjoiRURHRS1ETi1QT1AyIiwKICAgICAiY2MiOiJWTiIsCiAgICAgInJjIjoiRE4iLAogICAgICJhY24iOiJDT1JFLUROLVBPUDIiLAogICAgICJpc3AiOiJWTlBUIiwKICAgICAiYXNuIjoiNDU4OTkiLAogICAgICJ2cyI6IkJLUzQwMC1QT1AyLTAxXzE3Mi4yNC4xNy4zNjoyMDAwMCIsCiAgICAgIm50IjoiT1RUIiwKICAgICAidHRwIjowLAogICAgICJwbGlkIjoiIiwKICAgICAicHVpZCI6IiIsCiAgICAgInRlaWQiOiIiCiAgfSwKICAib3QiOnsKICAgICAidHMiOjE3OTM2MjU1MjMsCiAgICAgInVybCI6Ii9icGstdHYvMjIxL291dHB1dC9pbmRleC5tcGQ_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJ2aHppMmVkYnBjZ2JiMmlpeXZna3I0dW5jY3U3ZmRpcSIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjIzNi4yMDIuMTc0IiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIyMjFfREFTSCIsCiAgICAgICAgInR5cCI6IkxJVkUiCiAgICAgfSwKICAgICAidG8iOnsKICAgICAgICAKICAgICAgICAgCiAgICAgICAgInN1IjowLAogICAgICAgICJyYyI6MTUwCiAgICAgfSwKICAgICAibGF5IjogewogICAgICAibHN0IjpbXSwKICAgICAgIm1heCI6MTIwMDAwMDAsCiAgICAgICJtaW4iOjAKICAgICB9LAogICAgICJyc2giOjAsCiAgICAgInJzaHAiOjEwMCwKICAgICAib2JmIjpmYWxzZSwKICAgICAidGFncyI6e30KICB9Cn0.CqxY83aFGGHxlpbYfrKwq-KskClfBxyYOJOaz31fXiA
+
+#KODIPROP:inputstream=inputstream.adaptive 
+#EXTINF:-1 tvg-id="onsportsplus" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/onsportscongmoi1.jpg", ON SPORTS+
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+
+#KODIPROP:inputstream=inputstream.adaptive
+#EXTINF:-1 tvg-id="onfootball" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/_ootball_-_opyright_by_cab_logo_202212.jpg", ON FOOTBALL
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+
+#KODIPROP:inputstream=inputstream.adaptive 
+#EXTINF:-1 tvg-id="onsportsnews" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/v2/channel/20220613/2022061306/Logo_ONSPORTSNEWS_150x904_1675158858.webp", ON SPORTS NEWS
+#EXTVLCOPT:http-user-agent=Dalvik/2.1.0
+
+#KODIPROP:inputstream=inputstream.adaptive 
+#KODIPROP:inputstream.adaptive.manifest_type=dash 
+#KODIPROP:inputstream.adaptive.license_type=clearkey 
+#KODIPROP:inputstream.adaptive.license_key=6e3eb0ec2ef65728b2907635010dabe9:Ale1E0em8cutZeOA0zMAOA
+https://pop21-ec1-ateme.tv360.vn:443/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzkzNjMxMzM5Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8yMjMvREFTSF9EUk1fTUhMXzJzX2V2ZW50LyIsInNlc3Npb25fY2RuX2lkIjoiZmQ4MjJiOTUzNmFlMTdiOCIsInNlc3Npb25faWQiOiIiLCJjbGllbnRfaWQiOiIiLCJkZXZpY2VfaWQiOiIiLCJtYXhfc2Vzc2lvbnMiOjAsInNlc3Npb25fZHVyYXRpb24iOjAsInVybCI6Imh0dHBzOi8vMTcyLjI0LjE3My4xOTYiLCJzZXNzaW9uX3RpbWVvdXQiOjAsImF1ZCI6Ijc1Iiwic291cmNlcyI6WzM0OSw0OTAsNDkzLDQ5NV19.koC9X7d3LeD4CGQ1sXUxWWKg5jEXocAISLh4W6k_HabMARYAyyETWxnbNBk2AjeZ9cJmSWtA6zpYxUAHUBWIwA==/live/eds/223/DASH_DRM_MHL_2s_event/index.mpd?screen=MHL&uid=236141047
+https://pop21-ec1-ateme.tv360.vn:443/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzkzNjMxMzM5Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy8yMjIvREFTSF9EUk1fTUhMXzJzLyIsInNlc3Npb25fY2RuX2lkIjoiMTg4NGEyM2UwOTRkODVmZiIsInNlc3Npb25faWQiOiIiLCJjbGllbnRfaWQiOiIiLCJkZXZpY2VfaWQiOiIiLCJtYXhfc2Vzc2lvbnMiOjAsInNlc3Npb25fZHVyYXRpb24iOjAsInVybCI6Imh0dHBzOi8vMTcyLjI0LjE3My4xOTYiLCJzZXNzaW9uX3RpbWVvdXQiOjAsImF1ZCI6Ijc1Iiwic291cmNlcyI6WzM0OSw0OTAsNDkzLDQ5NV19.9V4caH49yx859sGISsIAdvQ1P0GIZd27KdFE7eJV5xBksolGrbypWbcgvEmVIbNfMCiFP0D-d0zDKQ_w6r2q5w==/live/eds/222/DASH_DRM_MHL_2s/index.mpd?screen=MHL&uid=236141047
+https://ec05-pop2-hkh.tv360.vn:443/bpk-token/akykiluuhkss4n7ewjzahmfefyblbjbo/bpk-tv/216/output/index.mpd?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTM2Mjc4NTcsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5MzYwNjEzOCwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMjE2X0RBU0giLAogICAgICJwbmEiOiJWaWV0dGVsIiwKICAgICAicm5hIjoiIiwKICAgICAicG4iOiJQT1AtRE4tUE9QMiIsCiAgICAgImVuIjoiRURHRS1ETi1QT1AyIiwKICAgICAiY2MiOiJWTiIsCiAgICAgInJjIjoiRE4iLAogICAgICJhY24iOiJDT1JFLUROLVBPUDIiLAogICAgICJpc3AiOiJWTlBUIiwKICAgICAiYXNuIjoiNDU4OTkiLAogICAgICJ2cyI6IkJLUzQwMC1QT1AyLTA1XzE3Mi4yNC4xNy40MDoyMDAwMCIsCiAgICAgIm50IjoiT1RUIiwKICAgICAidHRwIjowLAogICAgICJwbGlkIjoiIiwKICAgICAicHVpZCI6IiIsCiAgICAgInRlaWQiOiIiCiAgfSwKICAib3QiOnsKICAgICAidHMiOjE3OTM2MDYxMzgsCiAgICAgInVybCI6Ii9icGstdHYvMjE2L291dHB1dC9pbmRleC5tcGQ_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJha3lraWx1dWhrc3M0bjdld2p6YWhtZmVmeWJsYmpibyIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjIzNi4yMDIuMTc0IiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIyMTZfREFTSCIsCiAgICAgICAgInR5cCI6IkxJVkUiCiAgICAgfSwKICAgICAidG8iOnsKICAgICAgICAKICAgICAgICAgCiAgICAgICAgInN1IjowLAogICAgICAgICJyYyI6MTUwCiAgICAgfSwKICAgICAibGF5IjogewogICAgICAibHN0IjpbXSwKICAgICAgIm1heCI6MTIwMDAwMDAsCiAgICAgICJtaW4iOjAKICAgICB9LAogICAgICJyc2giOjAsCiAgICAgInJzaHAiOjEwMCwKICAgICAib2JmIjpmYWxzZSwKICAgICAidGFncyI6e30KICB9Cn0.Hta1PjvyDpSQDX9met69cS7ZfpV0mspzc7cgleP97v0
+https://ec05-pop2-hkh.tv360.vn:443/bpk-token/2nx46kyu4xhcwoj43f35e36pfpjw7tzl/bpk-tv/221/output/index.mpd?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTM2Mjc4NTcsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5MzYwNjEzOCwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMjIxX0RBU0giLAogICAgICJwbmEiOiJWaWV0dGVsIiwKICAgICAicm5hIjoiIiwKICAgICAicG4iOiJQT1AtRE4tUE9QMiIsCiAgICAgImVuIjoiRURHRS1ETi1QT1AyIiwKICAgICAiY2MiOiJWTiIsCiAgICAgInJjIjoiRE4iLAogICAgICJhY24iOiJDT1JFLUROLVBPUDIiLAogICAgICJpc3AiOiJWTlBUIiwKICAgICAiYXNuIjoiNDU4OTkiLAogICAgICJ2cyI6IkJLUzQwMC1QT1AyLTA1XzE3Mi4yNC4xNy40MDoyMDAwMCIsCiAgICAgIm50IjoiT1RUIiwKICAgICAidHRwIjowLAogICAgICJwbGlkIjoiIiwKICAgICAicHVpZCI6IiIsCiAgICAgInRlaWQiOiIiCiAgfSwKICAib3QiOnsKICAgICAidHMiOjE3OTM2MDYxMzgsCiAgICAgInVybCI6Ii9icGstdHYvMjIxL291dHB1dC9pbmRleC5tcGQ_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiIybng0Nmt5dTR4aGN3b2o0M2YzNWUzNnBmcGp3N3R6bCIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjIzNi4yMDIuMTc0IiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIyMjFfREFTSCIsCiAgICAgICAgInR5cCI6IkxJVkUiCiAgICAgfSwKICAgICAidG8iOnsKICAgICAgICAKICAgICAgICAgCiAgICAgICAgInN1IjowLAogICAgICAgICJyYyI6MTUwCiAgICAgfSwKICAgICAibGF5IjogewogICAgICAibHN0IjpbXSwKICAgICAgIm1heCI6MTIwMDAwMDAsCiAgICAgICJtaW4iOjAKICAgICB9LAogICAgICJyc2giOjAsCiAgICAgInJzaHAiOjEwMCwKICAgICAib2JmIjpmYWxzZSwKICAgICAidGFncyI6e30KICB9Cn0.H8CfQDcjtseG6oPNINWFYDD4_8olr4tAIL_nNsJK9aU
 
 #EXTINF:-1 tvg-id="onsportsplus" group-title="VTVcab" tvg-logo="https://assets-vtvcab.gviet.vn/images/hq/posters/onsportscongmoi1.jpg",ON SPORTS+
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
@@ -442,7 +462,7 @@ https://fo-hlc.tv360.vn/bpk-tv/447/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsIn
 
 #EXTINF:-1 tvg-id="sctv1hd" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/sctv1.png",SCTV1 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/297/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTM2NDcwNzEsInVyaSI6Ii9icGstdHYvMjk3L291dHB1dC9pbmRleC5tM3U4In0.vwzOElmdfZHo-OYMq7il1AvCriwxhjrp3ntmpCYqxxY&minrate=0&maxrate=12000000&uid=14.236.202.174
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/sctv1hd.m3u8
 
 #EXTINF:-1 tvg-id="sctv2hd" group-title="SCTV" tvg-logo="https://vietanhtv.id.vn/logo/sctv2.png", SCTV2 HD - TODAY TV
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
@@ -470,7 +490,7 @@ https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv7/playlist_720p.m3u8
 
 #EXTINF:-1 tvg-id="sctv8hd" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/sctv8.png",SCTV8 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/297/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTM2NDcwNzEsInVyaSI6Ii9icGstdHYvMjk3L291dHB1dC9pbmRleC5tM3U4In0.vwzOElmdfZHo-OYMq7il1AvCriwxhjrp3ntmpCYqxxY&minrate=0&maxrate=12000000&uid=14.236.202.174
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/sctv8hd.m3u8
 
 #EXTINF:-1 tvg-id="sctv9" group-title="SCTV" tvg-logo="https://vietanhtv.id.vn/logo/sctv9.png", SCTV9
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
@@ -498,7 +518,7 @@ https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv14/playlist_720p.m3u8
 
 #EXTINF:-1 tvg-id="sctv15" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/sctv15.png",SCTV15 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/297/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTM2NDcwNzEsInVyaSI6Ii9icGstdHYvMjk3L291dHB1dC9pbmRleC5tM3U4In0.vwzOElmdfZHo-OYMq7il1AvCriwxhjrp3ntmpCYqxxY&minrate=0&maxrate=12000000&uid=14.236.202.174
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/sctv15.m3u8
 
 #EXTINF:-1 tvg-id="sctv16hd" group-title="SCTV" tvg-logo="https://vietanhtv.id.vn/logo/sctv16.png", SCTV16 HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
@@ -506,7 +526,7 @@ https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv16/playlist_720p.m3u8
 
 #EXTINF:-1 tvg-id="sctv17" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/sctv17.png",SCTV17 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/297/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTM2NDcwNzEsInVyaSI6Ii9icGstdHYvMjk3L291dHB1dC9pbmRleC5tM3U4In0.vwzOElmdfZHo-OYMq7il1AvCriwxhjrp3ntmpCYqxxY&minrate=0&maxrate=12000000&uid=14.236.202.174
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/sctv17.m3u8
 
 #EXTINF:-1 tvg-id="sctv18hd" group-title="SCTV" tvg-logo="https://vietanhtv.id.vn/logo/sctv18.png", SCTV18 HD
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36
@@ -522,15 +542,15 @@ https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv20/playlist_720p.m3u8
 
 #EXTINF:-1 tvg-id="sctv21hd" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/sctv21.png",SCTV21 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/297/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTM2NDcwNzEsInVyaSI6Ii9icGstdHYvMjk3L291dHB1dC9pbmRleC5tM3U4In0.vwzOElmdfZHo-OYMq7il1AvCriwxhjrp3ntmpCYqxxY&minrate=0&maxrate=12000000&uid=14.236.202.174
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/sctv21hd.m3u8
 
 #EXTINF:-1 tvg-id="sctv22hd" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/sctv22.png",SCTV22 HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/297/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTM2NDcwNzEsInVyaSI6Ii9icGstdHYvMjk3L291dHB1dC9pbmRleC5tM3U4In0.vwzOElmdfZHo-OYMq7il1AvCriwxhjrp3ntmpCYqxxY&minrate=0&maxrate=12000000&uid=14.236.202.174
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/sctv22hd.m3u8
 
 #EXTINF:-1 tvg-id="sctvhdpth" group-title="VTVcab" tvg-logo="https://vietanhtv.id.vn/logo/sctvpth.png",SCTV Phim Tổng Hợp
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://fo-hlc.tv360.vn/bpk-tv/297/output/index.m3u8?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTM2NDcwNzEsInVyaSI6Ii9icGstdHYvMjk3L291dHB1dC9pbmRleC5tM3U4In0.vwzOElmdfZHo-OYMq7il1AvCriwxhjrp3ntmpCYqxxY&minrate=0&maxrate=12000000&uid=14.236.202.174
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/sctvhdpth.m3u8
 
 #EXTINF:-1 tvg-id="sctv4k" group-title="SCTV" tvg-logo="https://vietanhtv.id.vn/logo/sctv4k.png", SCTV4K
 #EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64)
@@ -569,11 +589,11 @@ https://vietanhtv.id.vn/sctv/sctv-4k/index.m3u8
 
 #EXTINF:-1 tvg-id="hbohd" group-title="VTVcab" tvg-logo="https://img-zlr1.tv360.vn/image1/2021/10/04/02/163329112517/6cb3ef1d12de_640_360.png",HBO
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://ec01-pop2-hkh.tv360.vn:443/bpk-token/72fakxabamcfy3drjuap7cqflt7iubk4/bpk-tv/268/output/index.mpd?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTM2NDcyNDMsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5MzYyNTUyNSwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMjY4X0RBU0giLAogICAgICJwbmEiOiJWaWV0dGVsIiwKICAgICAicm5hIjoiIiwKICAgICAicG4iOiJQT1AtRE4tUE9QMiIsCiAgICAgImVuIjoiRURHRS1ETi1QT1AyIiwKICAgICAiY2MiOiJWTiIsCiAgICAgInJjIjoiRE4iLAogICAgICJhY24iOiJDT1JFLUROLVBPUDIiLAogICAgICJpc3AiOiJWTlBUIiwKICAgICAiYXNuIjoiNDU4OTkiLAogICAgICJ2cyI6IkJLUzQwMC1QT1AyLTAxXzE3Mi4yNC4xNy4zNjoyMDAwMCIsCiAgICAgIm50IjoiT1RUIiwKICAgICAidHRwIjowLAogICAgICJwbGlkIjoiIiwKICAgICAicHVpZCI6IiIsCiAgICAgInRlaWQiOiIiCiAgfSwKICAib3QiOnsKICAgICAidHMiOjE3OTM2MjU1MjUsCiAgICAgInVybCI6Ii9icGstdHYvMjY4L291dHB1dC9pbmRleC5tcGQ_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiI3MmZha3hhYmFtY2Z5M2RyanVhcDdjcWZsdDdpdWJrNCIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjIzNi4yMDIuMTc0IiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIyNjhfREFTSCIsCiAgICAgICAgInR5cCI6IkxJVkUiCiAgICAgfSwKICAgICAidG8iOnsKICAgICAgICAKICAgICAgICAgCiAgICAgICAgInN1IjowLAogICAgICAgICJyYyI6MTUwCiAgICAgfSwKICAgICAibGF5IjogewogICAgICAibHN0IjpbXSwKICAgICAgIm1heCI6MTIwMDAwMDAsCiAgICAgICJtaW4iOjAKICAgICB9LAogICAgICJyc2giOjAsCiAgICAgInJzaHAiOjEwMCwKICAgICAib2JmIjpmYWxzZSwKICAgICAidGFncyI6e30KICB9Cn0.tFGr7cfBJAMLvV0i4s279Dtk_2Mf9bajWFAJp9WC0ak
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/hbohd.m3u8
 
 #EXTINF:-1 tvg-id="boxhits" group-title="VTVcab" tvg-logo="https://img.vtvprime.vn/aPZvboOAKa1wI9F1SICEoUHdjz2oFB1ivWybejkenro/rs:fit:836:468/czM6Ly9wcmQtc24taW1hZ2VzL2NoYW5uZWwvMDFjNjI3OTItMjkyMy00NTRmLWI3YjgtZDBmNzAxNDhjZWM3LnBuZw==.png",Box Hits
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://livevlisctcdnw.seenow.vn/mean/BOXHIT/manifest.mpd
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/boxhits.m3u8
 
 #EXTINF:-1 tvg-id="Box Movies 1" group-title="Quốc tế" tvg-logo="https://img.vtvprime.vn/osNJFBQ8y3md3MUWB7-Zr0zkk6HMvffHsZ3tZGsw-p8/rs:fit:836:468/czM6Ly9wcmQtc24taW1hZ2VzL2NoYW5uZWwvZDFjMjZjMjktZjA0Ni00YTYxLTljODEtYjQ2YWE3YmU3YmZiLnBuZw==.png",Box Movie 1
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
@@ -584,19 +604,19 @@ https://livevlisctcdnw.seenow.vn/mean/BM1/manifest.mpd
 
 #EXTINF:-1 tvg-id="hollywoodclassics" group-title="VTVcab" tvg-logo="https://i.postimg.cc/kM0TNDzx/Hollywood-Classics.png",Hollywood Classic
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://livevlisctcdnw.seenow.vn/mean/HC/manifest.mpd
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/hollywoodclassics.m3u8
 
 #EXTINF:-1 tvg-id="axnhd" group-title="VTVcab" tvg-logo="https://img-zlr1.tv360.vn/image1/2021/09/30/21/1633012168716/95bc496176f2_640_360.png",AXN HD
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://ec02-pop2-hkh.tv360.vn:443/bpk-token/h432wdvrxwva5vwm4njd4n5lby7tpkyo/bpk-tv/262/output/index.mpd?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTM2NDcyNDQsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5MzYyNTUyNSwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMjYyX0RBU0giLAogICAgICJwbmEiOiJWaWV0dGVsIiwKICAgICAicm5hIjoiIiwKICAgICAicG4iOiJQT1AtRE4tUE9QMiIsCiAgICAgImVuIjoiRURHRS1ETi1QT1AyIiwKICAgICAiY2MiOiJWTiIsCiAgICAgInJjIjoiRE4iLAogICAgICJhY24iOiJDT1JFLUROLVBPUDIiLAogICAgICJpc3AiOiJWTlBUIiwKICAgICAiYXNuIjoiNDU4OTkiLAogICAgICJ2cyI6IkJLUzQwMC1QT1AyLTAyXzE3Mi4yNC4xNy4zNzoyMDAwMCIsCiAgICAgIm50IjoiT1RUIiwKICAgICAidHRwIjowLAogICAgICJwbGlkIjoiIiwKICAgICAicHVpZCI6IiIsCiAgICAgInRlaWQiOiIiCiAgfSwKICAib3QiOnsKICAgICAidHMiOjE3OTM2MjU1MjUsCiAgICAgInVybCI6Ii9icGstdHYvMjYyL291dHB1dC9pbmRleC5tcGQ_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJoNDMyd2R2cnh3dmE1dndtNG5qZDRuNWxieTd0cGt5byIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjIzNi4yMDIuMTc0IiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIyNjJfREFTSCIsCiAgICAgICAgInR5cCI6IkxJVkUiCiAgICAgfSwKICAgICAidG8iOnsKICAgICAgICAKICAgICAgICAgCiAgICAgICAgInN1IjowLAogICAgICAgICJyYyI6MTUwCiAgICAgfSwKICAgICAibGF5IjogewogICAgICAibHN0IjpbXSwKICAgICAgIm1heCI6MTIwMDAwMDAsCiAgICAgICJtaW4iOjAKICAgICB9LAogICAgICJyc2giOjAsCiAgICAgInJzaHAiOjEwMCwKICAgICAib2JmIjpmYWxzZSwKICAgICAidGFncyI6e30KICB9Cn0.noB2dCt6Db45arIPXt_9Lb7x9z9CelZXTyXkmSAxUmg
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/axnhd.m3u8
 
 #EXTINF:-1 tvg-id="cinemaxhd" group-title="VTVcab" tvg-logo="https://i.postimg.cc/x8Q7jCK4/0de97d4682ea-480-270-(3).png",Cinemax
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://ec05-pop2-hkh.tv360.vn:443/bpk-token/7uz4ihs4xhcr5swprrbpym6ed36thra6/bpk-tv/460/output/index.mpd?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTM2NDcyNDQsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5MzYyNTUyNiwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiNDYwX0RBU0giLAogICAgICJwbmEiOiJWaWV0dGVsIiwKICAgICAicm5hIjoiIiwKICAgICAicG4iOiJQT1AtRE4tUE9QMiIsCiAgICAgImVuIjoiRURHRS1ETi1QT1AyIiwKICAgICAiY2MiOiJWTiIsCiAgICAgInJjIjoiRE4iLAogICAgICJhY24iOiJDT1JFLUROLVBPUDIiLAogICAgICJpc3AiOiJWTlBUIiwKICAgICAiYXNuIjoiNDU4OTkiLAogICAgICJ2cyI6IkJLUzQwMC1QT1AyLTA1XzE3Mi4yNC4xNy40MDoyMDAwMCIsCiAgICAgIm50IjoiT1RUIiwKICAgICAidHRwIjowLAogICAgICJwbGlkIjoiIiwKICAgICAicHVpZCI6IiIsCiAgICAgInRlaWQiOiIiCiAgfSwKICAib3QiOnsKICAgICAidHMiOjE3OTM2MjU1MjYsCiAgICAgInVybCI6Ii9icGstdHYvNDYwL291dHB1dC9pbmRleC5tcGQ_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiI3dXo0aWhzNHhoY3I1c3dwcnJicHltNmVkMzZ0aHJhNiIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjIzNi4yMDIuMTc0IiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiI0NjBfREFTSCIsCiAgICAgICAgInR5cCI6IkxJVkUiCiAgICAgfSwKICAgICAidG8iOnsKICAgICAgICAKICAgICAgICAgCiAgICAgICAgInN1IjowLAogICAgICAgICJyYyI6MTUwCiAgICAgfSwKICAgICAibGF5IjogewogICAgICAibHN0IjpbXSwKICAgICAgIm1heCI6MTIwMDAwMDAsCiAgICAgICJtaW4iOjAKICAgICB9LAogICAgICJyc2giOjAsCiAgICAgInJzaHAiOjEwMCwKICAgICAib2JmIjpmYWxzZSwKICAgICAidGFncyI6e30KICB9Cn0.bX4zQOkHollFpkLWFWUlkn18HlWoV6O9RLctV8OUpVY
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/cinemaxhd.m3u8
 
 #EXTINF:-1 tvg-id="warnertvhd" group-title="VTVcab" tvg-logo="https://i.postimg.cc/bJ4n1D6n/Warner-TV-Asia.png",Warner TV
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://ec03-pop2-hkh.tv360.vn:443/bpk-token/kczm6w72hdhfwjsoq4dvdmwplnilft23/bpk-tv/241/output/index.mpd?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTM2NDcyNDUsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5MzYyNTUyNiwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMjQxX0RBU0giLAogICAgICJwbmEiOiJWaWV0dGVsIiwKICAgICAicm5hIjoiIiwKICAgICAicG4iOiJQT1AtRE4tUE9QMiIsCiAgICAgImVuIjoiRURHRS1ETi1QT1AyIiwKICAgICAiY2MiOiJWTiIsCiAgICAgInJjIjoiRE4iLAogICAgICJhY24iOiJDT1JFLUROLVBPUDIiLAogICAgICJpc3AiOiJWTlBUIiwKICAgICAiYXNuIjoiNDU4OTkiLAogICAgICJ2cyI6IkJLUzQwMC1QT1AyLTAzXzE3Mi4yNC4xNy4zODoyMDAwMCIsCiAgICAgIm50IjoiT1RUIiwKICAgICAidHRwIjowLAogICAgICJwbGlkIjoiIiwKICAgICAicHVpZCI6IiIsCiAgICAgInRlaWQiOiIiCiAgfSwKICAib3QiOnsKICAgICAidHMiOjE3OTM2MjU1MjYsCiAgICAgInVybCI6Ii9icGstdHYvMjQxL291dHB1dC9pbmRleC5tcGQ_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJrY3ptNnc3MmhkaGZ3anNvcTRkdmRtd3BsbmlsZnQyMyIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjIzNi4yMDIuMTc0IiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIyNDFfREFTSCIsCiAgICAgICAgInR5cCI6IkxJVkUiCiAgICAgfSwKICAgICAidG8iOnsKICAgICAgICAKICAgICAgICAgCiAgICAgICAgInN1IjowLAogICAgICAgICJyYyI6MTUwCiAgICAgfSwKICAgICAibGF5IjogewogICAgICAibHN0IjpbXSwKICAgICAgIm1heCI6MTIwMDAwMDAsCiAgICAgICJtaW4iOjAKICAgICB9LAogICAgICJyc2giOjAsCiAgICAgInJzaHAiOjEwMCwKICAgICAib2JmIjpmYWxzZSwKICAgICAidGFncyI6e30KICB9Cn0.F1p22cDVjMbU892oHrfrxlwRvMg9puY27BsSgeeOOS4
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/warnertvhd.m3u8
 
 
 #EXTINF:-1 tvg-id="cinemaworldhd" group-title="VTVcab" tvg-logo="https://i.postimg.cc/fyF9j3B2/ciww.png",Cinema World
@@ -633,7 +653,7 @@ http://personality-purchasing-bowl-aware.trycloudflare.com/relay/discoveryasiahd
 
 #EXTINF:-1 tvg-id="discoveryhd" group-title="VTVcab" tvg-logo="https://img-zlr1.tv360.vn/image1/2021/09/30/17/1632999438220/cb5b2ef01b69_480_270.png",Discovery
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://ec01-pop2-hkh.tv360.vn:443/bpk-token/b6pf2i6hcrochq3ccv7q5hs5emhz4xjd/bpk-tv/264/output/index.mpd?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTM2NDcyNDUsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5MzYyNTUyNiwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMjY0X0RBU0giLAogICAgICJwbmEiOiJWaWV0dGVsIiwKICAgICAicm5hIjoiIiwKICAgICAicG4iOiJQT1AtRE4tUE9QMiIsCiAgICAgImVuIjoiRURHRS1ETi1QT1AyIiwKICAgICAiY2MiOiJWTiIsCiAgICAgInJjIjoiRE4iLAogICAgICJhY24iOiJDT1JFLUROLVBPUDIiLAogICAgICJpc3AiOiJWTlBUIiwKICAgICAiYXNuIjoiNDU4OTkiLAogICAgICJ2cyI6IkJLUzQwMC1QT1AyLTAxXzE3Mi4yNC4xNy4zNjoyMDAwMCIsCiAgICAgIm50IjoiT1RUIiwKICAgICAidHRwIjowLAogICAgICJwbGlkIjoiIiwKICAgICAicHVpZCI6IiIsCiAgICAgInRlaWQiOiIiCiAgfSwKICAib3QiOnsKICAgICAidHMiOjE3OTM2MjU1MjYsCiAgICAgInVybCI6Ii9icGstdHYvMjY0L291dHB1dC9pbmRleC5tcGQ_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJiNnBmMmk2aGNyb2NocTNjY3Y3cTVoczVlbWh6NHhqZCIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjIzNi4yMDIuMTc0IiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIyNjRfREFTSCIsCiAgICAgICAgInR5cCI6IkxJVkUiCiAgICAgfSwKICAgICAidG8iOnsKICAgICAgICAKICAgICAgICAgCiAgICAgICAgInN1IjowLAogICAgICAgICJyYyI6MTUwCiAgICAgfSwKICAgICAibGF5IjogewogICAgICAibHN0IjpbXSwKICAgICAgIm1heCI6MTIwMDAwMDAsCiAgICAgICJtaW4iOjAKICAgICB9LAogICAgICJyc2giOjAsCiAgICAgInJzaHAiOjEwMCwKICAgICAib2JmIjpmYWxzZSwKICAgICAidGFncyI6e30KICB9Cn0.pqfaq62f2S8WBCLABqZT1nlzM-Z5PKuM5FTVUZzREYU
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/discoveryhd.m3u8
 
 #EXTINF:-1 tvg-id="outdoor" group-title="Quốc tế" tvg-logo="https://img-ali1.tv360.vn/image1/2020/11/12/10/1605151414697/e4570232b05d_640_360.png",Outdoor Channel
 #EXTVLCOPT:http-user-agent=VThanhTivi
@@ -644,7 +664,7 @@ https://live.fptplay53.net/fnxhd2/kixhd_vhls.smil/chunklist.m3u8
 
 #EXTINF:-1 tvg-id="dmax" group-title="VTVcab" tvg-logo="https://i.imgur.com/vHmt91V.png",DMAX
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/dmax.smil/manifest.mpd
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/dmax.m3u8
 
 #EXTINF:-1 tvg-logo="https://img-ali1.tv360.vn/image1/2020_09_23/1600822480473/e6bb9f277480_640_360.png" group-title="Quốc tế",AFN
 https://live.fptplay53.net/fnxhd2/afchd_vhls.smil/chunklist.m3u8
@@ -655,11 +675,11 @@ http://personality-purchasing-bowl-aware.trycloudflare.com/relay/fashionhd.m3u8
 
 #EXTINF:-1 tvg-id="bbcearth" group-title="VTVcab" tvg-logo="https://i.postimg.cc/HLrS45Y9/BBC-Earth-Meta.png",BBC Earth
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://s7771.cdn.mytvnet.vn/pkg20/live_dzones/bbcearth.smil/manifest.mpd
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/bbcearth.m3u8
 
 #EXTINF:-1 tvg-id="bbclifestyle" group-title="VTVcab" tvg-logo="https://i.postimg.cc/BZrm5tk8/life-style.png",BBC Lifestyle
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://s7770.cdn.mytvnet.vn/pkg20/live_dzones/bbclifestyle.smil/manifest.mpd
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/bbclifestyle.m3u8
 ##EXTINF:-1 group-title="Quốc tế" tvg-logo="https://i.postimg.cc/Gp8MJrMd/zoomoo.png",ZooMoo
 ##EXTVLCOPT: http-referrer=https://hoiquan.click/
 #https://toiyeuvietnam.dpdns.org/OnliveTV/zoomoo/Free.m3u8
@@ -679,7 +699,7 @@ http://personality-purchasing-bowl-aware.trycloudflare.com/relay/cartoonhd.m3u8
 
 #EXTINF:-1 tvg-id="dreamworks" group-title="VTVcab" tvg-logo="https://i.postimg.cc/L68SjCPK/16fabdd762a9-480-270-(1).png",Dreamworks
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/dreamwork.smil/manifest.mpd
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/dreamworks.m3u8
 
 #EXTINF:-1 tvg-id="boomerang" group-title="VTVcab" tvg-logo="https://i.postimg.cc/05Xs9GzT/di0vg3q-ef892734-f9c6-4b84-bae4-d06c558f4de1.png",Cartoonito
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
@@ -691,11 +711,11 @@ http://personality-purchasing-bowl-aware.trycloudflare.com/relay/bbcworldnews.m3
 
 #EXTINF:-1 tvg-id="bloomberg" group-title="VTVcab" tvg-logo="https://i.imgur.com/rxFZgIK.png",Bloomberg
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://pop21-ec2-ateme.tv360.vn:443/tok_eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNzkzNjUwNzI3Iiwic2lwIjoiIiwicGF0aCI6Ii9saXZlL2Vkcy80NjIvREFTSF9EUk1fTUhMXzJzLyIsInNlc3Npb25fY2RuX2lkIjoiYTk3MmZjNDlkMTk3YjgzNCIsInNlc3Npb25faWQiOiIiLCJjbGllbnRfaWQiOiIiLCJkZXZpY2VfaWQiOiIiLCJtYXhfc2Vzc2lvbnMiOjAsInNlc3Npb25fZHVyYXRpb24iOjAsInVybCI6Imh0dHBzOi8vMTcyLjI0LjE3My4xOTYiLCJzZXNzaW9uX3RpbWVvdXQiOjAsImF1ZCI6Ijc2Iiwic291cmNlcyI6WzM0OSw0OTAsNDkzLDQ5NV19.qGxWiHYD_mnTe5F5vw2bsPPa9QausYWph12iJoNXq4c7QpaYlx1kwh9wMXn5bMr60_VzBSzKdt39zmAbA_CYqQ==/live/eds/462/DASH_DRM_MHL_2s/index.mpd?screen=MHL&uid=236141047
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/bloomberg.m3u8
 
 #EXTINF:-1 tvg-id="cnn" group-title="VTVcab" tvg-logo="https://i.postimg.cc/jdWQ1KV3/CNN-Logo-wine.png",CNN
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://ec05-pop2-hkh.tv360.vn:443/bpk-token/zytyw3dfvwfgzko2ymym6j4lnthcpc3m/bpk-tv/242/output/index.mpd?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTM2NDcyNDYsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5MzYyNTUyNywKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMjQyX0RBU0giLAogICAgICJwbmEiOiJWaWV0dGVsIiwKICAgICAicm5hIjoiIiwKICAgICAicG4iOiJQT1AtRE4tUE9QMiIsCiAgICAgImVuIjoiRURHRS1ETi1QT1AyIiwKICAgICAiY2MiOiJWTiIsCiAgICAgInJjIjoiRE4iLAogICAgICJhY24iOiJDT1JFLUROLVBPUDIiLAogICAgICJpc3AiOiJWTlBUIiwKICAgICAiYXNuIjoiNDU4OTkiLAogICAgICJ2cyI6IkJLUzQwMC1QT1AyLTA1XzE3Mi4yNC4xNy40MDoyMDAwMCIsCiAgICAgIm50IjoiT1RUIiwKICAgICAidHRwIjowLAogICAgICJwbGlkIjoiIiwKICAgICAicHVpZCI6IiIsCiAgICAgInRlaWQiOiIiCiAgfSwKICAib3QiOnsKICAgICAidHMiOjE3OTM2MjU1MjcsCiAgICAgInVybCI6Ii9icGstdHYvMjQyL291dHB1dC9pbmRleC5tcGQ_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJ6eXR5dzNkZnZ3Zmd6a28yeW15bTZqNGxudGhjcGMzbSIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjIzNi4yMDIuMTc0IiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIyNDJfREFTSCIsCiAgICAgICAgInR5cCI6IkxJVkUiCiAgICAgfSwKICAgICAidG8iOnsKICAgICAgICAKICAgICAgICAgCiAgICAgICAgInN1IjowLAogICAgICAgICJyYyI6MTUwCiAgICAgfSwKICAgICAibGF5IjogewogICAgICAibHN0IjpbXSwKICAgICAgIm1heCI6MTIwMDAwMDAsCiAgICAgICJtaW4iOjAKICAgICB9LAogICAgICJyc2giOjAsCiAgICAgInJzaHAiOjEwMCwKICAgICAib2JmIjpmYWxzZSwKICAgICAidGFncyI6e30KICB9Cn0.MRSR4iGXg9J9QgZjkDMhlEEjZT8OY2TmCBruKon2UQI
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/cnn.m3u8
 
 #EXTINF:-1 tvg-id="" group-title="Quốc tế" tvg-logo="https://i.ytimg.com/vi/twB_6GV5AM8/hq720.jpg", CGTN
 https://english-livebkali.cgtn.com/live/encgtn_0.m3u8
@@ -705,7 +725,7 @@ https://english-livebkali.cgtn.com/live/doccgtn_0.m3u8
 
 #EXTINF:-1 tvg-id="abcaustralia" group-title="VTVcab" tvg-logo="https://img-zlr1.tv360.vn/image1/2021/09/30/21/1633012334655/9f82fec7aa58_640_360.png",ABC Australia
 #EXTVLCOPT:http-user-agent=Dalvik/2.1.0
-https://ec03-pop2-hkh.tv360.vn:443/bpk-token/bykrct46t4ie7npilejq6firj4hbkekp/bpk-tv/269/output/index.mpd?bkm-query&auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJleHAiOjE3OTM2NDcyNDcsCiAgImlzcyI6ImJrbSIsCiAgInZlciI6IjEuMCIsCiAgImlhdCI6MTc5MzYyNTUyOCwKICAic3IiOnsKICAgICAidmVyIjoiMi4wIiwKICAgICAic25hIjoiMjY5X0RBU0giLAogICAgICJwbmEiOiJWaWV0dGVsIiwKICAgICAicm5hIjoiIiwKICAgICAicG4iOiJQT1AtRE4tUE9QMiIsCiAgICAgImVuIjoiRURHRS1ETi1QT1AyIiwKICAgICAiY2MiOiJWTiIsCiAgICAgInJjIjoiRE4iLAogICAgICJhY24iOiJDT1JFLUROLVBPUDIiLAogICAgICJpc3AiOiJWTlBUIiwKICAgICAiYXNuIjoiNDU4OTkiLAogICAgICJ2cyI6IkJLUzQwMC1QT1AyLTAzXzE3Mi4yNC4xNy4zODoyMDAwMCIsCiAgICAgIm50IjoiT1RUIiwKICAgICAidHRwIjowLAogICAgICJwbGlkIjoiIiwKICAgICAicHVpZCI6IiIsCiAgICAgInRlaWQiOiIiCiAgfSwKICAib3QiOnsKICAgICAidHMiOjE3OTM2MjU1MjgsCiAgICAgInVybCI6Ii9icGstdHYvMjY5L291dHB1dC9pbmRleC5tcGQ_bWlucmF0ZT0wJm1heHJhdGU9MTIwMDAwMDAiLAogICAgICJ0b2siOiJieWtyY3Q0NnQ0aWU3bnBpbGVqcTZmaXJqNGhia2VrcCIsCiAgICAgImV4dCI6IiIsCiAgICAgImNpcCI6IjE0LjIzNi4yMDIuMTc0IiwKICAgICAiY2hrIjogZmFsc2UsCiAgICAgInN0dCI6Ik5PIiwKICAgICAiZHNjcCI6MCwKICAgICAic3YiOnsKICAgICAgICAiaWQiOiIyNjlfREFTSCIsCiAgICAgICAgInR5cCI6IkxJVkUiCiAgICAgfSwKICAgICAidG8iOnsKICAgICAgICAKICAgICAgICAgCiAgICAgICAgInN1IjowLAogICAgICAgICJyYyI6MTUwCiAgICAgfSwKICAgICAibGF5IjogewogICAgICAibHN0IjpbXSwKICAgICAgIm1heCI6MTIwMDAwMDAsCiAgICAgICJtaW4iOjAKICAgICB9LAogICAgICJyc2giOjAsCiAgICAgInJzaHAiOjEwMCwKICAgICAib2JmIjpmYWxzZSwKICAgICAidGFncyI6e30KICB9Cn0.3jiMs3MP7krRzf3yJy_BFPf4YB10QNGAH7b79kSBTis
+http://personality-purchasing-bowl-aware.trycloudflare.com/relay/abcaustralia.m3u8
 
 #EXTINF:-1 tvg-id="arirang" group-title="Quốc tế" tvg-logo="https://img-zlr1.tv360.vn/image1/2020_09_23/1600823492603/d4586db1b09a_480_270.png", Arirang
 https://live.fptplay53.net/fnxhd1/airanghd_vhls.smil/chunklist_b5000000.m3u8

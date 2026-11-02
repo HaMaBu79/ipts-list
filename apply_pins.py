@@ -35,6 +35,22 @@ def relay_conf(pins):
     return host, port
 
 
+def relay_url(host, port, tvg):
+    """Duong dan relay cho app.
+
+    Cloudflare Quick Tunnel chi ho tro port 80/443 -> dung duong dan /relay/<tvg>.m3u8
+    (nginx proxy_pass sang relay 8099). Neu host la IP noi bo thi dung port truc tiep.
+    """
+    if host.startswith("http://") or host.startswith("https://"):
+        host = host.split("://", 1)[1].rstrip("/")
+    hostname = host.split(":")[0]
+    is_domain = not hostname.replace(".", "").isdigit()
+    if is_domain or port in (80, 443):
+        # host la domain -> di qua nginx/cloudflare bang duong dan /relay/
+        return "http://%s/relay/%s.m3u8" % (host, tvg)
+    return "http://%s:%d/%s.m3u8" % (host, port, tvg)
+
+
 def find_block(lines, tvg):
     """Tra (start, end) cua block kenh co tvg-id = tvg (tu #EXTINF den URL)."""
     for i, ln in enumerate(lines):
@@ -66,7 +82,7 @@ def apply_one(lines, tvg, spec, relay_host="127.0.0.1", relay_port=8099):
 
     if spec.get("mode") == "relay":
         # RELAY: HLS thuan (MPEG-TS) da giai ma tren BB2 -> moi app deu phat duoc
-        new.append("http://%s:%d/%s.m3u8" % (relay_host, relay_port, tvg))
+        new.append(relay_url(relay_host, relay_port, tvg))
     else:
         key = spec.get("license_key") or ""
         if key:
@@ -101,7 +117,7 @@ def main():
             if ok:
                 changed += 1
                 if spec.get("mode") == "relay":
-                    log("  %-14s -> RELAY http://%s:%d/%s.m3u8" % (tvg, rh, rp, tvg))
+                    log("  %-14s -> RELAY %s" % (tvg, relay_url(rh, rp, tvg)))
                 else:
                     log("  %-14s -> %s" % (tvg, spec["url"].split("/onplus/")[-1]))
         if not changed:

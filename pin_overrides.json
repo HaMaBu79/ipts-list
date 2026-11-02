@@ -2,42 +2,6 @@
  "_comment": "Relay giai ma ClearKey -> HLS MPEG-TS sach. Moi kenh tro ve http://<host>:8099/<tvg-id>.m3u8 => moi thiet bi deu xem duoc. license_key la LIST cac nguon khoa, thu lan luot.",
  "_relay_host": "personality-purchasing-bowl-aware.trycloudflare.com",
  "_relay_port": 8099,
- "onsports": {
-  "name": "ON SPORTS",
-  "url": "https://cdnet-cdn-01.onsports.vn/onplus/THETHAO_HD/manifest.mpd",
-  "license_key": [
-   "auto",
-   "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10"
-  ],
-  "mode": "relay"
- },
- "onsportsplus": {
-  "name": "ON SPORTS+",
-  "url": "https://cdnet-cdn-01.onsports.vn/onplus/HAY_TV/manifest.mpd",
-  "license_key": [
-   "auto",
-   "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10"
-  ],
-  "mode": "relay"
- },
- "onfootball": {
-  "name": "ON FOOTBALL",
-  "url": "https://cdnet-cdn-01.onsports.vn/onplus/BONGDA_HD/manifest.mpd",
-  "license_key": [
-   "auto",
-   "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10"
-  ],
-  "mode": "relay"
- },
- "onsportsnews": {
-  "name": "ON SPORTS NEWS",
-  "url": "https://cdnet-cdn-01.onsports.vn/onplus/THETHAO_TINTUC_HD/manifest.mpd",
-  "license_key": [
-   "auto",
-   "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10"
-  ],
-  "mode": "relay"
- },
  "sctv1hd": {
   "name": "SCTV1 HD",
   "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV1/Live_DASHDRM/SCTV1.mpd",
@@ -107,7 +71,7 @@
   "url": "https://livevlisctcdnw.seenow.vn/mean/BOXHIT/manifest.mpd",
   "license_key": [
    "auto",
-   "a7c942778e874d43be92b8d0a0cd11b4:6d54358306571658ffdb952c6560688b"
+   "6bb73de36efbf1ef3be1de376def766f"
   ],
   "mode": "relay"
  },
@@ -125,7 +89,7 @@
   "url": "https://livevlisctcdnw.seenow.vn/mean/HC/manifest.mpd",
   "license_key": [
    "auto",
-   "a7c942778e874d43be92b8d0a0cd11b4:6d54358306571658ffdb952c6560688b"
+   "6bb73de36efbf1ef3be1de376def766f"
   ],
   "mode": "relay"
  },
