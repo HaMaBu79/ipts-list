@@ -68,7 +68,9 @@ def load_pins():
 
 PINS = load_pins()
 STATE = {}          # ch -> {"proc":Popen, "last":float, "nreq":int}
-LOCK = threading.Lock()
+STARTING = set()    # cac kenh dang trong qua trinh khoi dong ffmpeg
+LAST_REQ = {}       # ch -> timestamp request gan nhat
+LOCK = threading.RLock()
 
 
 def chan_dir(ch):
@@ -146,23 +148,38 @@ def cleanup_files(ch):
 
 
 def ensure_running(ch):
+    """Dam bao ffmpeg cho kenh `ch` dang chay. Tra (ok, msg).
+
+    KHONG giu LOCK trong luc cho ffmpeg tao segment (mat toi 90s) ->
+    se chan cac kenh khac va tra 503. Thay vao do: dung co STARTING de
+    tranh khoi dong trung, va tra 503 neu segment chua san sang.
+    """
     with LOCK:
         st = STATE.get(ch)
         if st and st["proc"].poll() is None:
             st["last"] = time.time()
             st["nreq"] += 1
+            LAST_REQ[ch] = time.time()
             return True, "ok"
         if st:
             try:
                 st["proc"].kill()
             except Exception:
                 pass
-    if ch not in PINS:
-        return False, "khong co pin cho %s" % ch
+        if ch in STARTING:
+            return False, "dang khoi dong"
+        if ch not in PINS:
+            return False, "khong co pin cho %s" % ch
+        STARTING.add(ch)
+
     ok, msg = start_ffmpeg(ch)
+    with LOCK:
+        STARTING.discard(ch)
     if not ok:
         return False, msg
-    # cho ffmpeg tao segment dau tien (co -ss 12 -> can them thoi gian)
+
+    # cho ffmpeg tao segment dau tien (co -ss 12 -> can them thoi gian).
+    # KHONG giu LOCK o day.
     pl = os.path.join(chan_dir(ch), "live.m3u8")
     for _ in range(90):
         time.sleep(1)
@@ -260,12 +277,14 @@ class H(http.server.BaseHTTPRequestHandler):
                 self._send(200, "application/vnd.apple.mpegurl", body)
                 return
             ok, msg = ensure_running(ch)
-            if not ok:
-                self._send(503, "text/plain", msg.encode())
-                return
             body = build_playlist(ch)
             if body is None:
-                self._send(503, "text/plain", b"segment chua san sang")
+                # segment chua san sang -> client thu lai sau 3s
+                self.send_response(503)
+                self.send_header("Content-Type", "text/plain")
+                self.send_header("Retry-After", "3")
+                self.send_header("Content-Length", "0")
+                self.end_headers()
                 return
             cleanup_files(ch)
             self._send(200, "application/vnd.apple.mpegurl", body)
@@ -298,16 +317,18 @@ def watchdog():
                     pass
                 with LOCK:
                     STATE.pop(ch, None)
-                log("[%s] dung ffmpeg (%s)" % (ch, reason))
                 if dead:
-                    # thu khoi dong lai ngay neu client dang yeu cau
-                    try:
-                        with LOCK:
-                            want = STATE.get(ch)
-                    except Exception:
-                        want = None
-                if idle:
-                    shutil.rmtree(chan_dir(ch), ignore_errors=True)
+                    # ffmpeg tu chet (mang chap / source loi) -> khoi dong
+                    # lai neu client vua xem trong 60s gan nhat.
+                    if now - LAST_REQ.get(ch, 0) < 60:
+                        log("[%s] %s -> khoi dong lai" % (ch, reason))
+                        try:
+                            start_ffmpeg(ch)
+                        except Exception as e:
+                            log("[%s] khoi dong lai that bai: %s" % (ch, e))
+                    else:
+                        log("[%s] %s (khong ai xem)" % (ch, reason))
+                        shutil.rmtree(chan_dir(ch), ignore_errors=True)
 
 
 def cleanup(*a):
