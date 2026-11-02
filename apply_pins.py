@@ -28,6 +28,13 @@ def load_pins():
         return {}
 
 
+def relay_conf(pins):
+    """Lay host/port cua relay HLS (uu tien env, roi den file config)."""
+    host = os.environ.get("RELAY_HOST") or pins.get("_relay_host") or "127.0.0.1"
+    port = int(os.environ.get("RELAY_PORT") or pins.get("_relay_port") or 8099)
+    return host, port
+
+
 def find_block(lines, tvg):
     """Tra (start, end) cua block kenh co tvg-id = tvg (tu #EXTINF den URL)."""
     for i, ln in enumerate(lines):
@@ -41,7 +48,7 @@ def find_block(lines, tvg):
     return None, None
 
 
-def apply_one(lines, tvg, spec):
+def apply_one(lines, tvg, spec, relay_host="127.0.0.1", relay_port=8099):
     i, j = find_block(lines, tvg)
     if i is None:
         log("  %-14s KHONG tim thay trong playlist" % tvg)
@@ -56,14 +63,19 @@ def apply_one(lines, tvg, spec):
         tvg, (' tvg-logo="%s"' % logo.group(1)) if logo else "", name))
     ua = spec.get("ua") or "Dalvik/2.1.0"
     new.append("#EXTVLCOPT:http-user-agent=%s" % ua)
-    key = spec.get("license_key") or ""
-    if key:
-        new.append("#KODIPROP:inputstream=inputstream.adaptive")
-        new.append("#KODIPROP:inputstream.adaptive.manifest_type=dash")
-        new.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
-        new.append("#KODIPROP:inputstream.adaptive.license_key=%s" % key)
-        new.append("#KODIPROP:inputstream.adaptive.license_key_data_type=base64")
-    new.append(spec["url"])
+
+    if spec.get("mode") == "relay":
+        # RELAY: HLS thuan (MPEG-TS) da giai ma tren BB2 -> moi app deu phat duoc
+        new.append("http://%s:%d/%s.m3u8" % (relay_host, relay_port, tvg))
+    else:
+        key = spec.get("license_key") or ""
+        if key:
+            new.append("#KODIPROP:inputstream=inputstream.adaptive")
+            new.append("#KODIPROP:inputstream.adaptive.manifest_type=dash")
+            new.append("#KODIPROP:inputstream.adaptive.license_type=clearkey")
+            new.append("#KODIPROP:inputstream.adaptive.license_key=%s" % key)
+            new.append("#KODIPROP:inputstream.adaptive.license_key_data_type=base64")
+        new.append(spec["url"])
     out = lines[:i] + new + lines[j + 1:]
     return True, out
 
@@ -81,11 +93,17 @@ def main():
             raw = f.read()
         lines = raw.split("\n")
         changed = 0
+        rh, rp = relay_conf(pins)
         for tvg, spec in pins.items():
-            ok, lines = apply_one(lines, tvg, spec)
+            if tvg.startswith("_"):
+                continue
+            ok, lines = apply_one(lines, tvg, spec, rh, rp)
             if ok:
                 changed += 1
-                log("  %-14s -> %s" % (tvg, spec["url"].split("/onplus/")[-1]))
+                if spec.get("mode") == "relay":
+                    log("  %-14s -> RELAY http://%s:%d/%s.m3u8" % (tvg, rh, rp, tvg))
+                else:
+                    log("  %-14s -> %s" % (tvg, spec["url"].split("/onplus/")[-1]))
         if not changed:
             continue
         shutil.copyfile(path, path + ".bak")

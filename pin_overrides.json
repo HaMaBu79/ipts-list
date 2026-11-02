@@ -1,22 +1,33 @@
 {
+  "_comment": "PIN cho 4 kenh the thao. 'mode': 'relay' -> tro ve relay HLS cuc bo tren BB2 (app nao cung phat duoc). 'mode': 'direct' -> tro thang vao CDN voi KODIPROP ClearKey.",
+  "_relay_host": "100.85.60.93",
+  "_relay_port": 8099,
   "onsports": {
     "url": "https://cdnet-cdn-01.onsports.vn/onplus/THETHAO_HD/manifest.mpd",
     "license_key": "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10",
-    "ua": "Dalvik/2.1.0"
+    "ua": "Dalvik/2.1.0",
+    "mode": "relay",
+    "name": "ON SPORTS"
   },
   "onsportsplus": {
     "url": "https://cdnet-cdn-01.onsports.vn/onplus/HAY_TV/manifest.mpd",
     "license_key": "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10",
-    "ua": "Dalvik/2.1.0"
+    "ua": "Dalvik/2.1.0",
+    "mode": "relay",
+    "name": "ON SPORTS+"
   },
   "onfootball": {
     "url": "https://cdnet-cdn-01.onsports.vn/onplus/BONGDA_HD/manifest.mpd",
     "license_key": "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10",
-    "ua": "Dalvik/2.1.0"
+    "ua": "Dalvik/2.1.0",
+    "mode": "relay",
+    "name": "ON FOOTBALL"
   },
   "onsportsnews": {
     "url": "https://cdnet-cdn-01.onsports.vn/onplus/THETHAO_TINTUC_HD/manifest.mpd",
     "license_key": "c410ddc6a75244639fd0561fba5ef19b:30d13ea42031b9ff8271e5dc37d90e10",
-    "ua": "Dalvik/2.1.0"
+    "ua": "Dalvik/2.1.0",
+    "mode": "relay",
+    "name": "ON SPORTS NEWS"
   }
 }
