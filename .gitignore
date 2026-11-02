@@ -5,12 +5,17 @@ __pycache__/
 # File tam / ban sao - KHONG push
 *.tmp
 *.bak
+*.bak2
+*.bak.*
 _source.m3u8
 
 # Phien dang nhap TV360 - KHONG push (co token!)
 tv360_session.json
 tv360_session.json.tmp
 .tv360_session/
+tv360_account.json
+tv360_accounts.json
+tv360_sync.json
 
 # Bao cao chay (sinh moi moi lan)
 last_report.json
