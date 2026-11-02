@@ -20,7 +20,6 @@ import re
 import sys
 import time
 import unicodedata
-import urllib.parse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -69,8 +68,6 @@ DEFAULT_CFG = {
     ],
     # Giu nguyen dong #EXTVLCOPT cua file goc (User-Agent)
     "keep_vlcopt": True,
-    # Xoa muc trung lap (file goc co 2 khoi VTVCab trung nhau)
-    "dedup_entries": True,
     # Ghi dong #UPDATE
     "stamp_update": True,
     "user": "HaMaBu",
@@ -177,39 +174,20 @@ def check_license_key(url, timeout=15):
         return False
 
 
-UA_FALLBACKS = [
-    "Dalvik/2.1.0",
-    "VLC/3.0.20 LibVLC/3.0.20",
-    "okhttp/3.12.12",
-]
-
-
 def fetch_external_playlist(url, timeout=45):
     """Tai mot playlist m3u8 tu nguon ngoai (vd vietanhtv.top).
 
     Tra ve dict: {tvg-id -> {url, ua, lic_key, group, name}}.
     """
     import urllib.request
-    # QUAN TRONG: vietanhtv.top chan UA desktop (Chrome/Safari) va tra
-    # "THIET BI HOAC UNG DUNG KHONG DUOC HO TRO". Chi UA mobile/app moi
-    # nhan duoc playlist (ke ca dong license_key cho kenh DRM).
-    raw = ""
-    last_err = None
-    for ua in UA_FALLBACKS:
-        try:
-            req = urllib.request.Request(url, headers={
-                "User-Agent": ua,
-                "Accept": "*/*",
-            })
-            with urllib.request.urlopen(req, timeout=timeout) as r:
-                raw = r.read().decode("utf-8", "replace")
-            if "#EXTINF" in raw and "KHONG DUOC HO TRO" not in raw:
-                break
-        except Exception as e:
-            last_err = e
-            continue
-    if not raw:
-        raise last_err if last_err else RuntimeError("fallback playlist rong")
+    req = urllib.request.Request(url, headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                      "AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/154.0.0.0 Safari/537.36",
+        "Accept": "*/*",
+    })
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        raw = r.read().decode("utf-8", "replace")
     out = {}
     lines = raw.split("\n")
     i = 0
@@ -244,112 +222,12 @@ def fetch_external_playlist(url, timeout=45):
                 j += 1
             if url_line:
                 key = (tvg or "").lower()
-                # Neu co license_key URL -> thay bang KID:KEY that
-                kidkey = None
-                if lic_key and lic_key.startswith("http"):
-                    kidkey = fetch_clearkey_kidkey(lic_key)
-                    if kidkey:
-                        lic_key = kidkey
                 out.setdefault(key, {"url": url_line, "ua": ua, "lic_key": lic_key,
                                     "group": grp, "name": ln.split(",")[-1].strip()})
             i = j
             continue
         i += 1
     return out
-
-
-
-def tokenize_stream_url(url, timeout=20):
-    """Lay ve URL da 'token hoa' cua manifest DASH (Broadpeak / Ateme).
-
-    NGUYEN NHAN MAN DEN O 4 KENH THE THAO (ON SPORTS, ON SPORTS+,
-    ON FOOTBALL, ON SPORTS NEWS) va ON PHIM VIET:
-
-      - API tra ve URL MANIFEST GOC, vd
-        https://fo-hlc.tv360.vn/bpk-tv/221/output/index.mpd?auth=...
-        https://rr1-ateme.tv360.vn/live/eds/222/DASH_DRM_MHL_2s/index.mpd?cdntoken=...
-      - CDN (Broadpeak BKS400 / Ateme) tra 307/302 redirect sang mot URL
-        KHAC chua token, vd
-        https://ec05-pop2-hkh.tv360.vn/bpk-token/<id>/bpk-tv/221/output/index.mpd?bkm-query&auth=...
-        https://pop21-ec1-ateme.tv360.vn/tok_<jwt>/live/eds/222/DASH_DRM_MHL_2s/index.mpd?...
-      - Player (Kodi/TiviMate/ExoPlayer) lay manifest da redirect (ok), nhung
-        cac SEGMENT trong MPD la DUONG DAN TUONG DOI -> player goi lai host
-        GOC khong co token -> 404 (Broadpeak) / 403 "Token required" (Ateme)
-        -> khong co segment nao tai duoc -> MAN HINH DEN.
-
-    Fix: ghi URL DA REDIRECT vao playlist. Segment cung duoc giua nguyen
-    host + tien to token -> tai duoc 200 (da verify voi ffmpeg).
-
-    Tra ve URL da token hoa, hoac goc neu khong lay duoc.
-    """
-    import urllib.request
-    import urllib.error
-    if not url:
-        return url
-
-    class _NoRedirect(urllib.request.HTTPRedirectHandler):
-        def redirect_request(self, req, fp, code, msg, headers, newurl):
-            return None
-
-    opener = urllib.request.build_opener(_NoRedirect)
-    try:
-        req = urllib.request.Request(url, headers={
-            "User-Agent": UA_FALLBACKS[0],
-            "Accept": "*/*",
-        })
-        with opener.open(req, timeout=timeout) as r:
-            return url
-    except urllib.error.HTTPError as e:
-        loc = None
-        try:
-            loc = e.headers.get("Location")
-        except Exception:
-            loc = None
-        if loc:
-            if loc.startswith("/"):
-                p = urllib.parse.urlparse(url)
-                loc = "%s://%s%s" % (p.scheme, p.netloc, loc)
-            return loc
-        return url
-    except Exception:
-        return url
-
-
-def fetch_clearkey_kidkey(lic_url, timeout=20):
-    """Lay DRM key (KID:KEY) tu clearkey URL cua vietanhtv.top.
-
-    Server CHI tra key khi UA la 'Dalvik/2.1.0' (nhu app Android TV).
-    Kodi/TiviMate khong gui UA do -> bi 'File not found' -> kenh man den.
-    Vi vay ta fetch key o day roi nhung truc tiep KID:KEY vao playlist.
-
-    Tra ve chuoi "KID:KEY" (hex) hoac None.
-    """
-    import urllib.request
-    import base64
-    if not lic_url:
-        return None
-    try:
-        req = urllib.request.Request(lic_url, headers={"User-Agent": "Dalvik/2.1.0"})
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            body = r.read().decode("utf-8", "replace")
-        j = json.loads(body)
-        keys = j.get("keys") or []
-        if not keys:
-            return None
-        k = keys[0]
-        kid = k.get("kid", "")
-        key = k.get("k", "")
-        if not key:
-            return None
-        # kid base64url -> hex (Kodi inputstream.adaptive dung hex KID:KEY)
-        try:
-            raw = base64.urlsafe_b64decode(kid + "=" * (-len(kid) % 4))
-            kid_hex = raw.hex()
-        except Exception:
-            kid_hex = kid
-        return "%s:%s" % (kid_hex, key)
-    except Exception:
-        return None
 
 
 def build_external_index(cfg):
@@ -538,79 +416,6 @@ def stamp_update(lines, user="HaMaBu"):
             lines[i] = ln[:k + 1] + new_name
             n_name += 1
     return "%s | %d ten kenh" % (act, n_name)
-
-
-def dedup_entries(lines):
-    """Xoa cac muc trung lap trong playlist (cung tvg-id + cung URL).
-
-    Playlist goc co 2 khoi VTVCab trung nhau (cung 20 kenh), nen Kodi
-    hien thi 2 kenh trung ten. Giu lai ban dau tien, xoa ban sau.
-    """
-    seen = {}          # key -> index dong cua muc da giu
-    drop = set()       # cac dong thuoc muc bi xoa
-    i = 0
-    n = len(lines)
-    while i < n:
-        if not lines[i].startswith("#EXTINF"):
-            i += 1
-            continue
-        # tim muc (EXTINF + cac dong # + URL)
-        j = i + 1
-        url = None
-        while j < n:
-            s = lines[j].strip()
-            if s.startswith("#EXTINF"):
-                break
-            if s.startswith("http"):
-                url = s
-                j += 1
-                break
-            j += 1
-        # j = dong sau URL (hoac dong EXTINF ke tiep)
-        tvg = re.search(r'tvg-id="([^"]*)"', lines[i])
-        tid = (tvg.group(1) if tvg else "").strip().lower()
-        # KHONG dedup khi tvg-id rong (nhom Quoc Te co nhieu muc vo tvg-id,
-        # doi ten tinh de tranh xoa nham).
-        if tid and url:
-            key = (tid, url)
-            if key in seen:
-                # trung -> xoa toan bo khoi dong i den j-1
-                for k in range(i, j):
-                    drop.add(k)
-            else:
-                seen[key] = i
-        i = j
-    if not drop:
-        return lines, 0
-    out = [ln for k, ln in enumerate(lines) if k not in drop]
-    # Xoa marker nhom "#---...---#" neu khung do da het muc (sau khi dedup
-    # khoi VTVCab thu 2 bi rong -> marker du lai khong can).
-    out = _drop_empty_markers(out)
-    return out, len(drop)
-
-
-def _drop_empty_markers(lines):
-    """Xoa dong marker nhom '#---...---#' neu khong con muc nao ben duoi."""
-    out = []
-    i = 0
-    n = len(lines)
-    while i < n:
-        ln = lines[i]
-        if ln.startswith("#---"):
-            # tim muc dau tien truoc marker tiep theo
-            j = i + 1
-            has_entry = False
-            while j < n and not lines[j].startswith("#---"):
-                if lines[j].startswith("#EXTINF"):
-                    has_entry = True
-                    break
-                j += 1
-            if not has_entry:
-                i += 1
-                continue
-        out.append(ln)
-        i += 1
-    return out
 
 
 # ------------------------------------------------------------------ matching
@@ -814,73 +619,6 @@ def match_channel(entry, idx):
     return None, None
 
 
-# ---------------------------------------------------------- ban link "khong han"
-def _root_name(name):
-    """Ten kenh 'goc re' bo tien to VTVcab/ON/... va so thu tu.
-
-    'VTVcab 2 - Phim Viet HD' -> 'phim viet'
-    'ON Phim Viet'             -> 'on phim viet'
-    """
-    s = re.sub(r"^\s*v\s*t\s*v\s*c\s*a\s*b\s*", " ", (name or ""), flags=re.I)
-    s = re.sub(r"^\s*on\s+", " ", s, flags=re.I)
-    s = re.sub(r"^\s*\d+\s*[-–:]?\s*", " ", s)
-    s = re.sub(r"\s*[-–:]\s*", " ", s)
-    return norm2(s)
-
-
-def collect_clean_links(catalog, timeout=18):
-    """Tim ban 'khong han' (HLS) cho cac kenh bi khop nham sang ban VOD.
-
-    Van de: TV360 co 2 channel cho cung mot noi dung, vi du:
-        id 175  'VTVcab 2 - Phim Viet HD' -> https://lsm-g12.../348.m3u8 (HLS)
-        id 9902 'Phim Viet'               -> vod-evg4.../master.m3u8?start=&stop=
-    Ban VOD chi phat duoc trong cua so ~44 phut (start/stop) -> het la MAN DEN.
-    Ban HLS phat lien, khong han.
-
-    Ta thu moi kenh trong catalog, giu lai link KHONG chua 'start='/'stop='
-    (chi HLS/m3u8 binh thuong). Tra ve {channel_id: url}.
-    """
-    import urllib.parse as _up
-    from tv360_client import Tv360Client, STATE_FILE, WEB as _WEB, decrypt_aes as _dec
-
-    cands = []
-    for ch in catalog:
-        cid = str(ch.get("id") or "")
-        if cid.isdigit():
-            cands.append((int(cid), cid, ch.get("name") or ""))
-    cands.sort()
-
-    out = {}
-    cl = None
-    for _num, cid, nm in cands:
-        if cid in out:
-            continue
-        # Chi thu kenh so nho (175, 181...) - thuong la ban 'VTVcab X - ...'
-        if _num > 500:
-            continue
-        try:
-            if cl is None:
-                cl = Tv360Client("%s.cleanprobe" % STATE_FILE)
-                cl.ensure_token_safe(allow_login=False)
-            q = _up.urlencode({"id": int(cid), "type": "live",
-                               "secured": "true", "t": int(time.time())})
-            st, raw = cl._call(_WEB + "/public/v1/composite/get-link?" + q,
-                               auth=True, timeout=timeout)
-            if st != 200:
-                continue
-            j = json.loads(raw)
-            if j.get("errorCode") != 200:
-                continue
-            info = json.loads(_dec(j.get("data")))
-            u = info.get("urlStreaming") or ""
-        except Exception:
-            continue
-        # Ban 'khong han': co .m3u8 va KHONG co start=/stop=
-        if ".m3u8" in u and "start=" not in u and "stop=" not in u:
-            out[cid] = u
-    return out
-
-
 # ------------------------------------------------------------------ main
 def build(cfg, dry=False):
     c = client()
@@ -903,45 +641,8 @@ def build(cfg, dry=False):
     print("Dang lay link truc tiep tu TV360...")
     links = {}
     n_ok = n_fail = n_needlogin = 0
-    todo = [ch for ch in catalog if str(ch.get("id")) not in links]
+    todo = [ch for ch in catalog]
     workers = int(cfg.get("workers", 8))
-
-    # PASS 0: kenh thuoc goi VSport (ON SPORTS/+/FOOTBALL/NEWS/GOLF).
-    # Tai khoan CHINH khong mua goi nen isAccess=False, ma tai khoan PHU
-    # (vt032554406851) co goi VSport. Lay thang o day de kenh luon co link
-    # va khong ton time vao pass 2/3.
-    VS_IDS = {"173", "183", "174", "170", "169"}
-    vs_done = set()
-    try:
-        from tv360_client import alt_clients
-        _alts = alt_clients()
-    except Exception:
-        _alts = []
-    if _alts:
-        print("   pass 0 (goi VSport): thu %d tai khoan phu" % len(_alts))
-        for _ac in _alts:
-            try:
-                _ac.ensure_token_safe(allow_login=False)
-            except Exception:
-                continue
-            for ch in catalog:
-                cid = str(ch.get("id"))
-                if cid not in VS_IDS or cid in vs_done:
-                    continue
-                try:
-                    _u, _e = _ac.get_stream(cid, timeout=20)
-                except Exception:
-                    _u = None
-                if _u:
-                    links[cid] = _u
-                    vs_done.add(cid)
-            if vs_done:
-                print("      tai khoan VSport lay duoc: %s"
-                      % ",".join(sorted(vs_done)))
-            if len(vs_done) >= len(VS_IDS):
-                break
-        if vs_done:
-            print("   pass 0: %d/%d kenh the thao OK" % (len(vs_done), len(VS_IDS)))
 
     # PASS 1: client 'khach' (device rieng, khong gui access-token) chay
     # song song -> lay duoc kenh free ma khong bi ap goi thue bao.
@@ -1039,9 +740,6 @@ def build(cfg, dry=False):
         # Cac kenh dac biet (goi the thao) can thu TRUOC vi mot so goi chi
         # cho phep xem tren 1 thiet bi -> phai lay tuan tu, khong parallel.
         PRIORITY_IDS = {"173", "183", "174", "170", "169"}
-        # Cac kenh thuoc goi VSport: tai khoan CHINH khong co goi nen
-        # isAccess=False. Lay lien tu tai khoan phu (co goi VSport) de
-        # khong ton time vao pass 2/3.
         todo3 = [(cid, e) for cid, e in failed_ids if cid in PRIORITY_IDS]
         todo3 += [(cid, e) for cid, e in failed_ids if cid not in PRIORITY_IDS]
         for ai, ac in enumerate(alts):
@@ -1074,33 +772,6 @@ def build(cfg, dry=False):
     idx = build_indexes(catalog)
     worst = 0
     total_changed = 0
-
-    # ---------------------------------------------------------- alt clean
-    # Mot so kenh TV360 ton tai 2 ban: mot ban HLS (phat lien, khong han) va
-    # mot ban VOD ?start=&stop= (chi han ~44 phut -> het la man den).
-    # Vi du ON PHIM VIET: id 175 (VTVcab 2 - Phim Viet HD) -> HLS,
-    #                 id 9902 (Phim Viet)             -> VOD co han.
-    # Ta thu lay ban HLS cho cac muc trong playlist bi khop nham.
-    alt_clean_links = {}
-    try:
-        _clean = collect_clean_links(catalog)
-        if _clean:
-            # {ten kenh goc re -> url HLS khong han}
-            # 'VTVcab 2 - Phim Viet HD' -> 'phim viet' (bo tien to VTVcab + so)
-            _by_name = {}
-            for _ch in catalog:
-                _cid = str(_ch.get("id") or "")
-                if _cid not in _clean:
-                    continue
-                _nm = _ch.get("name") or ""
-                _k = _root_name(_nm)
-                if _k:
-                    _by_name.setdefault(_k, _clean[_cid])
-            alt_clean_links = _by_name
-            if alt_clean_links:
-                print("   ban khong han (HLS): %s" % ", ".join(sorted(alt_clean_links)))
-    except Exception as e:
-        print("   [alt] loi: %s" % e)
 
     for pl_name in cfg.get("playlist_files", []):
         path = os.path.join(HERE, pl_name)
@@ -1157,17 +828,6 @@ def build(cfg, dry=False):
                     nomap.append((e["name"], e["group"]))
                 continue
             new = links.get(str(ch["id"]))
-            # KENH VOD (ON PHIM VIET...): API co the tra 2 ban:
-            #   - id 175 "VTVcab 2 - Phim Viet HD" -> HLS (lsm-g12/348.m3u8)
-            #     -> phat lien, KHONG han
-            #   - id 9902 "Phim Viet" -> URL vod-evg4 co ?start=&stop=
-            #     -> chi phat duoc trong cua so ~44 phut, het la man den
-            # Uu tien ban co han (khong co start/stop).
-            if "start=" in (new or "") and "stop=" in (new or ""):
-                _k = _root_name(e.get("clean_name") or e.get("name"))
-                _alt = alt_clean_links.get(_k)
-                if _alt and "start=" not in _alt:
-                    new = _alt
             if not new:
                 # TV360 khong cho link kenh nay -> thu nguon fallback
                 fb = fb_idx.get((e.get("tvg") or "").lower())
@@ -1193,11 +853,6 @@ def build(cfg, dry=False):
                     if lines[e["lic_idx"]] != new_lic:
                         lines[e["lic_idx"]] = new_lic
                         updated += 1
-                # KENH DASH (4 kenh the thao + ...) : URL manifest phai DUOC
-                # TOKEN HOA (CDN redirect). Player goi segment theo duong dan
-                # tuong doi -> can host + tien to token, neu khong se 404/403.
-                if ".mpd" in new.lower():
-                    new = tokenize_stream_url(new)
             if new == e["url"]:
                 kept += 1
                 continue
@@ -1218,11 +873,6 @@ def build(cfg, dry=False):
         # ghi
         for idx_line, new in url_map.items():
             lines[idx_line] = new
-        # XOA MUC TRUNG LAP (2 khoi VTVCab trung nhau trong file goc)
-        if cfg.get("dedup_entries", True):
-            lines, n_drop = dedup_entries(lines)
-            if n_drop:
-                print("  DA XOA %d dong muc trung lap" % n_drop)
         if cfg.get("stamp_update", True):
             # LUON cap nhat dong #UPDATE + danh dau thoi gian trong ten kenh,
             # ke ca khi khong co URL nao doi -> nhan biet BB2 da chay.
