@@ -1,0 +1,93 @@
+{
+ "_comment": "Relay giai ma ClearKey -> HLS MPEG-TS sach. Moi kenh tro ve http://<host>/relay/<tvg-id>.m3u8 => moi thiet bi deu xem duoc, khong con phu thuoc endpoint clearkey.php cua vietanhtv.",
+ "_relay_host": "",
+ "_relay_port": 8099,
+ "sctv1hd": {
+  "name": "SCTV1 HD",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV1/Live_DASHDRM/SCTV1.mpd",
+  "mode": "relay",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctv1"
+  ]
+ },
+ "sctv8hd": {
+  "name": "SCTV8 HD",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV8/Live_DASHDRM/SCTV8.mpd",
+  "mode": "relay",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctv8"
+  ]
+ },
+ "sctv15": {
+  "name": "SCTV15 HD",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV15HD/Live_DASHDRM/SCTV15HD.mpd",
+  "mode": "relay",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctv15"
+  ]
+ },
+ "sctv17": {
+  "name": "SCTV17 HD",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV17/Live_DASHDRM/SCTV17.mpd",
+  "mode": "relay",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctv17"
+  ]
+ },
+ "sctv21hd": {
+  "name": "SCTV21 HD",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV21/Live_DASHDRM/SCTV21.mpd",
+  "mode": "relay",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctv21"
+  ]
+ },
+ "sctv22hd": {
+  "name": "SCTV22 HD",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV22/Live_DASHDRM/SCTV22.mpd",
+  "mode": "relay",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctv22"
+  ]
+ },
+ "sctvhdpth": {
+  "name": "SCTV Phim Tổng Hợp",
+  "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTVPHIM/Live_DASHDRM/SCTVPHIM.mpd",
+  "mode": "relay",
+  "license_key": [
+   "https://tv.vietanhtv.top/sctv/cleankey.php?id=sctvphim"
+  ]
+ },
+ "onsports": {
+  "name": "ON SPORTS",
+  "url": "https://fo-hlc.tv360.vn/bpk-tv/221/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTM2ODY2NDQsInVyaSI6Ii9icGstdHYvMjIxL291dHB1dC9pbmRleC5tcGQifQ.40qbAcD7HKZycVcX15vG_DuW2lwUXu-EJCDxs_zgPL8&minrate=0&maxrate=12000000&uid=236141047",
+  "mode": "relay",
+  "license_key": [
+   "https://tv.vietanhtv.top/tivi/cleankey.php?id=tv360173&token=3ba49bce4d4aad727dc43c55196b638a"
+  ]
+ },
+ "onsportsplus": {
+  "name": "ON SPORTS+",
+  "url": "https://fo-hlc.tv360.vn/bpk-tv/216/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTM2ODY2NDQsInVyaSI6Ii9icGstdHYvMjE2L291dHB1dC9pbmRleC5tcGQifQ.1mP-EHUQPQLQX8Zo0FW5cgNE7Qy6vzW_C5bfxGnrgQU&minrate=0&maxrate=12000000&uid=236141047",
+  "mode": "relay",
+  "license_key": [
+   "https://tv.vietanhtv.top/tivi/cleankey.php?id=tv360183&token=3ba49bce4d4aad727dc43c55196b638a"
+  ]
+ },
+ "onfootball": {
+  "name": "ON FOOTBALL",
+  "url": "https://fo-hlc.tv360.vn/bpk-tv/222/output/index.mpd?auth=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXRob2QiOiJHRVQiLCJleHAiOjE3OTM2ODY2NDQsInVyaSI6Ii9icGstdHYvMjIyL291dHB1dC9pbmRleC5tcGQifQ.d7rcmW3Bxaqv5-_zhHFiMDa-k6TXZSIjzR0rOVZlVnY&minrate=0&maxrate=12000000&uid=236141047",
+  "mode": "relay",
+  "license_key": [
+   "https://tv.vietanhtv.top/tivi/cleankey.php?id=tv360174&token=3ba49bce4d4aad727dc43c55196b638a"
+  ]
+ },
+ "onsportsnews": {
+  "name": "ON SPORTS NEWS",
+  "url": "https://rr1-ateme.tv360.vn/live/eds/223/DASH_DRM_MHL_2s_event/index.mpd?cdntoken=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJwYXRoIjoiL2xpdmUvZWRzLzIyMy9EQVNIX0RSTV9NSExfMnNfZXZlbnQvIiwiZXhwIjoxNzkzNjg2NjQ0fQ._i_OuJlYLAHqx5xkblMxs5KUULh9pcc9zNVoiYAqv1Xe8Ua2lq1pQVlO2Yd81vXh6ChuxCVRwZNEv-9LW6ZXcQ&screen=MHL&uid=236141047",
+  "mode": "relay",
+  "license_key": [
+   "https://tv.vietanhtv.top/tivi/cleankey.php?id=tv360170&token=3ba49bce4d4aad727dc43c55196b638a"
+  ]
+ }
+}

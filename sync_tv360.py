@@ -174,20 +174,40 @@ def check_license_key(url, timeout=15):
         return False
 
 
+# tv.vietanhtv.top chan User-Agent desktop (Chrome/Safari) va tra
+# "THIET BI HOAC UNG DUNG KHONG DUOC HO TRO" (403).
+# Chi UA mobile/app moi nhan duoc playlist (ke ca dong license_key cho kenh DRM).
+UA_FALLBACKS = [
+    "Dalvik/2.1.0",
+    "VLC/3.0.20 LibVLC/3.0.20",
+    "okhttp/3.12.12",
+]
+
+
 def fetch_external_playlist(url, timeout=45):
     """Tai mot playlist m3u8 tu nguon ngoai (vd vietanhtv.top).
 
     Tra ve dict: {tvg-id -> {url, ua, lic_key, group, name}}.
     """
     import urllib.request
-    req = urllib.request.Request(url, headers={
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                      "AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/154.0.0.0 Safari/537.36",
-        "Accept": "*/*",
-    })
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        raw = r.read().decode("utf-8", "replace")
+    raw = ""
+    last_err = None
+    for ua in UA_FALLBACKS:
+        try:
+            req = urllib.request.Request(url, headers={
+                "User-Agent": ua,
+                "Accept": "*/*",
+            })
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                raw = r.read().decode("utf-8", "replace")
+            if "#EXTINF" in raw and "KHONG DUOC HO TRO" not in raw:
+                break
+            last_err = "noi dung khong phai playlist"
+        except Exception as e:
+            last_err = e
+            raw = ""
+    if not raw:
+        raise last_err if last_err else RuntimeError("khong tai duoc playlist")
     out = {}
     lines = raw.split("\n")
     i = 0
