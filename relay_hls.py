@@ -101,6 +101,13 @@ def _b64url_to_hex(s):
         return ""
 
 
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Khong follow redirect - muon doc header Location de lay URL co token."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
 def tokenize_url(url):
     """Lay URL manifest DA CO TOKEN tu header Location cua redirect CDN.
 
@@ -108,14 +115,25 @@ def tokenize_url(url):
     (bpk-token/... hoac tok_<jwt>/...). Segment trong MPD la DUONG DAN TUONG DOI,
     nen player phai lay manifest tren host co token - neu khong thi segment 404.
     """
-    code, body, final, hdrs = _http(url, timeout=20, method="GET")
+    opener = urllib.request.build_opener(_NoRedirect)
+    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
+    try:
+        with opener.open(req, timeout=20) as r:
+            code = r.getcode()
+            hdrs = dict(r.headers or {})
+    except urllib.error.HTTPError as e:
+        code = e.code
+        hdrs = dict(e.headers or {})
+    except Exception:
+        return url
     loc = hdrs.get("Location") or hdrs.get("location") or ""
-    if loc:
+    if code in (301, 302, 303, 307, 308) and loc:
         if loc.startswith("/"):
             p = urllib.parse.urlsplit(url)
             loc = "%s://%s%s" % (p.scheme, p.netloc, loc)
-        log("  token hoa: %s" % loc[:150])
+        log("  token hoa (%s): %s" % (code, loc[:160]))
         return loc
+    log("  khong co redirect (%s), dung truc tiep" % code)
     return url
 
 
@@ -168,6 +186,7 @@ def key_for(ch):
     k = fetch_license_key(str(src))
     if not k:
         return None
+    k["t"] = time.time()
     with KEY_LOCK:
         KEYS[ch] = k
     log("[%s] lay key moi: kid=%s type=%s" % (ch, k["kid"][:16], k["type"]))
@@ -201,13 +220,14 @@ def chan_dir(ch):
 
 
 def ffmpeg_cmd(ch, spec, d, pl, seg, keyhex):
-    cmd = [FFMPEG, "-hide_banner", "-loglevel", "warning",
+    cmd = [FFMPEG, "-hide_banner", "-loglevel", "error",
            "-user_agent", UA, "-reconnect", "1", "-reconnect_streamed", "1",
            "-reconnect_delay_max", "8"]
     cmd += ["-cenc_decryption_key", keyhex]
-    cmd += ["-i", spec["url"], "-c", "copy", "-f", "mpegts",
-            "-segment_format", "mpegts", "-segment_time", "4",
-            "-segment_list", pl, "-segment_start_number", "0", seg]
+    cmd += ["-i", spec["url"], "-c", "copy",
+            "-f", "segment", "-segment_format", "mpegts",
+            "-segment_time", "4", "-reset_timestamps", "1",
+            "-segment_start_number", "0", seg]
     return cmd
 
 
@@ -240,46 +260,52 @@ def start_ffmpeg(ch):
 
 
 def cleanup_files(ch):
-    """Xoa segment cu de khong phinh to. Giu it nhat 5 segment moi."""
+    """Xoa segment cu de khong phinh to. Giu 20 segment moi nhat."""
     d = chan_dir(ch)
     try:
-        segs = sorted([f for f in os.listdir(d) if f.endswith(".ts")])
+        segs = [f for f in os.listdir(d) if f.endswith(".ts") and f.startswith("seg")]
     except Exception:
         return
-    if len(segs) <= 5:
-        return
-    for f in segs[:-5]:
+    segs.sort(key=_seg_idx)
+    for f in segs[:-20]:
         try:
             os.remove(os.path.join(d, f))
         except Exception:
             pass
 
 
-def build_playlist(ch):
-    d = chan_dir(ch)
-    pl = os.path.join(d, "live.m3u8")
-    if not os.path.exists(pl):
-        return None
+def _seg_idx(fname):
+    """seg000.ts -> 0 ; tra -1 neu khong parse duoc."""
     try:
-        with io.open(pl, encoding="utf-8", errors="replace") as f:
-            txt = f.read()
+        return int(fname[3:-3])
+    except Exception:
+        return -1
+
+
+def build_playlist(ch):
+    """Tu sinh HLS playlist tu cac file .ts tren dia.
+
+    Khong dung -segment_list cua ffmpeg vi doi voi live stream, file .m3u8 chi
+    duoc ghi khi ffmpeg ket thuc (tuc la khi stream die) -> khong dung duoc.
+    Vay tao tu doc thu muc va lam playlist theo thu tu segment.
+    """
+    d = chan_dir(ch)
+    try:
+        segs = sorted([f for f in os.listdir(d)
+                       if f.endswith(".ts") and f.startswith("seg")])
     except Exception:
         return None
-    out = []
-    n = 0
-    for ln in txt.split("\n"):
-        s = ln.strip()
-        if not s:
-            continue
-        if not s.startswith("#") and s.endswith(".ts"):
-            if not os.path.exists(os.path.join(d, s)):
-                continue
-            out.append("/%s/%s" % (ch, s))
-            n += 1
-        else:
-            out.append(s)
-    if n == 0:
+    segs = [f for f in segs if _seg_idx(f) >= 0]
+    segs.sort(key=_seg_idx)
+    if not segs:
         return None
+    # giu 12 segment moi nhat
+    keep = segs[-12:]
+    out = ["#EXTM3U", "#EXT-X-VERSION:3", "#EXT-X-TARGETDURATION:5",
+           "#EXT-X-MEDIA-SEQUENCE:%d" % max(0, _seg_idx(keep[0]) - 1)]
+    for f in keep:
+        out.append("#EXTINF:4.000,")
+        out.append("%s/%s" % (ch, f))
     return ("\n".join(out) + "\n").encode("utf-8")
 
 
@@ -306,16 +332,16 @@ def ensure_running(ch):
             STARTING.discard(ch)
     if not ok:
         return False, msg
-    pl = os.path.join(chan_dir(ch), "live.m3u8")
-    for _ in range(60):
+    d = chan_dir(ch)
+    for _ in range(90):
         time.sleep(1)
-        if os.path.exists(pl):
-            try:
-                with io.open(pl, encoding="utf-8", errors="replace") as f:
-                    if f.read().count(".ts") >= 3:
-                        return True, "ok"
-            except Exception:
-                pass
+        try:
+            segs = [f for f in os.listdir(d)
+                    if f.endswith(".ts") and f.startswith("seg")]
+        except Exception:
+            segs = []
+        if len(segs) >= 3:
+            return True, "ok"
         st = STATE.get(ch)
         if not st or st["proc"].poll() is not None:
             return False, "ffmpeg tho ngay"
@@ -347,6 +373,15 @@ class H(http.server.BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
+        try:
+            self._get()
+        except Exception as e:
+            try:
+                self._send(500, "text/plain", ("loi relay: %s" % e).encode("utf-8", "replace"))
+            except Exception:
+                pass
+
+    def _get(self):
         path = self.path.split("?")[0].lstrip("/")
 
         if path.endswith(".ts") and "/" in path:
