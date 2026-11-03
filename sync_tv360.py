@@ -33,7 +33,7 @@ CONFIG_PATH = os.path.join(HERE, "tv360_sync.json")
 # Thu muc chua FILE MAU (playlist da chinh tay: thu tu muc, ten, logo,
 # marker nhom). Pipeline doc file mau, chi THAY URL TAI CHO -> thu tu/ten/logo
 # luon giu nguyen nhu chu da chinh, khong bi script lam von.
-TEMPLATE_DIR = os.path.join(HERE, "template")
+TEMPLATE_DIR = "/opt/qweb/template"
 
 DEFAULT_CFG = {
     "playlist_files": ["list.m3u8", "Listphu.m3u8"],
@@ -78,6 +78,11 @@ DEFAULT_CFG = {
     "dedup_entries": True,
     # Ghi dong #UPDATE
     "stamp_update": True,
+    # Danh dau "Update: HH:MM" trong ten KENH nao?
+    #   False (mac dinh): chi danh dau VTV1 (vtv1hd) -> 1 dong de check nhanh,
+    #                      ten cac kenh khac giu nguyen dung nhu file mau.
+    #   True: danh dau them moi kenh co link vua doi -> se lam "noi" ten kenh.
+    "stamp_changed_channels": False,
     "user": "HaMaBu",
 }
 
@@ -189,7 +194,36 @@ UA_FALLBACKS = [
 ]
 
 
-def fetch_external_playlist(url, timeout=45):
+EXT_CACHE_DIR = "/opt/qweb/cache"
+
+
+def _ext_cache_path(url):
+    import hashlib
+    try:
+        os.makedirs(EXT_CACHE_DIR, exist_ok=True)
+    except Exception:
+        return None
+    h = hashlib.sha1(url.encode("utf-8")).hexdigest()[:16]
+    return os.path.join(EXT_CACHE_DIR, "ext_%s.m3u8" % h)
+
+
+def _curl_playlist(url, ua, timeout=25):
+    """Tai playlist bang curl (ben hon urllib khi doc stream qua WARP)."""
+    import subprocess
+    try:
+        p = subprocess.run(
+            ["curl", "-sS", "-L", "--compressed",
+             "--connect-timeout", "15", "--max-time", str(timeout),
+             "-A", ua, "-H", "Accept: */*", url],
+            capture_output=True, timeout=timeout + 10)
+        if p.returncode == 0:
+            return p.stdout.decode("utf-8", "replace")
+        return ""
+    except Exception:
+        return ""
+
+
+def fetch_external_playlist(url, timeout=25, cache_ttl=1800):
     """Tai mot playlist m3u8 tu nguon ngoai (vd vietanhtv.top).
 
     Tra ve dict: {tvg-id -> {url, ua, lic_key, group, name}}.
@@ -198,25 +232,83 @@ def fetch_external_playlist(url, timeout=45):
     # QUAN TRONG: vietanhtv.top chan UA desktop (Chrome/Safari) va tra
     # "THIET BI HOAC UNG DUNG KHONG DUOC HO TRO". Chi UA mobile/app moi
     # nhan duoc playlist (ke ca dong license_key cho kenh DRM).
+    # CACHE 30 phut: tranh tai lai CUNG mot URL (sources + fallback).
+    cp = _ext_cache_path(url)
+    if cp and os.path.exists(cp):
+        try:
+            age = time.time() - os.path.getmtime(cp)
+            if age < cache_ttl:
+                with io.open(cp, "r", encoding="utf-8", errors="replace") as f:
+                    cached = f.read()
+                if "#EXTINF" in cached and "KHONG DUOC HO TRO" not in cached:
+                    print("      [cache] %ds tuoi / %d KB -> bo qua tai lai"
+                          % (int(age), len(cached) // 1024))
+                    return _parse_ext_playlist(cached)
+        except Exception:
+            pass
+
     raw = ""
     last_err = None
     for ua in UA_FALLBACKS:
+        # curl truoc: doc 400KB qua WARP ben hon urllib (urllib hay treo
+        # o CLOSE-WAIT khi server dong som).
+        got = _curl_playlist(url, ua, timeout)
+        if got and "#EXTINF" in got and "KHONG DUOC HO TRO" not in got:
+            raw = got
+            break
         try:
             req = urllib.request.Request(url, headers={
                 "User-Agent": ua,
                 "Accept": "*/*",
             })
             with urllib.request.urlopen(req, timeout=timeout) as r:
-                raw = r.read().decode("utf-8", "replace")
-            if "#EXTINF" in raw and "KHONG DUOC HO TRO" not in raw:
+                got = r.read().decode("utf-8", "replace")
+            if "#EXTINF" in got and "KHONG DUOC HO TRO" not in got:
+                raw = got
                 break
         except Exception as e:
             last_err = e
             continue
-    if not raw:
+    if not raw or "#EXTINF" not in raw:
         raise last_err if last_err else RuntimeError("fallback playlist rong")
+    if cp:
+        try:
+            with io.open(cp, "w", encoding="utf-8") as f:
+                f.write(raw)
+        except Exception:
+            pass
+    return _parse_ext_playlist(raw)
+
+
+def _parse_ext_playlist(raw):
+    """Chia playlist m3u8 thanh {tvg-id: {url, ua, lic_key, group, name}}."""
     out = {}
     lines = raw.split("\n")
+    i = 0
+    # Gom het cac muc co license_key URL truoc -> fetch KEY SONG SONG
+    # (truoc day fetch tuần tự trong vong lap -> 30 kenh DRM x ~30s = 15 phút).
+    _lic_urls = []
+    for _ln in lines:
+        if _ln.startswith("#KODIPROP:inputstream.adaptive.license_key="):
+            _u = _ln.split("=", 1)[1].strip()
+            if _u.startswith("http") and _u not in _lic_urls:
+                _lic_urls.append(_u)
+    _kidkeys = {}
+    if _lic_urls:
+        _t0 = time.time()
+        print("      [drm] %d license_key -> fetch song song" % len(_lic_urls),
+              flush=True)
+        from concurrent.futures import ThreadPoolExecutor
+        try:
+            with ThreadPoolExecutor(max_workers=8) as _ex:
+                for _r in _ex.map(fetch_clearkey_kidkey, _lic_urls):
+                    if _r:
+                        _kidkeys[_r[0]] = _r[1]
+        except Exception as _e:
+            print("      [drm] loi: %s" % _e)
+        print("      [drm] xong trong %.1fs, lay duoc %d/%d key"
+              % (time.time() - _t0, len(_kidkeys), len(_lic_urls)), flush=True)
+
     i = 0
     while i < len(lines):
         ln = lines[i]
@@ -252,9 +344,11 @@ def fetch_external_playlist(url, timeout=45):
                 # Neu co license_key URL -> thay bang KID:KEY that
                 kidkey = None
                 if lic_key and lic_key.startswith("http"):
-                    kidkey = fetch_clearkey_kidkey(lic_key)
-                    if kidkey:
-                        lic_key = kidkey
+                    _kk = _kidkeys.get(lic_key)
+                    if _kk is None and lic_key in _kidkeys:
+                        _kk = None
+                    if _kk:
+                        kidkey = _kk
                 out.setdefault(key, {"url": url_line, "ua": ua, "lic_key": lic_key,
                                     "group": grp, "name": ln.split(",")[-1].strip()})
             i = j
@@ -320,7 +414,7 @@ def tokenize_stream_url(url, timeout=20):
         return url
 
 
-def fetch_clearkey_kidkey(lic_url, timeout=20, tries=6, gap=4):
+def fetch_clearkey_kidkey(lic_url, timeout=12, tries=3, gap=2):
     """Lay DRM key (KID:KEY) tu clearkey URL cua vietanhtv.top.
 
     Server CHI tra key khi UA la 'Dalvik/2.1.0' (nhu app Android TV).
@@ -386,7 +480,7 @@ def fetch_clearkey_kidkey(lic_url, timeout=20, tries=6, gap=4):
                 drm_cache.put(lic_url, kk)
             except Exception:
                 pass
-            return kk
+            return (lic_url, kk)
         except Exception:
             if attempt < tries - 1:
                 time.sleep(gap)
@@ -394,8 +488,8 @@ def fetch_clearkey_kidkey(lic_url, timeout=20, tries=6, gap=4):
             break
     # Het retry -> dung key da cache (neu co) -> kenh khong bi man den
     if cached:
-        return cached
-    return None
+        return (lic_url, cached)
+    return (lic_url, None)
 
 
 def build_external_index(cfg):
@@ -507,6 +601,7 @@ def _parse_lines(lines):
                     "lic": lic,
                     "lic_idx": lic_idx,
                     "url_idx": url_idx,
+                    "hdr_idx": i,
                 })
                 i = url_idx + 1
                 continue
@@ -540,8 +635,13 @@ def build_stamp():
 # Chi kenh nay moi giu danh dau thoi gian trong ten (de check nhanh khi bat len).
 STAMP_TVG_ID = "vtv1hd"
 
+# Cac tvg-id duoc danh dau thoi gian trong ten (check nhanh khi mo app).
+STAMP_TVG_IDS = {"vtv1hd"}
+# Chu danh dau phia sau ten kenh.
+STAMP_SUFFIX = "Update:"
 
-def stamp_update(lines, user="HaMaBu", mark_name=True):
+
+def stamp_update(lines, user="HaMaBu", mark_name=True, changed_ids=None):
     """Cap nhat dong #UPDATE + them moi danh dau thoi gian vao TEN KENH.
 
     Nham de nhan biet BB2 da chay dong bo tu dong hay chua: xem dong
@@ -549,6 +649,8 @@ def stamp_update(lines, user="HaMaBu", mark_name=True):
 
     mark_name=False -> CHI cap nhat dong #UPDATE, KHONG dung ten kenh.
     (Dung khi file mau da chinh tay: ten kenh phai giu nguyen.)
+    changed_ids -> set tvg-id cua nhung kenh vua doi URL -> nhung kenh
+    nay duoc danh dau them (neu khong, chi danh dau STAMP_TVG_IDS).
     """
     new_line = build_update_line(user)
     stamp = build_stamp()
@@ -574,6 +676,9 @@ def stamp_update(lines, user="HaMaBu", mark_name=True):
     #    CHI danh dau tren kenh "VTV1" (tvg-id="vtv1hd") de khi bat kenh
     #    do la biet BB2 da chay dong bo chua.
     n_name = 0
+    targets = set(STAMP_TVG_IDS)
+    if changed_ids:
+        targets |= set(changed_ids)
     for i, ln in enumerate(lines):
         if not ln.startswith("#EXTINF"):
             continue
@@ -583,10 +688,10 @@ def stamp_update(lines, user="HaMaBu", mark_name=True):
         tvg = re.search(r'tvg-id="([^"]*)"', ln)
         tid = (tvg.group(1) if tvg else "").strip().lower()
         name = ln[k + 1:]
-        if tid == STAMP_TVG_ID:
+        if tid in targets:
             # kenh can danh dau -> them hoac thay
             new_name = _RE_STAMP.sub("", name).rstrip()
-            new_name = "%s Update: %s" % (new_name, stamp)
+            new_name = "%s %s %s" % (new_name, STAMP_SUFFIX, stamp)
         else:
             # kenh khac -> XOA danh dau (neu co)
             new_name = _RE_STAMP.sub("", name).rstrip()
@@ -906,38 +1011,66 @@ def collect_clean_links(catalog, timeout=18):
             cands.append((int(cid), cid, ch.get("name") or ""))
     cands.sort()
 
-    out = {}
-    cl = None
-    for _num, cid, nm in cands:
-        if cid in out:
-            continue
-        # Chi thu kenh so nho (175, 181...) - thuong la ban 'VTVcab X - ...'
-        if _num > 500:
-            continue
+    # Chi thu kenh so nho (175, 181...) - thuong la ban 'VTVcab X - ...'
+    targets = [(n, c) for n, c, _ in cands if n <= 500]
+    if not targets:
+        return {}
+
+    # Giu dung 1 client (token) cho ca luoi -> khong phai login lai 100 lan.
+    cl = Tv360Client("%s.cleanprobe" % STATE_FILE)
+    try:
+        cl.ensure_token_safe(allow_login=False)
+    except Exception:
+        return {}
+
+    def probe(item):
+        _num, cid = item
         try:
-            if cl is None:
-                cl = Tv360Client("%s.cleanprobe" % STATE_FILE)
-                cl.ensure_token_safe(allow_login=False)
             q = _up.urlencode({"id": int(cid), "type": "live",
                                "secured": "true", "t": int(time.time())})
             st, raw = cl._call(_WEB + "/public/v1/composite/get-link?" + q,
                                auth=True, timeout=timeout)
             if st != 200:
-                continue
+                return None
             j = json.loads(raw)
             if j.get("errorCode") != 200:
-                continue
+                return None
             info = json.loads(_dec(j.get("data")))
             u = info.get("urlStreaming") or ""
         except Exception:
-            continue
+            return None
         # Ban 'khong han': co .m3u8 va KHONG co start=/stop=
         if ".m3u8" in u and "start=" not in u and "stop=" not in u:
-            out[cid] = u
+            return (cid, u)
+        return None
+
+    # SONG SONG: truoc day goi tuần tự ~100 kenh -> ton 3-5 phút.
+    # ThreadPoolExecutor 8 luong -> nhanh gap 5-8 lan.
+    from concurrent.futures import ThreadPoolExecutor
+    out = {}
+    try:
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            for r in ex.map(probe, targets):
+                if r:
+                    out[r[0]] = r[1]
+    except Exception as e:
+        print("   [cleanprobe] loi: %s" % e)
     return out
 
 
 # ------------------------------------------------------------------ main
+_T0 = time.time()
+
+
+def tmark(label):
+    """In thoi gian da troi qua tu lan mark truoc + reset (do lai tung buoc)."""
+    global _T0
+    now = time.time()
+    print("   [%.1fs] %s" % (now - _T0, label))
+    sys.stdout.flush()
+    _T0 = now
+
+
 def build(cfg, dry=False):
     c = client()
     anon = anon_client()
@@ -956,12 +1089,14 @@ def build(cfg, dry=False):
     fb_idx = build_external_fallback(cfg)
 
     # Lay link cho tung kenh (chay nhieu luong cho nhanh)
+    tmark("lay danh muc kenh")
     print("Dang lay link truc tiep tu TV360...")
     links = {}
     n_ok = n_fail = n_needlogin = 0
     todo = [ch for ch in catalog if str(ch.get("id")) not in links]
     workers = int(cfg.get("workers", 8))
 
+    tmark("chu bi danh muc + index")
     # PASS 0: kenh thuoc goi VSport (ON SPORTS/+/FOOTBALL/NEWS/GOLF).
     # Tai khoan CHINH khong mua goi nen isAccess=False, ma tai khoan PHU
     # (vt032554406851) co goi VSport. Lay thang o day de kenh luon co link
@@ -1137,6 +1272,7 @@ def build(cfg, dry=False):
     # Vi du ON PHIM VIET: id 175 (VTVcab 2 - Phim Viet HD) -> HLS,
     #                 id 9902 (Phim Viet)             -> VOD co han.
     # Ta thu lay ban HLS cho cac muc trong playlist bi khop nham.
+    tmark("lay xong link kenh")
     alt_clean_links = {}
     try:
         _clean = collect_clean_links(catalog)
@@ -1158,6 +1294,7 @@ def build(cfg, dry=False):
     except Exception as e:
         print("   [alt] loi: %s" % e)
 
+    tmark("probe ban khong han (HLS)")
     for pl_name in cfg.get("playlist_files", []):
         path = os.path.join(HERE, pl_name)
         print("\n" + "#" * 66)
@@ -1195,6 +1332,8 @@ def build(cfg, dry=False):
         url_map = {}
         updated = kept = 0
         nomap = []
+        # tvg-id cua nhung kenh vua doi URL -> danh dau thoi gian trong ten
+        changed_ids = set()
         for e in entries:
             # Nhom kenh TV360 khong co (vd SCTV) -> lay tu nguon thay the.
             if e.get("group") in skip_groups:
@@ -1205,6 +1344,8 @@ def build(cfg, dry=False):
                     if new != e["url"]:
                         url_map[e["url_idx"]] = new
                         updated += 1
+                        if e.get("tvg"):
+                            changed_ids.add(e["tvg"].strip().lower())
                     else:
                         kept += 1
                     # dong #EXTVLCOPT cua nguon goc
@@ -1225,6 +1366,8 @@ def build(cfg, dry=False):
                     if new != e["url"]:
                         url_map[e["url_idx"]] = new
                         updated += 1
+                        if e.get("tvg"):
+                            changed_ids.add(e["tvg"].strip().lower())
                     else:
                         kept += 1
                     if cfg.get("keep_vlcopt", True) and fb.get("ua") \
@@ -1281,6 +1424,8 @@ def build(cfg, dry=False):
                 continue
             url_map[e["url_idx"]] = new
             updated += 1
+            if e.get("tvg"):
+                changed_ids.add(e["tvg"].strip().lower())
 
         print("  se doi %d dong URL | giu nguyen %d" % (updated, kept))
         if nomap and os.environ.get("TV360_VERBOSE"):
@@ -1296,15 +1441,18 @@ def build(cfg, dry=False):
         # ghi
         for idx_line, new in url_map.items():
             lines[idx_line] = new
-        # KHONG dedup / KHONG stamp ten kenh.
+        # KHONG dedup (file mau da chinh tay thu tu muc).
+        # DANH DAU THOI GIAN TRONG TEN KENH: cap nhat dong #UPDATE + gan
+        # "Update: HH:MM⏱DD/MM" vao TEN KENH de nhan biet link da duoc
+        # lam moi chua (mo len app se thay dong chu nay doi khac).
         #
-        # LY DO: file mau (template) da duoc chinh tay - thu tu muc, ten kenh,
-        # logo, marker nhom deu dung y cua chu. `dedup_entries` + `stamp_update`
-        # se lam VON nhung phan do (dedup xoa khoi, stamp them chu "Update: ..."
-        # vao ten kenh). Bay gi chi thay URL TAI CHO, giu nguyen phan con lai.
+        # CHI danh dau tren 1 kenh "VTUONG" (tvg-id="vtv1hd") de check
+        # nhanh, va KHONG dung ten cua cac kenh khac -> user tu chinh tay
+        # ten trong file mau khong bi ghi de.
         if cfg.get("stamp_update", True):
-            # Chi cap nhat dong #UPDATE (khong dung ten kenh) -> biet BB2 da chay.
-            act = stamp_update(lines, cfg.get("user", "HaMaBu"), mark_name=False)
+            _chg = changed_ids if cfg.get("stamp_changed_channels", False) else None
+            act = stamp_update(lines, cfg.get("user", "HaMaBu"),
+                               mark_name=True, changed_ids=_chg)
             print("  #UPDATE: %s" % act)
 
         tmp = path + ".tmp"
@@ -1314,6 +1462,7 @@ def build(cfg, dry=False):
         print("  DA GHI %d dong URL vao %s" % (updated, pl_name))
         total_changed += updated
 
+    tmark("ghi file")
     print("\n" + "=" * 66)
     print("HOAN TAT: %d dong URL thay doi" % total_changed)
     print("=" * 66)
