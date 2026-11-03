@@ -1,16 +1,15 @@
-# Python
+
+*.bak
+# Bao cao chay (sinh moi moi lan)
+# File tam / ban sao - KHONG push
+last_report.json
+# Phien dang nhap TV360 - KHONG push (co token!)
+pin_overrides.json
 __pycache__/
 *.py[cod]
-
-# File tam / ban sao - KHONG push
-*.tmp
-*.bak
+# Python
 _source.m3u8
-
-# Phien dang nhap TV360 - KHONG push (co token!)
+*.tmp
+.tv360_session/
 tv360_session.json
 tv360_session.json.tmp
-.tv360_session/
-
-# Bao cao chay (sinh moi moi lan)
-last_report.json
