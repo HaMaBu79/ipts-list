@@ -14,10 +14,13 @@ QUY TAC (theo yeu cau):
 
 Chay SAU sync_tv360.py (khong sua file sync) -> cron khong ghi de ket qua.
 """
+import base64
 import io
+import json
 import os
 import re
 import sys
+import time
 import urllib.request
 import urllib.error
 
@@ -57,22 +60,112 @@ DRM_PREFIXES = (
     "#KODIPROP:inputstream.adaptive.license_key=",
 )
 
-# Cac kenh DRM -> dua qua relay BB2 (BB2 tu lay key, giai ma, phat MPEG-TS).
-# Thiet bi KHONG con phai goi clearkey.php cua vietanhtv -> het man den.
+# Cac kenh DRM -> lay key tu vietanhtv ROI va nhung thang KID:KEY vao playlist.
+#
+# LY DO KHONG DUNG RELAY: upload cua BB2 chi ~500KB/s (4Mbps). Kenh relay
+# phai chay qua Cloudflare tunnel cua BB2 -> lag, load hinh lau, nhieu kenh
+# cung luc khong nang. Kenh lay TRUC TIEP (liveatmvng.vtvprime.vn) thi thiet bi
+# tu tai ve -> khong qua BB2 -> muot.
+#
+# LY DO PHAI NHUNG KEY: server clearkey.php cua vietanhtv chay chay chon
+# (404 xen ke 200) + key xoay vong. Neu de nguyen URL trong playlist, may nao
+# gap luc 404 se MAN DEN. Nhung KID:KEY thi thiet bi khong can goi server
+# nua -> luon xem duoc. Key duoc lam moi moi lan sync (cron ~47 phut).
 RELAY_CHANNELS = ["sctv1hd", "sctv8hd", "sctv15", "sctv17", "sctv21hd",
                   "sctv22hd", "onsports", "onsportsplus", "onfootball",
                   "onsportsnews"]
 TUNNEL_FILE = "/opt/qweb/tunnel_url.txt"
+UA_DL = "Dalvik/2.1.0"
 
 
-def tunnel_base():
-    """URL public cua BB2 (cloudflare tunnel hien tai)."""
+def fetch_kidkey(lic_url, tries=6, gap=4):
+    """Lay 'KID:KEY' (hex) tu clearkey endpoint cua vietanhtv.
+
+    Server CHI tra key khi UA la 'Dalvik/2.1.0' (nhu app Android TV).
+    Server chay chay chon -> retry nhieu lan.
+
+    Neu het retry van khong duoc -> dung key da CACHE (drm_cache.py).
+    Cache giup kenh khong bi MAN DEN khi endpoint dung luc dong bo.
+    """
+    if not lic_url or not str(lic_url).startswith("http"):
+        return None
+    cached = None
     try:
-        with io.open(TUNNEL_FILE, encoding="utf-8") as f:
-            u = f.read().strip()
-        return u.rstrip("/") if u else ""
+        sys.path.insert(0, "/opt/qweb")
+        import drm_cache
+        cached = drm_cache.get(lic_url)
     except Exception:
-        return ""
+        cached = None
+    for i in range(tries):
+        try:
+            req = urllib.request.Request(lic_url,
+                                         headers={"User-Agent": UA_DL})
+            with urllib.request.urlopen(req, timeout=20) as r:
+                body = r.read().decode("utf-8", "replace")
+            j = json.loads(body)
+            ks = j.get("keys") or []
+            if ks:
+                k = ks[0]
+                kid = k.get("kid", "")
+                key = k.get("k", "")
+                if not key:
+                    return None
+                if len(key) != 32 or not all(
+                        c in "0123456789abcdefABCDEF" for c in key):
+                    # base64url -> hex
+                    raw = base64.urlsafe_b64decode(key + "=" * (-len(key) % 4))
+                    key = raw.hex()
+                try:
+                    raw = base64.urlsafe_b64decode(kid + "=" * (-len(kid) % 4))
+                    kid = raw.hex()
+                except Exception:
+                    pass
+                kk = "%s:%s" % (kid, key)
+                # luu vao cache de dung lai khi endpoint chet
+                try:
+                    import drm_cache
+                    drm_cache.put(lic_url, kk)
+                except Exception:
+                    pass
+                return kk
+        except Exception:
+            pass
+        if i < tries - 1:
+            time.sleep(gap)
+    # Het retry -> dung key da cache (neu co)
+    if cached:
+        return cached
+    return None
+
+
+def inline_keys(path):
+    """Thay moi dong license_key=<URL> bang license_key=<KID:KEY> that."""
+    with io.open(path, "r", encoding="utf-8", newline="") as f:
+        text = f.read()
+    nl = "\r\n" if "\r\n" in text else "\n"
+    lines = text.replace("\r\n", "\n").split("\n")
+    out = []
+    n_ok = 0
+    n_fail = []
+    for l in lines:
+        s = l.strip()
+        if s.startswith("#KODIPROP:inputstream.adaptive.license_key="):
+            val = s.split("license_key=", 1)[1].strip()
+            if val.startswith("http"):
+                kk = fetch_kidkey(val)
+                if kk:
+                    out.append("#KODIPROP:inputstream.adaptive.license_key=" + kk)
+                    n_ok += 1
+                    continue
+                n_fail.append(val[:70])
+            out.append(l)
+            continue
+        out.append(l)
+    newtext = nl.join(out)
+    if newtext != text:
+        with io.open(path, "w", encoding="utf-8", newline="") as f:
+            f.write(newtext)
+    return n_ok, n_fail
 
 
 def fetch(url, timeout=45, ua=UA):
@@ -211,78 +304,13 @@ def merge_file(path, vip, alive_cache):
 
 
 def apply_relay(path, base):
-    """Doi URL cua cac kenh DRM sang link relay cua BB2.
+    """KHONG DUNG RELAY - tra ve nguyên link goc cua muc do.
 
-    Ly do: 10 kenh nay la DASH/CENC ClearKey. Neu de nguyen license_key,
-    moi thiet bi phai tu goi clearkey.php cua vietanhtv - server do chay chay
-    chon (404 xen ke 200) nen may nao gap luc 404 se MAN DEN khong bao loi.
-    Relay giai ma o phia BB2 -> moi thiet bi deu xem duoc.
+    Ly do: upload cua BB2 chi ~500KB/s. Kenh di qua relay se chay qua
+    Cloudflare tunnel cua BB2 -> lag va load hinh lau. Cac kenh lay truc tiep
+    (liveatmvng.vtvprime.vn / vtvgolive) thi thiet bi tu tai -> khong qua BB2.
     """
-    if not base:
-        return 0, []
-    with io.open(path, "r", encoding="utf-8", newline="") as f:
-        text = f.read()
-    nl = "\r\n" if "\r\n" in text else "\n"
-    trailing = text.endswith("\n")
-    lines = text.replace("\r\n", "\n").split("\n")
-    if trailing and lines and lines[-1] == "":
-        lines.pop()
-
-    out = []
-    i = 0
-    changed = []
-    while i < len(lines):
-        l = lines[i]
-        if not l.startswith("#EXTINF"):
-            out.append(l)
-            i += 1
-            continue
-        block = [l]
-        j = i + 1
-        while j < len(lines):
-            s = lines[j].strip()
-            if s.startswith("#"):
-                block.append(lines[j])
-                j += 1
-                continue
-            if s:
-                block.append(lines[j])
-                j += 1
-            break
-        i = j
-
-        m = re.search(r'tvg-id="([^"]*)"', block[0])
-        tvg = (m.group(1) if m else "").lower()
-        if tvg not in RELAY_CHANNELS:
-            out.extend(block)
-            continue
-
-        newblock = [block[0]]
-        for extra in block[1:]:
-            s = extra.strip()
-            if any(s.startswith(p) for p in DRM_PREFIXES):
-                continue
-            newblock.append(extra)
-        nu = None
-        for k2 in range(len(newblock) - 1, 0, -1):
-            if not newblock[k2].strip().startswith("#"):
-                nu = k2
-                break
-        relay_url = "%s/relay/%s.m3u8" % (base, tvg)
-        if nu is not None:
-            newblock[nu] = relay_url
-        else:
-            newblock.append(relay_url)
-        out.extend(newblock)
-        changed.append((tvg, relay_url))
-
-    newtext = nl.join(out)
-    if trailing:
-        newtext += nl
-    if newtext != text:
-        with io.open(path, "w", encoding="utf-8", newline="") as f:
-            f.write(newtext)
-    return len(changed), changed
+    return 0, []
 
 
 def main():
@@ -308,19 +336,17 @@ def main():
         total_k += k
     print("\nTONG: doi %d muc, giu %d muc" % (total_ch, total_k))
 
-    # Buoc 2: dua kenh DRM qua relay BB2
-    base = tunnel_base()
-    if not base:
-        print("\n[relay] khong doc duoc tunnel URL -> giu nguyen kenh DRM")
-        return 0
-    print("\n[relay] dung tunnel: %s" % base)
+    # Buoc 2: nhung KID:KEY that cho kenh DRM (thiet bi khong goi vietanhtv)
+    total_ok = 0
     for p in files:
         if not os.path.exists(p):
             continue
-        n, ch2 = apply_relay(p, base)
-        print("[relay] %s: %d kenh -> relay" % (p, n))
-        for tvg, u in ch2:
-            print("        %-13s %s" % (tvg, u))
+        ok, fail = inline_keys(p)
+        total_ok += ok
+        print("[key] %s: nhung %d key that" % (p, ok))
+        for v in fail:
+            print("        FAIL (server chua tra key): %s" % v)
+    print("[key] tong %d key da nhung" % total_ok)
     return 0
 
 
