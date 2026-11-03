@@ -57,6 +57,23 @@ DRM_PREFIXES = (
     "#KODIPROP:inputstream.adaptive.license_key=",
 )
 
+# Cac kenh DRM -> dua qua relay BB2 (BB2 tu lay key, giai ma, phat MPEG-TS).
+# Thiet bi KHONG con phai goi clearkey.php cua vietanhtv -> het man den.
+RELAY_CHANNELS = ["sctv1hd", "sctv8hd", "sctv15", "sctv17", "sctv21hd",
+                  "sctv22hd", "onsports", "onsportsplus", "onfootball",
+                  "onsportsnews"]
+TUNNEL_FILE = "/opt/qweb/tunnel_url.txt"
+
+
+def tunnel_base():
+    """URL public cua BB2 (cloudflare tunnel hien tai)."""
+    try:
+        with io.open(TUNNEL_FILE, encoding="utf-8") as f:
+            u = f.read().strip()
+        return u.rstrip("/") if u else ""
+    except Exception:
+        return ""
+
 
 def fetch(url, timeout=45, ua=UA):
     req = urllib.request.Request(url, headers={"User-Agent": ua})
@@ -193,6 +210,81 @@ def merge_file(path, vip, alive_cache):
     return changed, kept, report
 
 
+def apply_relay(path, base):
+    """Doi URL cua cac kenh DRM sang link relay cua BB2.
+
+    Ly do: 10 kenh nay la DASH/CENC ClearKey. Neu de nguyen license_key,
+    moi thiet bi phai tu goi clearkey.php cua vietanhtv - server do chay chay
+    chon (404 xen ke 200) nen may nao gap luc 404 se MAN DEN khong bao loi.
+    Relay giai ma o phia BB2 -> moi thiet bi deu xem duoc.
+    """
+    if not base:
+        return 0, []
+    with io.open(path, "r", encoding="utf-8", newline="") as f:
+        text = f.read()
+    nl = "\r\n" if "\r\n" in text else "\n"
+    trailing = text.endswith("\n")
+    lines = text.replace("\r\n", "\n").split("\n")
+    if trailing and lines and lines[-1] == "":
+        lines.pop()
+
+    out = []
+    i = 0
+    changed = []
+    while i < len(lines):
+        l = lines[i]
+        if not l.startswith("#EXTINF"):
+            out.append(l)
+            i += 1
+            continue
+        block = [l]
+        j = i + 1
+        while j < len(lines):
+            s = lines[j].strip()
+            if s.startswith("#"):
+                block.append(lines[j])
+                j += 1
+                continue
+            if s:
+                block.append(lines[j])
+                j += 1
+            break
+        i = j
+
+        m = re.search(r'tvg-id="([^"]*)"', block[0])
+        tvg = (m.group(1) if m else "").lower()
+        if tvg not in RELAY_CHANNELS:
+            out.extend(block)
+            continue
+
+        newblock = [block[0]]
+        for extra in block[1:]:
+            s = extra.strip()
+            if any(s.startswith(p) for p in DRM_PREFIXES):
+                continue
+            newblock.append(extra)
+        nu = None
+        for k2 in range(len(newblock) - 1, 0, -1):
+            if not newblock[k2].strip().startswith("#"):
+                nu = k2
+                break
+        relay_url = "%s/relay/%s.m3u8" % (base, tvg)
+        if nu is not None:
+            newblock[nu] = relay_url
+        else:
+            newblock.append(relay_url)
+        out.extend(newblock)
+        changed.append((tvg, relay_url))
+
+    newtext = nl.join(out)
+    if trailing:
+        newtext += nl
+    if newtext != text:
+        with io.open(path, "w", encoding="utf-8", newline="") as f:
+            f.write(newtext)
+    return len(changed), changed
+
+
 def main():
     files = sys.argv[1:] or DEFAULT_FILES
     code, body = fetch(VIP_URL, timeout=60)
@@ -215,6 +307,20 @@ def main():
         total_ch += ch
         total_k += k
     print("\nTONG: doi %d muc, giu %d muc" % (total_ch, total_k))
+
+    # Buoc 2: dua kenh DRM qua relay BB2
+    base = tunnel_base()
+    if not base:
+        print("\n[relay] khong doc duoc tunnel URL -> giu nguyen kenh DRM")
+        return 0
+    print("\n[relay] dung tunnel: %s" % base)
+    for p in files:
+        if not os.path.exists(p):
+            continue
+        n, ch2 = apply_relay(p, base)
+        print("[relay] %s: %d kenh -> relay" % (p, n))
+        for tvg, u in ch2:
+            print("        %-13s %s" % (tvg, u))
     return 0
 
 
