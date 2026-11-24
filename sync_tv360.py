@@ -28,6 +28,15 @@ sys.path.insert(0, HERE)
 from tv360_client import client, anon_client  # noqa: E402
 
 # ------------------------------------------------------------------ config
+# Kenh KHONG cap nhat link (giu nguyen man den / error.ts).
+# tv360plus6 + tv360plus7: khong lay duoc key session -> man den,
+# da set error.ts. KHONG cho pipeline ghi de.
+SKIP_IDS = {"tv360plus6", "tv360plus7"}
+
+# Nhom 'Su kien TV360' (17 kenh): do resolve_v2.py + apply_v2.py QUAN LY.
+# KHONG cho pipeline nay ghi de URL/key cua nhom nay - xem ghi chu ben duoi.
+SKIP_GROUPS = {"Sự kiện TV360"}
+
 CONFIG_PATH = os.path.join(HERE, "tv360_sync.json")
 
 # Thu muc chua FILE MAU (playlist da chinh tay: thu tu muc, ten, logo,
@@ -1335,6 +1344,18 @@ def build(cfg, dry=False):
         # tvg-id cua nhung kenh vua doi URL -> danh dau thoi gian trong ten
         changed_ids = set()
         for e in entries:
+            # Kenh 6/7: KHONG cap nhat link - giu nguyen error.ts (man den).
+            if (e.get("tvg") or "").strip().lower() in SKIP_IDS:
+                kept += 1
+                continue
+            # Nhom 'Su kien TV360': KHONG duoc pipeline nay ghi de.
+            # URL + ClearKey phai cung mot phien (session) - resolve_v2.py
+            # + apply_v2.py da verify ffmpeg truoc khi ghi. Pipeline nay
+            # lay URL tu TV360 API + key tu fallback (vietanhtv) -> KHAC
+            # phien -> KID lech -> khong giai ma duoc -> MAN DEN.
+            if (e.get("group") or "").strip() in SKIP_GROUPS:
+                kept += 1
+                continue
             # Nhom kenh TV360 khong co (vd SCTV) -> lay tu nguon thay the.
             if e.get("group") in skip_groups:
                 ext = ext_idx.get(e["group"], {})
