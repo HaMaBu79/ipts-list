@@ -42,6 +42,7 @@ START=$(date +%s)
 
 log "===== CHU KY 10 PHUT BAT DAU ====="
 
+
 # --- TG_NOTIFY_ASYNC: gui Telegram, khong chan chu ky ---
 # Luon nen (background) + luon tra rc=0: loi Telegram KHONG duoc
 # lam chan viec dong bo danh sach.
@@ -121,9 +122,12 @@ END=$(date +%s)
 log "===== CHU KY 10 PHUT XONG ($((END-START)) giay) ====="
 
 # TG5_NOTIFY: bao Telegram moi chu ky 10 phut
+# TG5_NOTIFY: bao Telegram moi chu ky 10 phut
 # TG_NOTIFY_ASYNC: nen -> khong bi `wait buoc 1` chan.
 # Ton tai ca ban SOM (sau buoc 3) va ban CUOI (sau khi het chu ky).
 tg_summary "$((END-START))" ""
+
+exit 0
 
 exit 0
 

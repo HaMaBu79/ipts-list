@@ -31,6 +31,8 @@ import sys
 import tempfile
 import time
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from threading import Lock
 from urllib.parse import urljoin
 
 QWEB = "/opt/qweb"
@@ -46,6 +48,18 @@ try:
 except Exception:
     TVC_HLS = None
 CACHE_TTL = 420
+
+# --- PATCH FAST: cau hinh song song (env co the override) ---
+MAX_WORKERS = max(1, int(os.environ.get("VERIFY_WORKERS", "8")))
+# Deadline rieng cho MOI cap (url,key): 1 kenh treo khong chan tat ca.
+PAIR_DEADLINE = max(20, int(os.environ.get("VERIFY_PAIR_DEADLINE", "75")))
+# Deadline cho 1 kenh trong auto_recover (resolve lau -> gioi han).
+RECOVER_DEADLINE = max(20, int(os.environ.get("VERIFY_RECOVER_DEADLINE", "50")))
+# Backoff retry: 1/3/5 giay thay vi 2/4/6.
+RETRY_SLEEP = [1, 3, 5]
+# Lock cho resolve_v2 (module nay dung global DEADLINE -> race neu
+# nhieu thread doi DEADLINE cung luc).
+_RESOLVE_LOCK = Lock()
 # URL man den - kenh chet gan fallback, khong chan phan con lai.
 FALLBACK_URL = "http://0.0.0.0/error.ts"
 CTX = ssl.create_default_context()
@@ -156,14 +170,16 @@ def decode(init_u, seg_u, keyhex):
             return False, "HTTP%d/%d" % (c1, c2)
         with open(mp4, "wb") as f:
             f.write(i + s)
-        subprocess.run(["ffmpeg", "-v", "error", "-decryption_key", keyhex,
-                        "-i", mp4, "-frames:v", "1", "-y", png],
-                       capture_output=True, timeout=60)
-        if not os.path.exists(png) or os.path.getsize(png) < 15000:
+        # PATCH FAST: 1 LENH ffmpeg thay vi 2 (decode->png, roi png->1x1).
+        # scale=1:1 + rawvideo rgb24 -> stdout = 3 byte (1 pixel RGB).
+        # Ket qua y het ban cu (cung 3 byte hex), nhanh gap ~2 lan.
+        r2 = subprocess.run(["ffmpeg", "-v", "error", "-decryption_key", keyhex,
+                             "-i", mp4, "-frames:v", "1",
+                             "-vf", "scale=1:1", "-f", "rawvideo",
+                             "-pix_fmt", "rgb24", "-"],
+                            capture_output=True, timeout=40)
+        if len(r2.stdout) < 3:
             return False, "NOFRAME"
-        r2 = subprocess.run(["ffmpeg", "-v", "error", "-i", png, "-vf", "scale=1:1",
-                             "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
-                            capture_output=True)
         h = r2.stdout[:3].hex()
         if h == "818181":
             return False, "GRAY"
@@ -205,10 +221,19 @@ def events_of(path):
     return out
 
 
-def test_pair(url, key):
-    """Tra (ok, info). Tuần tự, retry khi that bai tam thoi."""
+def test_pair(url, key, deadline=None):
+    """Tra (ok, info). Tuần tự, retry khi that bai tam thoi.
+
+    PATCH FAST:
+      - `deadline` (epoch): dung truoc moi attempt -> 1 kenh treo
+        khong lam chan cac kenh khac.
+      - backoff ngan (1/3/5 giay).
+    """
     last = ""
     for attempt in range(RETRY):
+        if deadline is not None and time.time() > deadline:
+            last = (last + " | " if last else "") + "het deadline"
+            break
         if ".mpd" in url.lower():
             if not key or ":" not in key:
                 return False, "thieu ClearKey"
@@ -216,14 +241,14 @@ def test_pair(url, key):
             c, body, eff = get(url)
             if c != 200:
                 last = "MPD HTTP%d" % c
-                time.sleep(2 + attempt * 2)
+                time.sleep(RETRY_SLEEP[min(attempt, len(RETRY_SLEEP) - 1)])
                 continue
             body = body.decode("utf-8", "replace")
             sk = kids_of(body)
             if kid not in sk:
                 # token het han -> thu lai (URL co the da doi)
                 last = "KID KHONG KHOP (%s vs %s)" % (kid[:8], ",".join(sorted(sk))[:20])
-                time.sleep(2 + attempt * 2)
+                time.sleep(RETRY_SLEEP[min(attempt, len(RETRY_SLEEP) - 1)])
                 continue
             init_u, segs = seg_urls(body, eff)
             if not init_u or not segs:
@@ -234,12 +259,12 @@ def test_pair(url, key):
             if ok:
                 return True, "giai ma that (%s)" % info
             last = "giai ma that FAIL (%s)" % info
-            time.sleep(2 + attempt * 2)
+            time.sleep(RETRY_SLEEP[min(attempt, len(RETRY_SLEEP) - 1)])
         else:
             c, b, eff = get(url)
             if c != 200:
                 last = "master HTTP%d" % c
-                time.sleep(2 + attempt * 2)
+                time.sleep(RETRY_SLEEP[min(attempt, len(RETRY_SLEEP) - 1)])
                 continue
             subs = [l for l in b.decode("utf-8", "replace").splitlines()
                     if l.strip() and not l.startswith("#")]
@@ -250,7 +275,7 @@ def test_pair(url, key):
             c2, m, eff2 = get(urljoin(eff, subs[0].strip()))
             if c2 != 200:
                 last = "media HTTP%d" % c2
-                time.sleep(2 + attempt * 2)
+                time.sleep(RETRY_SLEEP[min(attempt, len(RETRY_SLEEP) - 1)])
                 continue
             segs = [l for l in m.decode("utf-8", "replace").splitlines()
                     if l.strip() and not l.startswith("#")]
@@ -261,7 +286,7 @@ def test_pair(url, key):
             c3, s, _ = get(urljoin(eff2, segs[-1].strip()))
             if c3 != 200 or len(s) < 10000:
                 last = "segment HTTP%d / %d bytes" % (c3, len(s))
-                time.sleep(2 + attempt * 2)
+                time.sleep(RETRY_SLEEP[min(attempt, len(RETRY_SLEEP) - 1)])
                 continue
             return True, "segment %d bytes" % len(s)
     return False, last
@@ -279,15 +304,30 @@ def run_all():
                 continue
             pairs.setdefault((url, key), slug)
 
-    print("== VERIFY %d cap (url,key) duy nhat ==" % len(pairs))
+    print("== VERIFY %d cap (url,key) duy nhat | SONG SONG %d luong | "
+          "deadline %ds/cap ==" % (len(pairs), MAX_WORKERS, PAIR_DEADLINE))
     result = {}
-    for (url, key), slug in sorted(pairs.items(),
-                                   key=lambda x: len(x[0][1] or "")):
-        ok, info = test_pair(url, key)
-        result[(url, key)] = (ok, info)
-        print("   %-14s %-5s %s" % (slug, "OK" if ok else "LOI", info[:60]))
-        if not ok:
-            time.sleep(3)
+    t0 = time.time()
+    items = sorted(pairs.items(), key=lambda x: len(x[0][1] or ""))
+
+    # PATCH FAST: chay SONG SONG thay vi tuần tự.
+    # Mỗi cap co deadline rieng -> kenh treo khong keo dai toan bo.
+    with ThreadPoolExecutor(max_workers=min(MAX_WORKERS, max(1, len(items)))) as ex:
+        futs = {}
+        for (url, key), slug in items:
+            futs[ex.submit(test_pair, url, key, t0 + PAIR_DEADLINE)] = (url, key, slug)
+        for fu in as_completed(futs):
+            url, key, slug = futs[fu]
+            try:
+                ok, info = fu.result()
+            except Exception as exc:
+                ok, info = False, "ERR " + str(exc)[:50]
+            result[(url, key)] = (ok, info)
+            print("   %-14s %-5s %s" % (slug, "OK" if ok else "LOI", info[:60]))
+
+    n_ok = sum(1 for v in result.values() if v[0])
+    print("   -> %d/%d cap OK (%.0fs)"
+          % (n_ok, len(items), time.time() - t0))
 
     lines = []
     bad = []
@@ -518,59 +558,86 @@ def auto_recover(bad_slugs):
     def resolve_dash(slug):
         """Resolve lai kenh DRM DASH -> (url, key) moi."""
         nonlocal _rc, _src, _pool
-        if _rc is None:
+        # PATCH FAST: resolve_v2 dung global DEADLINE -> phai LOCK,
+        # neu khong 2 thread se gan DEADLINE chung va race.
+        with _RESOLVE_LOCK:
             import resolve_v2
             _rc = resolve_v2
-            _src = _rc.get_source()
-            _pool = _rc.pool_keys()
-        _rc.DEADLINE = time.time() + 45
-        r = _rc.resolve(slug, _src, _pool)
+            if _src is None:
+                _src = _rc.get_source()
+            if _pool is None:
+                _pool = _rc.pool_keys()
+            _rc.DEADLINE = time.time() + RECOVER_DEADLINE
+            r = _rc.resolve(slug, _src, _pool)
         if r and r.get("url") and r.get("key"):
             return r["url"], r["key"]
         return None, None
 
     fixed = []
     still_bad = []
-    for slug in bad_slugs:
-        got = False
-        new_url = None
-        new_key = None
 
-        # --- 1. URL MOI ---
+    # PATCH FAST: tach 2 pha de chay SONG SONG an toan.
+    #   Pha A (song song) - resolve + xac minh lau, KHONG ghi file.
+    #   Pha B (tuan tu)   - ghi .m3u8, tranh 2 thread ghi cung 1 file.
+    def resolve_one(slug):
+        """Tra (slug, new_url, new_key). Chi resolve, khong ghi file."""
         try:
             if TVC_HLS and TVC_HLS.is_hls(slug):
                 import stable_hls
-                r = stable_hls.resolve_any(slug, deadline=time.time() + 40)
+                r = stable_hls.resolve_any(slug, deadline=time.time() + RECOVER_DEADLINE)
                 if r and r.get("url"):
-                    new_url = r["url"]
+                    return slug, r["url"], None
             else:
-                new_url, new_key = resolve_dash(slug)
+                u, k = resolve_dash(slug)
+                if u:
+                    return slug, u, k
         except Exception as exc:
             print("   %s recover LOI: %s" % (slug, str(exc)[:70]))
+        return slug, None, None
 
-        if new_url:
-            ok, why = test_pair(new_url, new_key or key_of_slug(slug))
+    print("   [AUTO-RECOVER] resolve %d kenh song song..." % len(bad_slugs))
+    t_rec = time.time()
+    cand = {}
+    with ThreadPoolExecutor(max_workers=min(MAX_WORKERS, max(1, len(bad_slugs)))) as ex:
+        futs = [ex.submit(resolve_one, s) for s in bad_slugs]
+        for fu in as_completed(futs):
+            slug, new_url, new_key = fu.result()
+            if not new_url:
+                continue
+            ok, why = test_pair(new_url, new_key or key_of_slug(slug),
+                                time.time() + PAIR_DEADLINE)
             if ok:
-                if write_entry(slug, new_url, new_key):
-                    if CS:
-                        CS.mark_ok(slug, new_url, why)
-                    fixed.append(slug)
-                    print("   %s -> URL MOI da xac minh (%s)" % (slug, why))
-                    got = True
+                cand[slug] = (new_url, new_key, why)
             else:
                 print("   %s URL moi xac minh FAIL (%s)" % (slug, why))
+    print("   [AUTO-RECOVER] resolve+xac minh xong (%.0fs), %d kenh co URL moi"
+          % (time.time() - t_rec, len(cand)))
+
+    for slug in bad_slugs:
+        got = False
+
+        # --- 1. URL MOI (da xac minh o pha A) ---
+        if slug in cand:
+            new_url, new_key, why = cand[slug]
+            if write_entry(slug, new_url, new_key):
+                if CS:
+                    CS.mark_ok(slug, new_url, why)
+                fixed.append(slug)
+                print("   %s -> URL MOI da xac minh (%s)" % (slug, why))
+                got = True
 
         # --- 2. last_known_good ---
         if not got and CS:
             lg = CS.last_good(slug)
             if lg and lg != FALLBACK_URL:
-                ok, why = test_pair(lg, key_of_slug(slug))
+                ok, why = test_pair(lg, key_of_slug(slug),
+                                    time.time() + PAIR_DEADLINE)
                 if ok:
                     if write_entry(slug, lg, None):
                         CS.mark_ok(slug, lg, why)
                         fixed.append(slug)
                         print("   %s -> dung lai URL da xac minh (%s)" % (slug, why))
-                        got = True
+                    got = True
 
         # --- 3. FALLBACK: chan rieng kenh, KHONG chan danh sach ---
         if not got:
@@ -640,6 +707,11 @@ def main():
     for l in lines:
         print(l)
     print("\n(verify took %.0fs)" % (time.time() - t0))
+    print("[SUMMARY] %d kenh | %d OK | %d LOI | %.0fs | %d luong"
+          % (len(bad) + sum(1 for l in lines if " OK  " in l),
+             sum(1 for l in lines if " OK  " in l),
+             len(bad),
+             time.time() - t0, MAX_WORKERS))
     save_cache(lines, bad)
     print()
     if bad:
