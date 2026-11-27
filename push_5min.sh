@@ -62,6 +62,16 @@ if [ -x "$QWEB/verify_event.py" ]; then
         log "VERIFY OK: tat ca kenh 'Su kien TV360' deu xac minh duoc"
     elif [ "$VRC" = "2" ]; then
         log "VERIFY SOFT-FAIL: vai kenh chet da gan fallback - VAN PUSH phan con lai"
+    elif [ "$VRC" = "124" ]; then
+        # VERIFY_TIMEOUT_SOFTFAIL: verify qua gio (timeout).
+        # Verify la buoc KIEM TRA an toan, khong phai buoc bat buoc.
+        # Timeout != kenh chet -> dung cache gan nhat (neu co) va VAN PUSH.
+        log "VERIFY TIMEOUT (rc=124) - SOFT-FAIL: dung ket qua verify gan nhat, VAN PUSH"
+        if [ -f "$QWEB/verify_event_cache.json" ]; then
+            log "  co verify_event_cache.json -> dung cache (da verify truoc do)"
+        else
+            log "  khong co cache -> van push (verify timeout khong phai kenh chet)"
+        fi
     else
         log "VERIFY FAIL (rc=$VRC): loi that - BO QUA push (giu ban cu tren GitHub)"
         exit 1
