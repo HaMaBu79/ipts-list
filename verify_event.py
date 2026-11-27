@@ -36,13 +36,29 @@ from urllib.parse import urljoin
 QWEB = "/opt/qweb"
 FILES = [os.path.join(QWEB, "list.m3u8"), os.path.join(QWEB, "Listphu.m3u8")]
 CACHE = os.path.join(QWEB, "verify_event_cache.json")
+sys.path.insert(0, QWEB)
+try:
+    import channel_state as CS
+except Exception:
+    CS = None
+try:
+    import tv360_channels as TVC_HLS
+except Exception:
+    TVC_HLS = None
 CACHE_TTL = 420
+# URL man den - kenh chet gan fallback, khong chan phan con lai.
+FALLBACK_URL = "http://0.0.0.0/error.ts"
 CTX = ssl.create_default_context()
 CTX.check_hostname = False
 CTX.verify_mode = ssl.CERT_NONE
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-SKIP_IDS = {"tv360plus6", "tv360plus7"}
+# Kenh bi BO QUA (khong cap nhat) - doc tu config chung tv360_channels.py
+try:
+    import tv360_channels as TVC
+    SKIP_IDS = set(TVC.skips())
+except Exception:
+    SKIP_IDS = {"tv360plus6", "tv360plus7"}
 RETRY = 3
 
 
@@ -289,10 +305,32 @@ def run_all():
             ok, info = result.get((url, key), (False, "chua kiem tra"))
             if ok:
                 lines.append("   %-14s OK  %s" % (slug, info))
+                # Luu URL da xac minh -> dung lam du phong khi kenh fail
+                # sau do (khong phai doi auto_recover moi co).
+                if CS and url and url != FALLBACK_URL:
+                    try:
+                        CS.mark_ok(slug, url, info)
+                    except Exception:
+                        pass
             else:
                 bad.append(slug)
                 lines.append("   %-14s LOI - %s" % (slug, info))
     return lines, sorted(set(bad))
+
+
+def current_pairs():
+    """Tap doi (url,key) hien tai trong playlist - de so sanh voi cache."""
+    pairs = set()
+    for p in FILES:
+        try:
+            blocks = events_of(p)
+        except Exception:
+            continue
+        for slug, (url, key) in blocks.items():
+            if slug in SKIP_IDS or not url:
+                continue
+            pairs.add((url, key))
+    return pairs
 
 
 def load_cache():
@@ -302,17 +340,259 @@ def load_cache():
         return None
     if time.time() - c.get("ts", 0) > CACHE_TTL:
         return None
+    # Cache chi dung khi TAP DOI (url,key) khong doi so voi luc cache tao.
+    # Neu URL da duoc lam moi (vd lay cdntoken moi) -> phai test lai.
+    old = c.get("pairs")
+    if old is not None:
+        try:
+            now = current_pairs()
+            if now != set(tuple(x) for x in old):
+                print("[CACHE] tap doi (url,key) da doi -> bo qua cache, test lai")
+                return None
+        except Exception:
+            return None
     return c
 
 
 def save_cache(lines, bad):
     tmp = CACHE + ".tmp"
     try:
+        pairs = sorted(list(x) for x in current_pairs())
         with open(tmp, "w", encoding="utf-8") as f:
-            json.dump({"ts": time.time(), "bad": bad, "lines": lines}, f)
+            json.dump({"ts": time.time(), "bad": bad, "lines": lines,
+                       "pairs": pairs}, f)
         os.replace(tmp, CACHE)
     except Exception:
         pass
+
+
+
+def key_of_slug(slug):
+    """Lay ClearKey (KID:KEY) cua kenh tu playlist."""
+    for p in FILES:
+        try:
+            blocks = events_of(p)
+        except Exception:
+            continue
+        if slug in blocks:
+            return blocks[slug][1]
+    return None
+
+
+def write_url(slug, new_url):
+    """Ghi URL moi cho 1 muc trong playlist (list/Listphu/template)."""
+    files = [os.path.join(QWEB, "list.m3u8"),
+             os.path.join(QWEB, "Listphu.m3u8"),
+             os.path.join(QWEB, "template", "list.m3u8"),
+             os.path.join(QWEB, "template", "Listphu.m3u8")]
+    n_ok = 0
+    for path in files:
+        if not os.path.exists(path):
+            continue
+        try:
+            txt = open(path, "rb").read().decode("utf-8", "replace")
+        except Exception:
+            continue
+        ls = txt.split("\n")
+        changed = False
+        i = 0
+        while i < len(ls):
+            if ls[i].startswith("#EXTINF"):
+                j = i + 1
+                while j < len(ls) and not ls[j].startswith("#EXTINF"):
+                    j += 1
+                m = re.search(r'tvg-id="([^"]*)"', ls[i])
+                if m and m.group(1).strip().lower() == slug:
+                    for k in range(i, j):
+                        if ls[k].strip().startswith("http"):
+                            ls[k] = new_url
+                            changed = True
+                            break
+                i = j
+            else:
+                i += 1
+        if changed:
+            try:
+                with open(path, "w", encoding="utf-8", newline="\n") as f:
+                    f.write("\n".join(ls))
+                n_ok += 1
+            except Exception:
+                pass
+    return n_ok
+
+
+def write_entry(slug, new_url, new_key=None):
+    """Ghi URL moi (va ClearKey moi neu co) cho 1 muc trong playlist.
+
+    Ghi vao: list.m3u8, Listphu.m3u8, template/list.m3u8, template/Listphu.m3u8
+    """
+    files = [os.path.join(QWEB, "list.m3u8"),
+             os.path.join(QWEB, "Listphu.m3u8"),
+             os.path.join(QWEB, "template", "list.m3u8"),
+             os.path.join(QWEB, "template", "Listphu.m3u8")]
+    n_ok = 0
+    for path in files:
+        if not os.path.exists(path):
+            continue
+        try:
+            txt = open(path, "rb").read().decode("utf-8", "replace")
+        except Exception:
+            continue
+        ls = txt.split("\n")
+        changed = False
+        i = 0
+        while i < len(ls):
+            if ls[i].startswith("#EXTINF"):
+                j = i + 1
+                while j < len(ls) and not ls[j].startswith("#EXTINF"):
+                    j += 1
+                m = re.search(r'tvg-id="([^"]*)"', ls[i])
+                if m and m.group(1).strip().lower() == slug:
+                    for k in range(i, j):
+                        s = ls[k].strip()
+                        if s.startswith("http"):
+                            ls[k] = new_url
+                            changed = True
+                        elif (new_key and
+                              s.startswith("#KODIPROP:inputstream.adaptive.license_key=")):
+                            ls[k] = ("#KODIPROP:inputstream.adaptive.license_key="
+                                     + new_key)
+                            changed = True
+                i = j
+            else:
+                i += 1
+        if changed:
+            try:
+                with open(path, "w", encoding="utf-8", newline="\n") as f:
+                    f.write("\n".join(ls))
+                n_ok += 1
+            except Exception:
+                pass
+    return n_ok
+
+
+def is_source_down(bad_slugs):
+    """Tra True neu nghi NGUON TV360 down (>=50% kenh fail).
+
+    Khi do: KHONG gan fallback cho tung kenh (tranh 17 muc man den).
+    Giu nguyen playlist cu - player bao loi rieng tung kenh.
+    """
+    if not bad_slugs:
+        return False
+    try:
+        import subprocess as _sp
+        import sys as _sy
+        _sp.run([_sy.executable, os.path.join(QWEB, "circuit_breaker.py"),
+                 "--bad=%s" % ",".join(bad_slugs)],
+                capture_output=True, timeout=60,
+                cwd=QWEB)
+        # Doc ket qua tu state file (circuit_breaker ghi ra).
+        p = os.path.join(QWEB, "breaker_state.json")
+        d = json.load(open(p, encoding="utf-8"))
+        return bool(d.get("down"))
+    except Exception as exc:
+        print("   circuit_breaker loi: %s" % str(exc)[:60])
+        return False
+
+
+def auto_recover(bad_slugs):
+    """Soft-failure: thu phuc hoi tung kenh. KHONG bao gio chan danh sach.
+
+    Voi moi kenh fail, theo thu tu:
+      1. Kenh HLS  : stable_hls.resolve_any() -> URL moi + xac minh.
+         Kenh DASH : resolve_v2.resolve() -> URL moi + CLEARKEY moi + xac minh.
+      2. Neu that bai -> thu last_known_good (URL da xac minh gan nhat).
+      3. Neu van that bai -> gan FALLBACK (man den) cho rieng kenh do.
+
+    Tra (fixed, still_bad).
+    """
+    if not bad_slugs:
+        return [], [], False
+    print("[AUTO-RECOVER] %d kenh loi -> thu phuc hoi tung kenh" % len(bad_slugs))
+
+    # Tai cac module resolve (lazy - chi khi that su can).
+    _rc = None
+    _src = None
+    _pool = None
+
+    def resolve_dash(slug):
+        """Resolve lai kenh DRM DASH -> (url, key) moi."""
+        nonlocal _rc, _src, _pool
+        if _rc is None:
+            import resolve_v2
+            _rc = resolve_v2
+            _src = _rc.get_source()
+            _pool = _rc.pool_keys()
+        _rc.DEADLINE = time.time() + 45
+        r = _rc.resolve(slug, _src, _pool)
+        if r and r.get("url") and r.get("key"):
+            return r["url"], r["key"]
+        return None, None
+
+    fixed = []
+    still_bad = []
+    for slug in bad_slugs:
+        got = False
+        new_url = None
+        new_key = None
+
+        # --- 1. URL MOI ---
+        try:
+            if TVC_HLS and TVC_HLS.is_hls(slug):
+                import stable_hls
+                r = stable_hls.resolve_any(slug, deadline=time.time() + 40)
+                if r and r.get("url"):
+                    new_url = r["url"]
+            else:
+                new_url, new_key = resolve_dash(slug)
+        except Exception as exc:
+            print("   %s recover LOI: %s" % (slug, str(exc)[:70]))
+
+        if new_url:
+            ok, why = test_pair(new_url, new_key or key_of_slug(slug))
+            if ok:
+                if write_entry(slug, new_url, new_key):
+                    if CS:
+                        CS.mark_ok(slug, new_url, why)
+                    fixed.append(slug)
+                    print("   %s -> URL MOI da xac minh (%s)" % (slug, why))
+                    got = True
+            else:
+                print("   %s URL moi xac minh FAIL (%s)" % (slug, why))
+
+        # --- 2. last_known_good ---
+        if not got and CS:
+            lg = CS.last_good(slug)
+            if lg and lg != FALLBACK_URL:
+                ok, why = test_pair(lg, key_of_slug(slug))
+                if ok:
+                    if write_entry(slug, lg, None):
+                        CS.mark_ok(slug, lg, why)
+                        fixed.append(slug)
+                        print("   %s -> dung lai URL da xac minh (%s)" % (slug, why))
+                        got = True
+
+        # --- 3. FALLBACK: chan rieng kenh, KHONG chan danh sach ---
+        if not got:
+            still_bad.append(slug)
+            print("   %s -> CHET" % slug)
+
+    # --- 3b. CIRCUIT BREAKER: neu >=50% kenh fail -> nguon down ---
+    # Giu nguyen playlist cu (khong gan fallback) de tranh "mua" man den.
+    if still_bad and is_source_down(still_bad):
+        print("!! NGUON TV360 DOWN (%d kenh chet) - GIU NGUYEN playlist cu,"
+              " KHONG gan fallback" % len(still_bad))
+        return fixed, still_bad, True
+
+    # --- 4. Gan fallback cho tung kenh chet ---
+    for slug in still_bad:
+        if CS:
+            CS.mark_offline(slug, "khong lay duoc URL chay")
+            n = CS.apply_fallback(slug)
+            if n:
+                print("   %s -> gan FALLBACK (man den), %d file" % (slug, n))
+        print("   %s -> da gan fallback (KHONG chan push)" % slug)
+    return fixed, still_bad, False
 
 
 def main():
@@ -326,9 +606,32 @@ def main():
             print(l)
         print()
         if cached["bad"]:
-            print("KET QUA: %d KENH LOI -> KHONG PUSH: %s"
-                  % (len(cached["bad"]), ", ".join(cached["bad"])))
-            return 1
+            # SOFT-FAILURE: thu phuc hoi tung kenh. KHONG chan danh sach.
+            fixed, still_bad, down = [], [], False
+            if not force:
+                fixed, still_bad, down = auto_recover(cached["bad"])
+                if fixed:
+                    print("[AUTO-RECOVER] da phuc hoi: %s -> verify lai"
+                          % ", ".join(fixed))
+                    try:
+                        os.unlink(CACHE)
+                    except Exception:
+                        pass
+                    return main()
+            if still_bad:
+                if down:
+                    print("KET QUA: NGUON TV360 DOWN - %d kenh khong lay duoc URL."
+                          % len(still_bad))
+                    print("         >>> GIU NGUYEN playlist cu (khong man den het)")
+                    print("         >>> PUSH VAN DIEN RA (188 kenh khac khong bi chan)")
+                else:
+                    print("KET QUA: %d kenh CHET -> da gan fallback cho rieng kenh do."
+                          % len(still_bad))
+                    print("         %s" % ", ".join(still_bad))
+                    print("         >>> PUSH VAN DIEN RA (188 kenh khac khong bi chan)")
+                return 2
+            print("KET QUA: %d kenh loi -> da phuc hoi xong" % len(cached["bad"]))
+            return 0
         print("KET QUA: TAT CA KENH 'Su kien TV360' OK -> DUOC PUSH")
         return 0
 
@@ -340,8 +643,28 @@ def main():
     save_cache(lines, bad)
     print()
     if bad:
-        print("KET QUA: %d KENH LOI -> KHONG PUSH: %s" % (len(bad), ", ".join(bad)))
-        return 1
+        # SOFT-FAILURE: khong chan danh sach.
+        fixed, still_bad, down = [], [], False
+        if not force:
+            fixed, still_bad, down = auto_recover(bad)
+            if fixed:
+                print("[AUTO-RECOVER] da phuc hoi: %s -> verify lai"
+                      % ", ".join(fixed))
+                try:
+                    os.unlink(CACHE)
+                except Exception:
+                    pass
+                return main()
+        if down:
+            print("KET QUA: NGUON TV360 DOWN - %d kenh khong lay duoc URL."
+                  % len(still_bad or bad))
+            print("         >>> GIU NGUYEN playlist cu (khong man den het)")
+        else:
+            print("KET QUA: %d kenh CHET -> da gan fallback cho rieng kenh do."
+                  % len(still_bad or bad))
+            print("         %s" % ", ".join(still_bad or bad))
+        print("         >>> PUSH VAN DIEN RA (188 kenh khac khong bi chan)")
+        return 2
     print("KET QUA: TAT CA KENH 'Su kien TV360' OK -> DUOC PUSH")
     return 0
 
