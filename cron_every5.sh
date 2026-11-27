@@ -98,9 +98,6 @@ if [ -x "$QWEB/push_5min.sh" ]; then
     # + commit + push. Timeout 90 cat ngan giua chung -> KHONG push duoc.
     timeout 470 bash "$QWEB/push_5min.sh" >>"$LOG" 2>&1
     log "buoc 3 xong (rc=$?)"
-    # TG_NOTIFY_ASYNC: bao SOM ngay sau push xong
-    notify_tg "BB2 da push xong $(date '+%H:%M:%S') ($(($(date +%s)-START))s)
-Push: $(grep -E 'PUSH (OK|FAIL)' /var/log/qweb_push_5min.log 2>/dev/null | tail -1 | sed 's/^\[[^]]*\] //')"
 fi
 
 # --- 4. keo thay doi cua user tu GitHub (chay cuoi) ---
